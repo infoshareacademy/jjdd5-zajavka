@@ -1,4 +1,4 @@
-package infoShare;
+package com.infoshareacademy.zajavka.console;
 
 /**
  * Hello world!

@@ -1,4 +1,7 @@
-package infoShare;
+package com.infoshareacademy.zajavka;
+
+import com.infoshareacademy.zajavka.data.Currency;
+import com.infoshareacademy.zajavka.service.FileReader;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,22 +13,22 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String[] args) {
-        Path dataFilePath = Paths.get("src", "main","resources");
-        List <String> fileNames = new ArrayList<>();
-        List <Currency> currencyList = new ArrayList<>();
+        Path dataFilePath = Paths.get("data");
+        List<String> fileNames = new ArrayList<>();
+        List<Currency> currencyList = new ArrayList<>();
         LocalDate cDate;
 
 
-        fileNames= FileReader.listFilesForFolder(dataFilePath);
+        fileNames = FileReader.listFilesForFolder(dataFilePath);
 
         for (int i = 0; i < fileNames.size(); i++) {
             currencyList.add(new Currency(fileNames.get(i)));
 
-            Path filePathWithName = Paths.get("src", "main","resources", fileNames.get(i));
+            Path filePathWithName = Paths.get("data", fileNames.get(i));
             List<String> lines = FileReader.readFile(filePathWithName);
 
-            for (int j = 1; j<lines.size(); j++) {
-                currencyList.get(i).addDalyData(lines.get(j).split(","));
+            for (int j = 1; j < lines.size(); j++) {
+                currencyList.get(i).addDailyData(lines.get(j).split(","));
             }
         }
 
@@ -43,9 +46,10 @@ public class Test {
         }
 
     }
+
     static LocalDate readDateFromConsole() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj date w formacie: rrrr-mm-dd");
-        return  LocalDate.parse(scanner.next());
+        return LocalDate.parse(scanner.next());
     }
 }

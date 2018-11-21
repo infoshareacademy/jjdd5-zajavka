@@ -1,4 +1,4 @@
-package infoShare;
+package com.infoshareacademy.zajavka.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,19 +9,10 @@ import java.util.stream.Stream;
 
 public class FileReader {
 
-//    Path originalFile = Paths.get("paths", "data", "example.txt");
-//        List<String> lines = Files.readAllLines(originalFile);
-//        System.out.println(lines);
-
-
-
-
-
     public static ArrayList listFilesForFolder(final Path path) {
         ArrayList<String> fileList = new ArrayList<>();
 
-
-        try (Stream<Path> filePathStream=Files.walk(path)) {
+        try (Stream<Path> filePathStream = Files.walk(path)) {
             filePathStream.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     fileList.add(filePath.getFileName().toString());
@@ -34,15 +25,15 @@ public class FileReader {
         return fileList;
     }
 
-        public static List readFile(final Path path) {
-            List<String> file = null;
-            try {
-                file = Files.readAllLines(path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return file;
+    public static List readFile(final Path path) {
+        List<String> file = null;
+        try {
+            file = Files.readAllLines(path);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        return file;
+    }
 
 }

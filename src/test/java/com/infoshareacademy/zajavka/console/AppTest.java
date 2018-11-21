@@ -1,4 +1,4 @@
-package infoShare;
+package com.infoshareacademy.zajavka.console;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,4 +1,4 @@
-package infoShare;
+package com.infoshareacademy.zajavka.data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
