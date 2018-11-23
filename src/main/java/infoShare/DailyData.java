@@ -119,6 +119,10 @@ public class DailyData {
         return adjTxVolumeUSD;
     }
 
+    public BigDecimal getPriceUSD() {
+        return priceUSD;
+    }
+
     public BigDecimal getTxCount() {
         return txCount;
     }
