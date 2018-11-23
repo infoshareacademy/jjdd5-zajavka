@@ -9,17 +9,16 @@ import java.util.List;
 public class ExtremesTest {
     public static void main(String[] args) {
 
-
-        List<DailyData> bitcoin = new ArrayList<>();
-
-        System.out.println(maxPrice(bitcoin));
-        System.out.println(minPrice(bitcoin));
+//
+//        List<DailyData> bitcoin = new ArrayList<>();
+//                bitcoin.add;
+//
+//        System.out.println(maxPrice(bitcoin));
+//        System.out.println(minPrice(bitcoin));
 
 
     }
-public List<DailyData>getPrices(){
-        return Collection
-}
+
 
 
     public static BigDecimal maxPrice(List<DailyData> bitcoin) {

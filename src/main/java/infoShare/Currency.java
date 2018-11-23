@@ -3,6 +3,7 @@ package infoShare;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Currency {
@@ -67,6 +68,17 @@ public class Currency {
         }
 
         dailyDataList.add(daly);
+    }
+    public  BigDecimal maxPrice() {
+        return dailyDataList.stream()
+                .max(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+    public BigDecimal minPrice (){
+        return dailyDataList.stream()
+                .min(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getTxCount();
     }
 
     public String getName() {

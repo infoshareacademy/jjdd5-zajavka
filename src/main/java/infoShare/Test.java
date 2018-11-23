@@ -22,10 +22,10 @@ public class Test {
             currencyList.add(new Currency(fileNames.get(i)));
 
             Path filePathWithName = Paths.get("src", "main","resources", fileNames.get(i));
-            List<String> lines = FileReader.readFile(filePathWithName);
+            List<String> lines = FileReader.readFile(filePathWithName);// tworzy liste string kazdy jest linijka pliku
 
             for (int j = 1; j<lines.size(); j++) {
-                currencyList.get(i).addDalyData(lines.get(j).split(","));
+                currencyList.get(i).addDalyData(lines.get(j).split(","));//lies.get(j)wyciaga pojedyncza linijke
             }
         }
 
@@ -33,6 +33,9 @@ public class Test {
         for (Currency currency : currencyList) {
             System.out.println(currency.getName());
         }
+
+        System.out.println(currencyList.get(1).maxPrice());
+        System.out.println(currencyList.get(1).minPrice());
 
         while (true) {
             cDate = readDateFromConsole();
@@ -43,6 +46,9 @@ public class Test {
         }
 
     }
+
+
+
     static LocalDate readDateFromConsole() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj date w formacie: rrrr-mm-dd");
