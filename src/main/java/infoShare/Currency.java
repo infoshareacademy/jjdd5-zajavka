@@ -5,9 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Currency {
-    private  String name;
+    private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
 
     public Currency(String name) {
@@ -69,17 +70,42 @@ public class Currency {
 
         dailyDataList.add(daly);
     }
-    public  BigDecimal maxPrice() {
+
+    public BigDecimal maxPrice() {
         return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
                 .max(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD();
     }
 
-    public BigDecimal minPrice (){
+    public BigDecimal minPrice() {
         return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
                 .min(Comparator.comparing(DailyData::getPriceUSD))
-                .get().getTxCount();
+                .get().getPriceUSD();
     }
+
+    // dodanie wartosci ekstremalnych w przedziale czasowym
+    LocalDate startDate = LocalDate.of(2017, 12, 13);
+    LocalDate endDate = LocalDate.of(2017, 12, 28);
+
+    public BigDecimal maxPriceInDateRange() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
+                .max(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+//
+
+    public BigDecimal minPriceInDateRange() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
+                .min(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
 
     public String getName() {
         return name;
@@ -99,14 +125,14 @@ public class Currency {
 
     public DailyData GetDataForDate(LocalDate xDate) {
         for (DailyData actDailyData : dailyDataList) {
-            if(actDailyData.Date().equals(xDate)){
+            if (actDailyData.Date().equals(xDate)) {
                 return actDailyData;
             }
         }
         return null;
     }
 
-    public DailyData getDataForDate(LocalDate date){
+    public DailyData getDataForDate(LocalDate date) {
         for (DailyData daly : dailyDataList) {
             if (daly.Date().equals(date)) {
                 return daly;

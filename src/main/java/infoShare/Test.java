@@ -36,6 +36,9 @@ public class Test {
 
         System.out.println(currencyList.get(1).maxPrice());
         System.out.println(currencyList.get(1).minPrice());
+//  ekstrema w przedziale czasowym
+        System.out.println(currencyList.get(1).maxPriceInDateRange());
+        System.out.println(currencyList.get(1).minPriceInDateRange());
 
         while (true) {
             cDate = readDateFromConsole();

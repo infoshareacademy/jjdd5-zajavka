@@ -20,10 +20,9 @@ public class FileReader {
     public static ArrayList listFilesForFolder(final Path path) {
         ArrayList<String> fileList = new ArrayList<>();
 
-
         try (Stream<Path> filePathStream=Files.walk(path)) {
             filePathStream.forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
+                if (Files.isRegularFile(filePath) && !filePath.toString().contains(".~lock")) {
                     fileList.add(filePath.getFileName().toString());
                 }
             });

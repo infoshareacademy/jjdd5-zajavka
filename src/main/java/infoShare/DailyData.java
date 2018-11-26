@@ -111,6 +111,10 @@ public class DailyData {
         return date;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     public BigDecimal TxVolumeUSD() {
         return txVolumeUSD;
     }
