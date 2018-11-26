@@ -1,5 +1,8 @@
 package com.infoshareacademy.zajavka.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,6 +11,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class FileReader {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileReader.class);
 
     public static ArrayList listFilesForFolder(final Path path) {
         ArrayList<String> fileList = new ArrayList<>();
@@ -20,9 +25,11 @@ public class FileReader {
             });
         } catch (IOException e) {
             e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
 
         return fileList;
+
     }
 
     public static List readFile(final Path path) {
@@ -31,6 +38,8 @@ public class FileReader {
             file = Files.readAllLines(path);
         } catch (IOException e) {
             e.printStackTrace();
+            LOGGER.error(e.getMessage());
+
         }
 
         return file;
