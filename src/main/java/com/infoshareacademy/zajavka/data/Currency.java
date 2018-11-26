@@ -12,7 +12,7 @@ public class Currency {
     private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
 
-    public Currency(String name) {
+    public Currency(String name,List<String> dailyDataList) {
         this.name = name;
     }
 
