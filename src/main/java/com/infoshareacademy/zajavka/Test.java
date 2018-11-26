@@ -1,6 +1,8 @@
 package com.infoshareacademy.zajavka;
 
 import com.infoshareacademy.zajavka.data.Currency;
+import com.infoshareacademy.zajavka.data.ListDirectoryException;
+import com.infoshareacademy.zajavka.data.ReadFileException;
 import com.infoshareacademy.zajavka.service.FileReader;
 
 import java.nio.file.Path;
@@ -18,6 +20,14 @@ public class Test {
         List<Currency> currencyList = new ArrayList<>();
         LocalDate cDate;
 
+        FileReader fileReader = new FileReader();
+        try {
+            currencyList = fileReader.getCurrenciesFromDirectory("data");
+        } catch (ReadFileException e) {
+            e.printStackTrace();
+        } catch (ListDirectoryException e) {
+            e.printStackTrace();
+        }
 
         fileNames = FileReader.listFilesForFolder(dataFilePath);
 
