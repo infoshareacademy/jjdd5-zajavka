@@ -18,7 +18,7 @@ public class Test {
     private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
 
     public static void main(String[] args) {
-        LOGGER.info("<<-- Uruchomienie aplikacji  -->>");
+        LOGGER.debug("<<-- Run Crypto Analyzer apllication -->>");
         Path dataFilePath = Paths.get("data");
         List<String> fileNames = new ArrayList<>();
         List<Currency> currencyList = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Test {
 
         fileNames = FileReader.listFilesForFolder(dataFilePath);
 
-        LOGGER.info("Wczytane pliki: "+fileNames);
+        LOGGER.debug("Downloaded data from files "+fileNames);
 
         for (int i = 0; i < fileNames.size(); i++) {
             currencyList.add(new Currency(fileNames.get(i)));
@@ -47,25 +47,24 @@ public class Test {
 
         while (true) {
             cDate = readDateFromConsole();
-            LOGGER.info("Podana data przez uzytkownika: "+cDate);
-
+            LOGGER.info("User insert the date "+cDate);
             for (Currency currency : currencyList) {
                 System.out.println(currency.getName());
                 System.out.println(currency.getDataForDate(cDate));
-                LOGGER.info("Wyswietlenie danych dla "+currency.getName()+" "+currency.getDataForDate(cDate));
+                LOGGER.info("Displaying data for "+currency.getName()+" "+currency.getDataForDate(cDate));
             }
         }
 
     }
 
     static LocalDate readDateFromConsole() {
-        System.out.println("Podaj date w formacie: RRRR-MM-DD");
+        System.out.println("Please insert the date in correct format: RRRR-MM-DD");
         Scanner scanner = new Scanner(System.in);
         try {
             return LocalDate.parse(scanner.next());
         } catch (Exception e) {
-            System.out.println("Zly format daty");
-            LOGGER.error("Zly format daty: " + e.getMessage());
+            System.out.println("Incorrect format of date");
+            LOGGER.error("Incorrect format of date: " + e.getMessage());
         }
         return readDateFromConsole();
     }
