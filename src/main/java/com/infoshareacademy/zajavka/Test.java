@@ -2,7 +2,6 @@ package com.infoshareacademy.zajavka;
 
 import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
-import com.infoshareacademy.zajavka.data.ReadFileException;
 import com.infoshareacademy.zajavka.service.FileReader;
 
 import java.nio.file.Path;
@@ -22,26 +21,10 @@ public class Test {
 
         FileReader fileReader = new FileReader();
         try {
-            currencyList = fileReader.getCurrenciesFromDirectory("data");
-        } catch (ReadFileException e) {
-            e.printStackTrace();
+            currencyList = fileReader.getCurrenciesFromDirectory();
         } catch (ListDirectoryException e) {
             e.printStackTrace();
         }
-
-        fileNames = FileReader.listFilesForFolder(dataFilePath);
-
-        for (int i = 0; i < fileNames.size(); i++) {
-            currencyList.add(new Currency(fileNames.get(i)));
-
-            Path filePathWithName = Paths.get("data", fileNames.get(i));
-            List<String> lines = FileReader.readFile(filePathWithName);
-
-            for (int j = 1; j < lines.size(); j++) {
-                currencyList.get(i).addDailyData(lines.get(j).split(","));
-            }
-        }
-
 
         for (Currency currency : currencyList) {
             System.out.println(currency.getName());
