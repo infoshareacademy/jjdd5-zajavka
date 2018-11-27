@@ -6,7 +6,6 @@
         </Console>
         <File name="LogFile" fileName="crypto-analyzer.log">
             <PatternLayout>
-            <!---    <Pattern>%d %p %c{1.} [%t] %m%n</Pattern> -->
                 <Pattern>%d | %-6level | %-25c{1.} | %-10t | %m%n</Pattern>
             </PatternLayout>
         </File>

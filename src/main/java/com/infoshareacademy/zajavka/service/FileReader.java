@@ -17,7 +17,7 @@ public class FileReader {
     public static ArrayList listFilesForFolder(final Path path) {
         ArrayList<String> fileList = new ArrayList<>();
 
-        LOGGER.debug("Scanning directory");
+        LOGGER.info("Scanning directory");
         try (Stream<Path> filePathStream = Files.walk(path)) {
             filePathStream.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
