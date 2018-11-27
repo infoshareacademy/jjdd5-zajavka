@@ -3,6 +3,7 @@ package com.infoshareacademy.zajavka.data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Currency {
@@ -71,6 +72,42 @@ public class Currency {
 
         dailyDataList.add(daly);
     }
+
+    public BigDecimal maxPrice() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .max(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+    public BigDecimal minPrice() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .min(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+    // dodanie wartosci ekstremalnych w przedziale czasowym
+    LocalDate startDate = LocalDate.of(2017, 12, 13);
+    LocalDate endDate = LocalDate.of(2017, 12, 28);
+
+    public BigDecimal maxPriceInDateRange() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
+                .max(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+
+    public BigDecimal minPriceInDateRange() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
+                .min(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
 
     public String getName() {
         return name;

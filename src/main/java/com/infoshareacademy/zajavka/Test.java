@@ -18,7 +18,6 @@ public class Test {
         List<Currency> currencyList = new ArrayList<>();
         LocalDate cDate;
 
-
         fileNames = FileReader.listFilesForFolder(dataFilePath);
 
         for (int i = 0; i < fileNames.size(); i++) {
@@ -36,6 +35,13 @@ public class Test {
         for (Currency currency : currencyList) {
             System.out.println(currency.getName());
         }
+
+        // ekstrema globalne
+        System.out.println(currencyList.get(1).maxPrice());
+        System.out.println(currencyList.get(1).minPrice());
+//  ekstrema w przedziale czasowym
+        System.out.println(currencyList.get(1).maxPriceInDateRange());
+        System.out.println(currencyList.get(1).minPriceInDateRange());
 
         while (true) {
             cDate = readDateFromConsole();
