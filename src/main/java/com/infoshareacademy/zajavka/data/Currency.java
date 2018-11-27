@@ -12,6 +12,14 @@ public class Currency {
     private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
 
+
+
+
+
+
+
+
+
     public Currency(String name) {
         this.name = name;
     }

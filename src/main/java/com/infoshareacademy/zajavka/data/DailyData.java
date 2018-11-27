@@ -40,6 +40,15 @@ public class DailyData {
         this.blockCount = blockCount;
     }
 
+
+
+
+
+
+
+
+
+
     public DailyData() {
     }
 
