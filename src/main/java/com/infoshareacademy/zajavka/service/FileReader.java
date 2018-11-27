@@ -51,7 +51,8 @@ public class FileReader {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
                 currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
             } catch (ReadFileException e) {
-                // log info ze cos nie tak + println
+                LOGGER.error(e.getMessage());
+                System.out.printf("Error with reading %s file.\n",actFileNameWithExt);
             }
         }
         return currencyDataList;

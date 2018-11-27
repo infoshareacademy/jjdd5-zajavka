@@ -30,6 +30,7 @@ public class Test {
             currencyList = fileReader.getCurrenciesFromDirectory();
         } catch (ListDirectoryException e) {
             e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
 
         for (Currency currency : currencyList) {

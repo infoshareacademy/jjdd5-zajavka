@@ -1,5 +1,9 @@
 package com.infoshareacademy.zajavka.data;
 
+import com.infoshareacademy.zajavka.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,9 +29,13 @@ public class Currency {
     private static final int INDEX_MEDIAN_FEE = 13;
     private static final int INDEX_BLOCK_SIZE = 14;
     private static final int INDEX_BLOCK_COUNT = 15;
+    private static final int DAILY_DATA_LENGTH = 16;
 
     private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
+
 
     public Currency(String name, List<String> dailyDataList) {
         this.name = name;
@@ -40,7 +48,7 @@ public class Currency {
         try {
             return new BigDecimal(value);
         } catch (Exception e) {
-            // log info ze cos nie tak
+            LOGGER.error(e.getMessage());
             return null;
         }
     }
@@ -49,57 +57,70 @@ public class Currency {
         try {
             return LocalDate.parse(value);
         } catch (Exception e) {
-            // log info ze cos nie tak
+            LOGGER.error(e.getMessage());
             return null;
         }
     }
 
     public void addDailyData(String[] dalyDataS) {
         DailyData daily = new DailyData();
-        if (dalyDataS.length == 16) {
+        if (dalyDataS.length == DAILY_DATA_LENGTH) {
             daily.setDate(stringToLocalDate(dalyDataS[INDEX_DATE]));
             if (!dalyDataS[INDEX_TX_VOLUME_USD].equals(EMPTY_STRING)) {
                 daily.setTxVolumeUSD(stringToBigDecimal(dalyDataS[INDEX_TX_VOLUME_USD]));
             }
+
             if (!dalyDataS[INDEX_ADJ_TX_VOLUME_USD].equals(EMPTY_STRING)) {
                 daily.setAdjTxVolumeUSD(stringToBigDecimal(dalyDataS[INDEX_ADJ_TX_VOLUME_USD]));
             }
+
             if (!dalyDataS[INDEX_TX_COUNT].equals(EMPTY_STRING)) {
                 daily.setTxCount(stringToBigDecimal(dalyDataS[INDEX_TX_COUNT]));
             }
+
             if (!dalyDataS[INDEX_MARCET_CAP_USD].equals(EMPTY_STRING)) {
                 daily.setMarcetCapUSD(stringToBigDecimal(dalyDataS[INDEX_MARCET_CAP_USD]));
             }
+
             if (!dalyDataS[INDEX_PRICE_USD].equals(EMPTY_STRING)) {
                 daily.setPriceUSD(stringToBigDecimal(dalyDataS[INDEX_PRICE_USD]));
             }
             if (!dalyDataS[INDEX_EX_VOLUME_USD].equals(EMPTY_STRING)) {
                 daily.setExVolumeUSD(stringToBigDecimal(dalyDataS[INDEX_EX_VOLUME_USD]));
             }
+
             if (!dalyDataS[INDEX_GENERATED_COINS].equals(EMPTY_STRING)) {
                 daily.setGeneratedCoins(stringToBigDecimal(dalyDataS[INDEX_GENERATED_COINS]));
             }
+
             if (!dalyDataS[INDEX_FEES].equals(EMPTY_STRING)) {
                 daily.setFees(stringToBigDecimal(dalyDataS[INDEX_FEES]));
             }
+
             if (!dalyDataS[INDEX_ACTIVE_ADRESESS].equals(EMPTY_STRING)) {
                 daily.setActiveAdresess(stringToBigDecimal(dalyDataS[INDEX_ACTIVE_ADRESESS]));
             }
+
             if (!dalyDataS[INDEX_AVERAGE_DIFFICULTY].equals(EMPTY_STRING)) {
                 daily.setAverageDifficulty(stringToBigDecimal(dalyDataS[INDEX_AVERAGE_DIFFICULTY]));
             }
+
             if (!dalyDataS[INDEX_PAYMENT_COUNT].equals(EMPTY_STRING)) {
                 daily.setPaymentCount(stringToBigDecimal(dalyDataS[INDEX_PAYMENT_COUNT]));
             }
+
             if (!dalyDataS[INDEX_MEDIAN_TX_VALUE_USD].equals(EMPTY_STRING)) {
                 daily.setMedianTxValueUSD(stringToBigDecimal(dalyDataS[INDEX_MEDIAN_TX_VALUE_USD]));
             }
+
             if (!dalyDataS[INDEX_MEDIAN_FEE].equals(EMPTY_STRING)) {
                 daily.setMedianFee(stringToBigDecimal(dalyDataS[INDEX_MEDIAN_FEE]));
             }
+
             if (!dalyDataS[INDEX_BLOCK_SIZE].equals(EMPTY_STRING)) {
                 daily.setBlockSize(stringToBigDecimal(dalyDataS[INDEX_BLOCK_SIZE]));
             }
+
             if (!dalyDataS[INDEX_BLOCK_COUNT].equals(EMPTY_STRING)) {
                 daily.setBlockCount(stringToBigDecimal(dalyDataS[INDEX_BLOCK_COUNT]));
             }
