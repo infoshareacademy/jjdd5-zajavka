@@ -4,6 +4,9 @@ import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.data.ReadFileException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +18,7 @@ import java.util.stream.Stream;
 public class FileReader {
 
     private String pathToData = "data";
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileReader.class);
 
     public List<Currency> getCurrenciesFromDirectory() throws ListDirectoryException {
         List<String> fileNamesWithExtension = listFilesForFolder(Paths.get(pathToData));
@@ -24,6 +28,7 @@ public class FileReader {
     private List<String> listFilesForFolder(final Path path) throws ListDirectoryException {
         List<String> fileList = new ArrayList<>();
 
+        LOGGER.info("Scanning directory");
         try (Stream<Path> filePathStream = Files.walk(path)) {
             filePathStream.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
@@ -31,7 +36,7 @@ public class FileReader {
                 }
             });
         } catch (IOException e) {
-            // log info ze cos nie tak
+            LOGGER.error(e.getMessage());
             throw new ListDirectoryException(e.getMessage());
         }
 
@@ -58,12 +63,11 @@ public class FileReader {
         try {
             file = Files.readAllLines(path);
         } catch (IOException e) {
-            // log info ze cos nie tak
+            LOGGER.error(e.getMessage());
             throw new ReadFileException(e.getMessage());
         }
 
         return file;
     }
-
 
 }
