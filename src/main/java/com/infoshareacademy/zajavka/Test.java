@@ -29,8 +29,8 @@ public class Test {
         try {
             currencyList = fileReader.getCurrenciesFromDirectory();
         } catch (ListDirectoryException e) {
-            e.printStackTrace();
             LOGGER.error(e.getMessage());
+            LOGGER.error("Error, no currency");
         }
 
         for (Currency currency : currencyList) {

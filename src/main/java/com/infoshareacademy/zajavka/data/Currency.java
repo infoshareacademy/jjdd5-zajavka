@@ -34,7 +34,7 @@ public class Currency {
     private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Currency.class);
 
 
     public Currency(String name, List<String> dailyDataList) {
@@ -49,6 +49,7 @@ public class Currency {
             return new BigDecimal(value);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            System.out.println("Error at try read Date for" + name);
             return null;
         }
     }
@@ -58,6 +59,7 @@ public class Currency {
             return LocalDate.parse(value);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            System.out.println("Error " + value + "has't corret number format in" + name);
             return null;
         }
     }
