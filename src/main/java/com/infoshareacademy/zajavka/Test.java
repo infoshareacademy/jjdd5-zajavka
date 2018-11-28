@@ -1,6 +1,7 @@
 package com.infoshareacademy.zajavka;
 
 import com.infoshareacademy.zajavka.data.Currency;
+import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.service.FileReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,22 +25,12 @@ public class Test {
         List<Currency> currencyList = new ArrayList<>();
         LocalDate cDate;
 
-
-        fileNames = FileReader.listFilesForFolder(dataFilePath);
-
-        LOGGER.info("Downloaded data from files " + fileNames);
-
-        for (int i = 0; i < fileNames.size(); i++) {
-            currencyList.add(new Currency(fileNames.get(i)));
-
-            Path filePathWithName = Paths.get("data", fileNames.get(i));
-            List<String> lines = FileReader.readFile(filePathWithName);
-
-            for (int j = 1; j < lines.size(); j++) {
-                currencyList.get(i).addDailyData(lines.get(j).split(","));
-            }
+        FileReader fileReader = new FileReader();
+        try {
+            currencyList = fileReader.getCurrenciesFromDirectory();
+        } catch (ListDirectoryException e) {
+            LOGGER.error("Error, no currency: " + e.getMessage());
         }
-
 
         for (Currency currency : currencyList) {
             System.out.println(currency.getName());
