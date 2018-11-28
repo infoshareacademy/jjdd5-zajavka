@@ -24,7 +24,7 @@ public class FileReader {
         return getCurrencyDataListFromfiles(dirPath, fileNamesWithExtension);
     }
 
-    List<String> listFilesForFolder(final Path path) throws ListDirectoryException {
+    private List<String> listFilesForFolder(final Path path) throws ListDirectoryException {
         List<String> fileList = new ArrayList<>();
 
         LOGGER.info("Scanning directory");
@@ -42,13 +42,15 @@ public class FileReader {
         return fileList;
     }
 
-    List<Currency> getCurrencyDataListFromfiles(String dirPath, List<String> fileNamesWithExtension) {
+    private List<Currency> getCurrencyDataListFromfiles(String dirPath, List<String> fileNamesWithExtension) {
         List<Currency> currencyDataList = new ArrayList<>();
         for (String actFileNameWithExt : fileNamesWithExtension) {
             Path filePathWithName = Paths.get(dirPath, actFileNameWithExt);
             try {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
-                currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
+                if (dalyDataListForFile.size()>0) {
+                    currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
+                }
             } catch (ReadFileException e) {
                 LOGGER.error(e.getMessage());
                 System.out.printf("Error with reading %s file.\n", actFileNameWithExt);
