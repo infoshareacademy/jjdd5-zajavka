@@ -1,21 +1,32 @@
 package com.infoshareacademy.zajavka.service;
 
+import com.infoshareacademy.zajavka.data.Currency;
+import com.infoshareacademy.zajavka.data.ListDirectoryException;
+import com.infoshareacademy.zajavka.data.ReadFileException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class FileReader {
 
+    private String pathToData = "data";
     private static final Logger LOGGER = LoggerFactory.getLogger(FileReader.class);
 
-    public static ArrayList listFilesForFolder(final Path path) {
-        ArrayList<String> fileList = new ArrayList<>();
+    public List<Currency> getCurrenciesFromDirectory() throws ListDirectoryException {
+        List<String> fileNamesWithExtension = listFilesForFolder(Paths.get(pathToData));
+        return getCurrencyDataListFromfiles(fileNamesWithExtension);
+    }
+
+    private List<String> listFilesForFolder(final Path path) throws ListDirectoryException {
+        List<String> fileList = new ArrayList<>();
 
         LOGGER.info("Scanning directory");
         try (Stream<Path> filePathStream = Files.walk(path)) {
@@ -25,22 +36,36 @@ public class FileReader {
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
             LOGGER.error(e.getMessage());
+            throw new ListDirectoryException(e.getMessage());
         }
 
         return fileList;
+    }
+
+    private List<Currency> getCurrencyDataListFromfiles(List<String> fileNamesWithExtension) {
+        List<Currency> currencyDataList = new ArrayList<>();
+        for (String actFileNameWithExt : fileNamesWithExtension) {
+            Path filePathWithName = Paths.get(pathToData, actFileNameWithExt);
+            try {
+                List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
+                currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
+            } catch (ReadFileException e) {
+                LOGGER.error(e.getMessage());
+                System.out.printf("Error with reading %s file.\n",actFileNameWithExt);
+            }
+        }
+        return currencyDataList;
 
     }
 
-    public static List readFile(final Path path) {
+    private List<String> readAllLinesFile(final Path path) throws ReadFileException {
         List<String> file = null;
         try {
             file = Files.readAllLines(path);
         } catch (IOException e) {
-            e.printStackTrace();
             LOGGER.error(e.getMessage());
-
+            throw new ReadFileException(e.getMessage());
         }
 
         return file;

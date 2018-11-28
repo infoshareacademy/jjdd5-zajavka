@@ -1,5 +1,9 @@
 package com.infoshareacademy.zajavka.data;
 
+import com.infoshareacademy.zajavka.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,68 +14,124 @@ import java.util.Scanner;
 public class Currency {
 
     private static final String EMPTY_STRING = "";
+    private static final String SEPARATOR = ",";
+    private static final int INDEX_DATE = 0;
+    private static final int INDEX_TX_VOLUME_USD = 1;
+    private static final int INDEX_ADJ_TX_VOLUME_USD = 2;
+    private static final int INDEX_TX_COUNT = 3;
+    private static final int INDEX_MARCET_CAP_USD = 4;
+    private static final int INDEX_PRICE_USD = 5;
+    private static final int INDEX_EX_VOLUME_USD = 6;
+    private static final int INDEX_GENERATED_COINS = 7;
+    private static final int INDEX_FEES = 8;
+    private static final int INDEX_ACTIVE_ADRESESS = 9;
+    private static final int INDEX_AVERAGE_DIFFICULTY = 10;
+    private static final int INDEX_PAYMENT_COUNT = 11;
+    private static final int INDEX_MEDIAN_TX_VALUE_USD = 12;
+    private static final int INDEX_MEDIAN_FEE = 13;
+    private static final int INDEX_BLOCK_SIZE = 14;
+    private static final int INDEX_BLOCK_COUNT = 15;
+    private static final int DAILY_DATA_LENGTH = 16;
 
     private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
 
-    public Currency(String name) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Currency.class);
+
+
+    public Currency(String name, List<String> dailyDataList) {
         this.name = name;
+        for (int j = 1; j < dailyDataList.size(); j++) {
+            addDailyData(dailyDataList.get(j).split(SEPARATOR));
+        }
     }
 
-    public void addDailyData(DailyData dailyData) {
-        this.dailyDataList.add(dailyData);
+    private BigDecimal stringToBigDecimal(String value) {
+        try {
+            return new BigDecimal(value);
+        } catch (Exception e) {
+            LOGGER.error("Error at try read Date for " + name +": " +e.getMessage());
+            System.out.println("Error at try read Date for " + name);
+            return null;
+        }
+    }
+
+    private LocalDate stringToLocalDate(String value) {
+        try {
+            return LocalDate.parse(value);
+        } catch (Exception e) {
+            LOGGER.error("Error " + value + "has't corret number format in " + name+ ": " +e.getMessage());
+            System.out.println("Error " + value + "has't corret number format in " + name);
+            return null;
+        }
     }
 
     public void addDailyData(String[] dalyDataS) {
-        DailyData daly = new DailyData();
-        daly.setDate(LocalDate.parse(dalyDataS[0]));
-        if (!dalyDataS[1].equals(EMPTY_STRING)) {
-            daly.setTxVolumeUSD(new BigDecimal(dalyDataS[1]));
-        }
-        if (!dalyDataS[2].equals(EMPTY_STRING)) {
-            daly.setAdjTxVolumeUSD(new BigDecimal(dalyDataS[2]));
-        }
-        if (!dalyDataS[3].equals(EMPTY_STRING)) {
-            daly.setTxCount(new BigDecimal(dalyDataS[3]));
-        }
-        if (!dalyDataS[4].equals(EMPTY_STRING)) {
-            daly.setMarcetCapUSD(new BigDecimal(dalyDataS[4]));
-        }
-        if (!dalyDataS[5].equals(EMPTY_STRING)) {
-            daly.setPriceUSD(new BigDecimal(dalyDataS[5]));
-        }
-        if (!dalyDataS[6].equals(EMPTY_STRING)) {
-            daly.setExVolumeUSD(new BigDecimal(dalyDataS[6]));
-        }
-        if (!dalyDataS[7].equals(EMPTY_STRING)) {
-            daly.setGeneratedCoins(new BigDecimal(dalyDataS[7]));
-        }
-        if (!dalyDataS[8].equals(EMPTY_STRING)) {
-            daly.setFees(new BigDecimal(dalyDataS[8]));
-        }
-        if (!dalyDataS[9].equals(EMPTY_STRING)) {
-            daly.setActiveAdresess(new BigDecimal(dalyDataS[9]));
-        }
-        if (!dalyDataS[10].equals(EMPTY_STRING)) {
-            daly.setAverageDifficulty(new BigDecimal(dalyDataS[10]));
-        }
-        if (!dalyDataS[11].equals(EMPTY_STRING)) {
-            daly.setPaymentCount(new BigDecimal(dalyDataS[11]));
-        }
-        if (!dalyDataS[12].equals(EMPTY_STRING)) {
-            daly.setMedianTxValueUSD(new BigDecimal(dalyDataS[12]));
-        }
-        if (!dalyDataS[13].equals(EMPTY_STRING)) {
-            daly.setMedianFee(new BigDecimal(dalyDataS[13]));
-        }
-        if (!dalyDataS[14].equals(EMPTY_STRING)) {
-            daly.setBlockSize(new BigDecimal(dalyDataS[14]));
-        }
-        if (!dalyDataS[15].equals(EMPTY_STRING)) {
-            daly.setBlockCount(new BigDecimal(dalyDataS[15]));
-        }
+        DailyData daily = new DailyData();
+        if (dalyDataS.length == DAILY_DATA_LENGTH) {
+            daily.setDate(stringToLocalDate(dalyDataS[INDEX_DATE]));
+            if (!dalyDataS[INDEX_TX_VOLUME_USD].equals(EMPTY_STRING)) {
+                daily.setTxVolumeUSD(stringToBigDecimal(dalyDataS[INDEX_TX_VOLUME_USD]));
+            }
 
-        dailyDataList.add(daly);
+            if (!dalyDataS[INDEX_ADJ_TX_VOLUME_USD].equals(EMPTY_STRING)) {
+                daily.setAdjTxVolumeUSD(stringToBigDecimal(dalyDataS[INDEX_ADJ_TX_VOLUME_USD]));
+            }
+
+            if (!dalyDataS[INDEX_TX_COUNT].equals(EMPTY_STRING)) {
+                daily.setTxCount(stringToBigDecimal(dalyDataS[INDEX_TX_COUNT]));
+            }
+
+            if (!dalyDataS[INDEX_MARCET_CAP_USD].equals(EMPTY_STRING)) {
+                daily.setMarcetCapUSD(stringToBigDecimal(dalyDataS[INDEX_MARCET_CAP_USD]));
+            }
+
+            if (!dalyDataS[INDEX_PRICE_USD].equals(EMPTY_STRING)) {
+                daily.setPriceUSD(stringToBigDecimal(dalyDataS[INDEX_PRICE_USD]));
+            }
+            if (!dalyDataS[INDEX_EX_VOLUME_USD].equals(EMPTY_STRING)) {
+                daily.setExVolumeUSD(stringToBigDecimal(dalyDataS[INDEX_EX_VOLUME_USD]));
+            }
+
+            if (!dalyDataS[INDEX_GENERATED_COINS].equals(EMPTY_STRING)) {
+                daily.setGeneratedCoins(stringToBigDecimal(dalyDataS[INDEX_GENERATED_COINS]));
+            }
+
+            if (!dalyDataS[INDEX_FEES].equals(EMPTY_STRING)) {
+                daily.setFees(stringToBigDecimal(dalyDataS[INDEX_FEES]));
+            }
+
+            if (!dalyDataS[INDEX_ACTIVE_ADRESESS].equals(EMPTY_STRING)) {
+                daily.setActiveAdresess(stringToBigDecimal(dalyDataS[INDEX_ACTIVE_ADRESESS]));
+            }
+
+            if (!dalyDataS[INDEX_AVERAGE_DIFFICULTY].equals(EMPTY_STRING)) {
+                daily.setAverageDifficulty(stringToBigDecimal(dalyDataS[INDEX_AVERAGE_DIFFICULTY]));
+            }
+
+            if (!dalyDataS[INDEX_PAYMENT_COUNT].equals(EMPTY_STRING)) {
+                daily.setPaymentCount(stringToBigDecimal(dalyDataS[INDEX_PAYMENT_COUNT]));
+            }
+
+            if (!dalyDataS[INDEX_MEDIAN_TX_VALUE_USD].equals(EMPTY_STRING)) {
+                daily.setMedianTxValueUSD(stringToBigDecimal(dalyDataS[INDEX_MEDIAN_TX_VALUE_USD]));
+            }
+
+            if (!dalyDataS[INDEX_MEDIAN_FEE].equals(EMPTY_STRING)) {
+                daily.setMedianFee(stringToBigDecimal(dalyDataS[INDEX_MEDIAN_FEE]));
+            }
+
+            if (!dalyDataS[INDEX_BLOCK_SIZE].equals(EMPTY_STRING)) {
+                daily.setBlockSize(stringToBigDecimal(dalyDataS[INDEX_BLOCK_SIZE]));
+            }
+
+            if (!dalyDataS[INDEX_BLOCK_COUNT].equals(EMPTY_STRING)) {
+                daily.setBlockCount(stringToBigDecimal(dalyDataS[INDEX_BLOCK_COUNT]));
+            }
+
+            dailyDataList.add(daily);
+
+        }
     }
 
     public BigDecimal maxPrice() {
