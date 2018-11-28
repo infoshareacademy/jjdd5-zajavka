@@ -107,7 +107,9 @@ public class DailyData {
         this.blockCount = blockCount;
     }
 
-    public LocalDate Date() {
+    public LocalDate Date() { return date; }
+
+    public LocalDate getDate() {
         return date;
     }
 
@@ -128,6 +130,10 @@ public class DailyData {
     }
 
     public BigDecimal PriceUSD() {
+        return priceUSD;
+    }
+
+    public BigDecimal getPriceUSD() {
         return priceUSD;
     }
 
