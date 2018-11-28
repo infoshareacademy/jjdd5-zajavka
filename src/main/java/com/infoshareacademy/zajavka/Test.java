@@ -36,21 +36,17 @@ public class Test {
             System.out.println(currency.getName());
         }
 
-        // dodanie wartosci ekstremalnych w przedziale czasowym
-        LocalDate startDate = readDateFromConsole("Please insert the starting date of interval in format: RRRR-MM-DD");
-        LocalDate endDate = readDateFromConsole("Please insert the end date of interval in format: RRRR-MM-DD");
+        LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
+        LocalDate endDate = readDateFromConsole("Please inserts the end date of interval in format: RRRR-MM-DD");
 
-        // ekstrema globalne
-        System.out.println("Global max price: "+currencyList.get(1).maxPrice()+" USD");
-        System.out.println("Global min price: "+currencyList.get(1).minPrice()+" USD");
-        //  ekstrema w przedziale czasowym
-      //  System.out.println(currencyList.get(1).maxPriceInDateRange());
-        System.out.println("Max price in interval: "+currencyList.get(1).maxPriceInDateRange(startDate,endDate)+" USD");
-        System.out.println("Min price in interval: "+currencyList.get(1).minPriceInDateRange(startDate,endDate)+" USD");
-       // System.out.println(currencyList.get(1).minPriceInDateRange());
+        System.out.println("Global max price: " + currencyList.get(1).maxPrice() + " USD");
+        System.out.println("Global min price: " + currencyList.get(1).minPrice() + " USD");
+
+        System.out.println("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate,endDate) + " USD");
+        System.out.println("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate,endDate) + " USD");
 
         while (true) {
-            cDate = readDateFromConsole("Please insert the date in correct format: RRRR-MM-DD");
+            cDate = readDateFromConsole("Please inserts the date in correct format: RRRR-MM-DD");
             LOGGER.info("User insert the date " + cDate);
             for (Currency currency : currencyList) {
                 System.out.println(currency.getName());

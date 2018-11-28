@@ -38,7 +38,6 @@ public class Currency {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Currency.class);
 
-
     public Currency(String name, List<String> dailyDataList) {
         this.name = name;
         for (int j = 1; j < dailyDataList.size(); j++) {
@@ -148,8 +147,6 @@ public class Currency {
                 .get().getPriceUSD();
     }
 
-
-
     public BigDecimal maxPriceInDateRange(LocalDate startDate, LocalDate endDate) {
         return dailyDataList.stream()
                 .filter(s -> s.getPriceUSD() != null)
@@ -157,7 +154,6 @@ public class Currency {
                 .max(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD();
     }
-
 
     public BigDecimal minPriceInDateRange(LocalDate startDate, LocalDate endDate) {
         return dailyDataList.stream()
@@ -168,7 +164,7 @@ public class Currency {
     }
 
     public LocalDate readDateFromConsole() {
-        System.out.println("Please insert the date in correct format: RRRR-MM-DD");
+        System.out.println("Please inserts the date in correct format: RRRR-MM-DD");
         Scanner scanner = new Scanner(System.in);
         try {
             return LocalDate.parse(scanner.nextLine());
