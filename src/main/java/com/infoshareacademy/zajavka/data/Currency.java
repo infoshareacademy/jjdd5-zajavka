@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class Currency {
 
@@ -87,11 +88,9 @@ public class Currency {
                 .get().getPriceUSD();
     }
 
-    // dodanie wartosci ekstremalnych w przedziale czasowym
-    LocalDate startDate = LocalDate.of(2017, 12, 13);
-    LocalDate endDate = LocalDate.of(2017, 12, 28);
 
-    public BigDecimal maxPriceInDateRange() {
+
+    public BigDecimal maxPriceInDateRange(LocalDate startDate, LocalDate endDate) {
         return dailyDataList.stream()
                 .filter(s -> s.getPriceUSD() != null)
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
@@ -100,7 +99,7 @@ public class Currency {
     }
 
 
-    public BigDecimal minPriceInDateRange() {
+    public BigDecimal minPriceInDateRange(LocalDate startDate, LocalDate endDate) {
         return dailyDataList.stream()
                 .filter(s -> s.getPriceUSD() != null)
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
@@ -108,6 +107,17 @@ public class Currency {
                 .get().getPriceUSD();
     }
 
+    public LocalDate readDateFromConsole() {
+        System.out.println("Please insert the date in correct format: RRRR-MM-DD");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            return LocalDate.parse(scanner.nextLine());
+        } catch (Exception e) {
+            System.out.println("Incorrect format of date");
+
+        }
+        return readDateFromConsole();
+    }
 
     public String getName() {
         return name;
@@ -142,4 +152,5 @@ public class Currency {
         }
         return null;
     }
+
 }
