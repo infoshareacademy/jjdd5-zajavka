@@ -40,8 +40,17 @@ public class Test {
             System.out.println(currency.getName());
         }
 
+        LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
+        LocalDate endDate = readDateFromConsole("Please inserts the end date of interval in format: RRRR-MM-DD");
+
+        System.out.println("Global max price: " + currencyList.get(1).maxPrice() + " USD");
+        System.out.println("Global min price: " + currencyList.get(1).minPrice() + " USD");
+
+        System.out.println("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate,endDate) + " USD");
+        System.out.println("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate,endDate) + " USD");
+
         while (true) {
-            cDate = readDateFromConsole();
+            cDate = readDateFromConsole("Please inserts the date in correct format: RRRR-MM-DD");
             LOGGER.info("User insert the date " + cDate);
             for (Currency currency : currencyList) {
                 System.out.println(currency.getName());
@@ -52,8 +61,8 @@ public class Test {
 
     }
 
-    static LocalDate readDateFromConsole() {
-        System.out.println("Please insert the date in correct format: RRRR-MM-DD");
+   static LocalDate readDateFromConsole(String statement) {
+        System.out.println(statement);
         Scanner scanner = new Scanner(System.in);
         try {
             return LocalDate.parse(scanner.next());
@@ -61,6 +70,6 @@ public class Test {
             System.out.println("Incorrect format of date");
             LOGGER.error("Incorrect format of date: " + e.getMessage());
         }
-        return readDateFromConsole();
+        return readDateFromConsole(statement);
     }
 }
