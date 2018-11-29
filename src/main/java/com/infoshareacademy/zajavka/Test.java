@@ -50,10 +50,10 @@ public class Test {
         System.out.println("Global min price: " + currencyList.get(1).minPrice() + " USD");
         LOGGER.info("Global max price: " + currencyList.get(1).minPrice() + " USD");
 
-        System.out.println("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate,endDate) + " USD");
-        LOGGER.info("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate,endDate) + " USD");
-        System.out.println("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate,endDate) + " USD");
-        LOGGER.info("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate,endDate) + " USD");
+        System.out.println("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate, endDate) + " USD");
+        LOGGER.info("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate, endDate) + " USD");
+        System.out.println("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate, endDate) + " USD");
+        LOGGER.info("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate, endDate) + " USD");
 
         while (true) {
             cDate = readDateFromConsole("Please inserts the date in correct format: RRRR-MM-DD");
@@ -67,7 +67,7 @@ public class Test {
 
     }
 
-   static LocalDate readDateFromConsole(String statement) {
+    static LocalDate readDateFromConsole(String statement) {
         System.out.println(statement);
         Scanner scanner = new Scanner(System.in);
         try {

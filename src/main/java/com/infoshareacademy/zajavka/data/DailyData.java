@@ -187,7 +187,7 @@ public class DailyData {
     @Override
     public String toString() {
         return "DailyData{" +
-                " date = " + date + " " + configuration.getCharForSeparate() +
+                " date = " + date.format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() +
                 " txVolumeUSD = " + txVolumeUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
                 " adjTxVolumeUSD = " + adjTxVolumeUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
                 " txCount = " + txCount.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
