@@ -1,6 +1,6 @@
-package com.infoshareacademy.zajavka.configuration;
+package com.infoshareacademy.zajavka.console;
 
-
+import com.infoshareacademy.zajavka.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,6 @@ public class ReadConfiguration {
         try (InputStream resourceAsStream = new FileInputStream("config/configuration.properties")) {
             Properties properties = new Properties();
             properties.load(resourceAsStream);
-
             return new Configuration(properties);
 
         } catch (IOException e) {
