@@ -139,5 +139,26 @@ class FileReaderTest {
         assertThat(currencyList.get(0).getDailyDataList().get(1).Date()).isEqualTo(LocalDate.parse("2009-01-11"));
     }
 
+    @Test
+    @DisplayName("Should return empty object when is only wrong type file in directory")
+    void shouldReturnEmptyObjectWhenIsOnlyWrongTypeFileInDirectory() {
+        // given
+        FileReader subject = new FileReader();
+        String path = FileReaderTest.class.getResource("/test_data6").getPath();
+        System.out.println(path +" - path to file");
+        List<Currency> currencyList = new ArrayList<>();
+        List<Currency> emptyList = new ArrayList<>();
+
+        //when
+        try {
+            currencyList = subject.getCurrenciesFromDirectory(path);
+        } catch (ListDirectoryException e) {
+            System.out.println("exception");
+        }
+
+        //then
+        assertThat(currencyList).isEqualTo(emptyList);
+    }
+
 
 }

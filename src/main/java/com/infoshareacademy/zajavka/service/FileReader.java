@@ -30,7 +30,7 @@ public class FileReader {
         LOGGER.info("Scanning directory");
         try (Stream<Path> filePathStream = Files.walk(path)) {
             filePathStream.forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
+                if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".csv")) {
                     fileList.add(filePath.getFileName().toString());
                 }
             });
