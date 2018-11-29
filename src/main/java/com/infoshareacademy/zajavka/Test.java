@@ -6,9 +6,6 @@ import com.infoshareacademy.zajavka.service.FileReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +16,22 @@ public class Test {
     private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
 
     public static void main(String[] args) {
+
+        if (args.length != 1) {
+            LOGGER.error("Incorrect parameters provided");
+            System.exit(1);
+        }
+
         LOGGER.info("<<-- Run Crypto Analyzer apllication -->>");
-        Path dataFilePath = Paths.get("data");
-        List<String> fileNames = new ArrayList<>();
+        String dirPath = args[0];
+        LOGGER.info("Data directory: {}", dirPath);
+
         List<Currency> currencyList = new ArrayList<>();
         LocalDate cDate;
 
         FileReader fileReader = new FileReader();
         try {
-            currencyList = fileReader.getCurrenciesFromDirectory();
+            currencyList = fileReader.getCurrenciesFromDirectory(dirPath);
         } catch (ListDirectoryException e) {
             LOGGER.error("Error, no currency: " + e.getMessage());
         }

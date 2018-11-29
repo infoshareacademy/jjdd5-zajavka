@@ -1,6 +1,5 @@
 package com.infoshareacademy.zajavka.data;
 
-import com.infoshareacademy.zajavka.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
