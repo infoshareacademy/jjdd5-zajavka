@@ -1,3 +1,4 @@
+/*
 package com.infoshareacademy.zajavka;
 
 import com.infoshareacademy.zajavka.data.Currency;
@@ -67,3 +68,4 @@ public class Test {
         return readDateFromConsole();
     }
 }
+*/
