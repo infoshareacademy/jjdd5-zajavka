@@ -41,13 +41,19 @@ public class Test {
         }
 
         LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
+        LOGGER.info("Starting date of interval " + startDate);
         LocalDate endDate = readDateFromConsole("Please inserts the end date of interval in format: RRRR-MM-DD");
+        LOGGER.info("End date of interval " + endDate);
 
         System.out.println("Global max price: " + currencyList.get(1).maxPrice() + " USD");
+        LOGGER.info("Global max price: " + currencyList.get(1).maxPrice() + " USD");
         System.out.println("Global min price: " + currencyList.get(1).minPrice() + " USD");
+        LOGGER.info("Global max price: " + currencyList.get(1).minPrice() + " USD");
 
         System.out.println("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate,endDate) + " USD");
+        LOGGER.info("Max price in interval: " + currencyList.get(1).maxPriceInDateRange(startDate,endDate) + " USD");
         System.out.println("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate,endDate) + " USD");
+        LOGGER.info("Min price in interval: " + currencyList.get(1).minPriceInDateRange(startDate,endDate) + " USD");
 
         while (true) {
             cDate = readDateFromConsole("Please inserts the date in correct format: RRRR-MM-DD");

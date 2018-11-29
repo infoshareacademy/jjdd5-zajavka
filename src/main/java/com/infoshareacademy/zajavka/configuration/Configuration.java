@@ -12,7 +12,6 @@ public class Configuration {
     public String getCharForSeparate() { return properties.getProperty("charForSeparate");  }
 
     public int getAmountNumberAfterSign() {
-        //problemy
-        return properties.getProperty("amountNumberAfterSign");
+        return Integer.parseInt(properties.getProperty("amountNumberAfterSign"));
     }
 }
