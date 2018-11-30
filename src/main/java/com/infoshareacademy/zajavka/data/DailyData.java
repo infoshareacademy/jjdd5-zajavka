@@ -1,7 +1,11 @@
 package com.infoshareacademy.zajavka.data;
 
+
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import java.util.Map;
 
 public class DailyData {
     private LocalDate date;
@@ -20,6 +24,7 @@ public class DailyData {
     private BigDecimal medianFee;
     private BigDecimal blockSize;
     private BigDecimal blockCount;
+    private Map<LocalDate,BigDecimal> dateAndePrice;
 
     public DailyData(LocalDate date, BigDecimal txVolumeUSD, BigDecimal adjTxVolumeUSD, BigDecimal txCount, BigDecimal marcetCapUSD, BigDecimal priceUSD, BigDecimal exVolumeUSD, BigDecimal generatedCoins, BigDecimal fees, BigDecimal activeAdresess, BigDecimal averageDifficulty, BigDecimal paymentCount, BigDecimal medianTxValueUSD, BigDecimal medianFee, BigDecimal blockSize, BigDecimal blockCount) {
         this.date = date;
@@ -41,6 +46,13 @@ public class DailyData {
     }
 
     public DailyData() {
+    }
+
+
+
+    public Map<LocalDate, BigDecimal> getDateWithPrice(){
+         dateAndePrice.put(date,priceUSD);
+         return dateAndePrice;
     }
 
     public void setDate(LocalDate date) {
@@ -107,7 +119,9 @@ public class DailyData {
         this.blockCount = blockCount;
     }
 
-    public LocalDate Date() {
+    public LocalDate Date() { return date; }
+
+    public LocalDate getDate() {
         return date;
     }
 
@@ -128,6 +142,10 @@ public class DailyData {
     }
 
     public BigDecimal PriceUSD() {
+        return priceUSD;
+    }
+
+    public BigDecimal getPriceUSD() {
         return priceUSD;
     }
 
@@ -175,11 +193,11 @@ public class DailyData {
     public String toString() {
         return "DailyData{" +
                 "date=" + date +
-                ", txVolumeUSD=" + txVolumeUSD +
+                ", priceUSD=" + priceUSD;//+
+/*                ", txVolumeUSD=" + txVolumeUSD +
                 ", adjTxVolumeUSD=" + adjTxVolumeUSD +
                 ", txCount=" + txCount +
                 ", marcetCapUSD=" + marcetCapUSD +
-                ", priceUSD=" + priceUSD +
                 ", exVolumeUSD=" + exVolumeUSD +
                 ", generatedCoins=" + generatedCoins +
                 ", fees=" + fees +
@@ -190,6 +208,6 @@ public class DailyData {
                 ", medianFee=" + medianFee +
                 ", blockSize=" + blockSize +
                 ", blockCount=" + blockCount +
-                '}';
+                '}'*/
     }
 }

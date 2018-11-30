@@ -1,13 +1,11 @@
 package com.infoshareacademy.zajavka.data;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Currency {
 
@@ -35,7 +33,6 @@ public class Currency {
     private List<DailyData> dailyDataList = new ArrayList<>();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Currency.class);
-
 
     public Currency(String name, List<String> dailyDataList) {
         this.name = name;
@@ -131,6 +128,69 @@ public class Currency {
 
         }
     }
+
+
+/*
+    public List allTimePrices(){
+        return dailyDataList.stream()
+
+    }*/
+
+    public BigDecimal todayPrice(){
+        return dailyDataList.stream()
+                .filter(s -> s.getDate().equals(LocalDate.now()))
+                .findFirst()
+                .get().getPriceUSD();
+    }
+
+    public BigDecimal selectedDayPrice(LocalDate date) {
+        return dailyDataList.stream()
+                .filter(s -> s.getDate().equals(date))
+                .findFirst()
+                .get().getPriceUSD();
+    }
+
+    public BigDecimal maxPrice() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .max(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+    public BigDecimal minPrice() {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .min(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+    public BigDecimal maxPriceInDateRange(LocalDate startDate, LocalDate endDate) {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
+                .max(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+    public BigDecimal minPriceInDateRange(LocalDate startDate, LocalDate endDate) {
+        return dailyDataList.stream()
+                .filter(s -> s.getPriceUSD() != null)
+                .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
+                .min(Comparator.comparing(DailyData::getPriceUSD))
+                .get().getPriceUSD();
+    }
+
+/*    public LocalDate readDateFromConsole() {
+        System.out.println("Please inserts the date in correct format: RRRR-MM-DD");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            return LocalDate.parse(scanner.nextLine());
+        } catch (Exception e) {
+            System.out.println("Incorrect format of date");
+
+        }
+        return readDateFromConsole();
+    }*/
 
     public String getName() {
         return name;

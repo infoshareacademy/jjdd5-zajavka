@@ -1,0 +1,4 @@
+date,txVolume(USD),adjustedTxVolume(USD),txCount,marketcap(USD),price(USD),exchangeVolume(USD),generatedCoins,fees,activeAddresses,averageDifficulty,paymentCount,medianTxValue(USD),medianFee,blockSize,blockCount
+2011-10-20,,,1851,,,,37950.0,0.31730384,3739,0.12603975344,1813,,0.0,854828,759
+2011-10-21,,,1681,,,,41550.0,0.30810998,3175,0.135533567121,1651,,0.0,790725,831
+2011-10-22,,,1505,,,,36400.0,0.48386862,2892,0.168004429872,1474,,0.0,742599,728

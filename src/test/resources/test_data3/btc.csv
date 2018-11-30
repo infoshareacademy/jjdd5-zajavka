@@ -1,0 +1,4 @@
+date,txVolume(USD),adjustedTxVolume(USD),txCount,marketcap(USD),price(USD),exchangeVolume(USD),generatedCoins,fees,activeAddresses,averageDifficulty,paymentCount,medianTxValue(USD),medianFee,blockSize,blockCount
+2009-01-09,,,0,,,,700.0,0.0,14,1.0,,,,3010,14
+2009-01-10,,,0,,,,3050.0,0.0,61,1.0,,,,13129,61
+2009-01-11,,,0,,,,4650.0,0.0,93,1.0,,,,20033,93

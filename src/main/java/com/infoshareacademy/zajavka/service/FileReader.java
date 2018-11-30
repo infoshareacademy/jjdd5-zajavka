@@ -24,13 +24,13 @@ public class FileReader {
         return getCurrencyDataListFromfiles(dirPath, fileNamesWithExtension);
     }
 
-    List<String> listFilesForFolder(final Path path) throws ListDirectoryException {
+    private List<String> listFilesForFolder(final Path path) throws ListDirectoryException {
         List<String> fileList = new ArrayList<>();
 
         LOGGER.info("Scanning directory");
         try (Stream<Path> filePathStream = Files.walk(path)) {
             filePathStream.forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
+                if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".csv")) {
                     fileList.add(filePath.getFileName().toString());
                 }
             });
@@ -42,13 +42,15 @@ public class FileReader {
         return fileList;
     }
 
-    List<Currency> getCurrencyDataListFromfiles(String dirPath, List<String> fileNamesWithExtension) {
+    private List<Currency> getCurrencyDataListFromfiles(String dirPath, List<String> fileNamesWithExtension) {
         List<Currency> currencyDataList = new ArrayList<>();
         for (String actFileNameWithExt : fileNamesWithExtension) {
             Path filePathWithName = Paths.get(dirPath, actFileNameWithExt);
             try {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
-                currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
+                if (dalyDataListForFile.size()>1) {
+                    currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
+                }
             } catch (ReadFileException e) {
                 LOGGER.error(e.getMessage());
                 System.out.printf("Error with reading %s file.\n", actFileNameWithExt);
@@ -58,7 +60,7 @@ public class FileReader {
 
     }
 
-    List<String> readAllLinesFile(final Path path) throws ReadFileException {
+    private List<String> readAllLinesFile(final Path path) throws ReadFileException {
         List<String> file = null;
         try {
             file = Files.readAllLines(path);
