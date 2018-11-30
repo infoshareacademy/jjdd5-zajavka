@@ -41,7 +41,7 @@ public class Test {
         Configuration configuration = ReadConfiguration.loadProperties();
 
         for (Currency currency : currencyList) {
-            System.out.println(configuration.getNameCurrency(currency.getName()));
+            System.out.println(getName(configuration, currency.getName()));
         }
 
         LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
@@ -63,12 +63,20 @@ public class Test {
             cDate = readDateFromConsole("Please inserts the date in correct format: RRRR-MM-DD");
             LOGGER.info("User insert the date " + cDate);
             for (Currency currency : currencyList) {
-                System.out.println(configuration.getNameCurrency(currency.getName()));
+                System.out.println(getName(configuration, currency.getName()));
                 System.out.println(currency.getDataForDate(cDate));
                 LOGGER.info("Displaying data for " + currency.getName() + " " + currency.getDataForDate(cDate));
             }
         }
 
+    }
+
+    static String getName(Configuration configuration, String name) {
+        String fullName = configuration.getNameCurrency(name);
+        if (fullName == null) {
+            return name.replaceAll(".csv", "");
+        }
+        return fullName;
     }
 
     static LocalDate readDateFromConsole(String statement) {

@@ -24,7 +24,7 @@ public class Configuration {
         return DateTimeFormatter.ofPattern(properties.getProperty("dateFormat"));
     }
 
-    public String getNameCurrency(String a){
-       return properties.getProperty(a);
+    public String getNameCurrency(String a) {
+        return properties.getProperty(a);
     }
 }
