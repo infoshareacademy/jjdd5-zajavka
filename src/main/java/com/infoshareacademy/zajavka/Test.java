@@ -41,9 +41,7 @@ public class Test {
         Configuration configuration = ReadConfiguration.loadProperties();
 
         for (Currency currency : currencyList) {
-            String a = currency.getName();
-            String b = configuration.getNameCurrency(a);
-            System.out.println(b);
+            System.out.println(configuration.getNameCurrency(currency.getName()));
         }
 
         LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
@@ -65,7 +63,7 @@ public class Test {
             cDate = readDateFromConsole("Please inserts the date in correct format: RRRR-MM-DD");
             LOGGER.info("User insert the date " + cDate);
             for (Currency currency : currencyList) {
-                System.out.println(currency.getName());
+                System.out.println(configuration.getNameCurrency(currency.getName()));
                 System.out.println(currency.getDataForDate(cDate));
                 LOGGER.info("Displaying data for " + currency.getName() + " " + currency.getDataForDate(cDate));
             }
