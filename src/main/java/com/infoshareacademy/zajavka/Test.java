@@ -43,7 +43,6 @@ public class Test {
         for (Currency currency : currencyList) {
             System.out.println(getName(configuration, currency.getName()));
         }
-
         LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
         LOGGER.info("Starting date of interval " + startDate);
         LocalDate endDate = readDateFromConsole("Please inserts the end date of interval in format: RRRR-MM-DD");
