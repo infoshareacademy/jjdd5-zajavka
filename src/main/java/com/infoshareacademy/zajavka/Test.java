@@ -1,5 +1,7 @@
 package com.infoshareacademy.zajavka;
 
+import com.infoshareacademy.zajavka.configuration.Configuration;
+import com.infoshareacademy.zajavka.configuration.ReadConfiguration;
 import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.service.FileReader;
@@ -36,8 +38,12 @@ public class Test {
             LOGGER.error("Error, no currency: " + e.getMessage());
         }
 
+        Configuration configuration = ReadConfiguration.loadProperties();
+
         for (Currency currency : currencyList) {
-            System.out.println(currency.getName());
+            String a = currency.getName();
+            String b = configuration.getNameCurrency(a);
+            System.out.println(b);
         }
 
         LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
