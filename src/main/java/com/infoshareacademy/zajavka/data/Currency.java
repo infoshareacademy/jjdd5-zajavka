@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Currency {
 
@@ -160,6 +157,11 @@ public class Currency {
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
                 .min(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD();
+    }
+
+    public DailyQuote mostActualData() {
+        dailyDataList.sort(new CurrencyComparator());
+        return new DailyQuote(dailyDataList.get(0).Date(),dailyDataList.get(0).getPriceUSD());
     }
 
     public LocalDate readDateFromConsole() {

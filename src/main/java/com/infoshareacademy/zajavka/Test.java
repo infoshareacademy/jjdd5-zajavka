@@ -1,6 +1,8 @@
 package com.infoshareacademy.zajavka;
 
+import com.infoshareacademy.zajavka.console.CurrencyPrinter;
 import com.infoshareacademy.zajavka.data.Currency;
+import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.service.FileReader;
 import org.slf4j.Logger;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.infoshareacademy.zajavka.console.CurrencyPrinter.PrintNElementsfromCurrencyList;
 
 public class Test {
 
@@ -39,6 +43,11 @@ public class Test {
         for (Currency currency : currencyList) {
             System.out.println(currency.getName());
         }
+
+        System.out.println("Most actual data: " + currencyList.get(1).mostActualData().getDate() + " | " + currencyList.get(1).mostActualData().getPrice());
+
+        PrintNElementsfromCurrencyList(currencyList.get(1).getDailyDataList(), 1000);
+
 
         LocalDate startDate = readDateFromConsole("Please inserts the starting date of interval in format: RRRR-MM-DD");
         LocalDate endDate = readDateFromConsole("Please inserts the end date of interval in format: RRRR-MM-DD");
