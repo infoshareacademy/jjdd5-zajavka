@@ -1,7 +1,11 @@
 package com.infoshareacademy.zajavka.data;
 
+import com.infoshareacademy.zajavka.configuration.Configuration;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
 public class DailyData {
     private LocalDate date;
@@ -20,6 +24,7 @@ public class DailyData {
     private BigDecimal medianFee;
     private BigDecimal blockSize;
     private BigDecimal blockCount;
+    Configuration configuration = loadProperties();
 
     public DailyData(LocalDate date, BigDecimal txVolumeUSD, BigDecimal adjTxVolumeUSD, BigDecimal txCount, BigDecimal marcetCapUSD, BigDecimal priceUSD, BigDecimal exVolumeUSD, BigDecimal generatedCoins, BigDecimal fees, BigDecimal activeAdresess, BigDecimal averageDifficulty, BigDecimal paymentCount, BigDecimal medianTxValueUSD, BigDecimal medianFee, BigDecimal blockSize, BigDecimal blockCount) {
         this.date = date;
@@ -107,7 +112,9 @@ public class DailyData {
         this.blockCount = blockCount;
     }
 
-    public LocalDate Date() { return date; }
+    public LocalDate Date() {
+        return date;
+    }
 
     public LocalDate getDate() {
         return date;
@@ -180,22 +187,22 @@ public class DailyData {
     @Override
     public String toString() {
         return "DailyData{" +
-                "date=" + date +
-                ", txVolumeUSD=" + txVolumeUSD +
-                ", adjTxVolumeUSD=" + adjTxVolumeUSD +
-                ", txCount=" + txCount +
-                ", marcetCapUSD=" + marcetCapUSD +
-                ", priceUSD=" + priceUSD +
-                ", exVolumeUSD=" + exVolumeUSD +
-                ", generatedCoins=" + generatedCoins +
-                ", fees=" + fees +
-                ", activeAdresess=" + activeAdresess +
-                ", averageDifficulty=" + averageDifficulty +
-                ", paymentCount=" + paymentCount +
-                ", medianTxValueUSD=" + medianTxValueUSD +
-                ", medianFee=" + medianFee +
-                ", blockSize=" + blockSize +
-                ", blockCount=" + blockCount +
+                " date = " + date.format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() +
+                " txVolumeUSD = " + txVolumeUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " adjTxVolumeUSD = " + adjTxVolumeUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " txCount = " + txCount.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " marcetCapUSD = " + marcetCapUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " priceUSD = " + priceUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " exVolumeUSD = " + exVolumeUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " generatedCoins = " + generatedCoins.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " fees = " + fees.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " activeAdresess = " + activeAdresess.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " averageDifficulty = " + averageDifficulty.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " paymentCount = " + paymentCount.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " medianTxValueUSD = " + medianTxValueUSD.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " medianFee = " + medianFee.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " blockSize = " + blockSize.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
+                " blockCount = " + blockCount.setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) + " " + configuration.getCharForSeparate() +
                 '}';
     }
 }
