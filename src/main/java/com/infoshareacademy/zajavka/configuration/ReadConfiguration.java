@@ -1,6 +1,5 @@
-package com.infoshareacademy.zajavka.console;
+package com.infoshareacademy.zajavka.configuration;
 
-import com.infoshareacademy.zajavka.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

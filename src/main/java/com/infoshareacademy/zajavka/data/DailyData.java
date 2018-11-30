@@ -5,7 +5,7 @@ import com.infoshareacademy.zajavka.configuration.Configuration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import static com.infoshareacademy.zajavka.console.ReadConfiguration.loadProperties;
+import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
 public class DailyData {
     private LocalDate date;
