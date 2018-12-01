@@ -26,19 +26,18 @@ public class UserComunicator {
         System.out.flush();
     }
 
-    public static boolean shouldContinue(){
+    public static boolean shouldContinue() {
         System.out.println("Press 'c' to continue.");
         Scanner sc = new Scanner(System.in);
         String choice = sc.nextLine().toLowerCase();
         try {
-            if(choice.equals("c")){
+            if (choice.equals("c")) {
                 LOGGER.info("User choice to continue");
                 return true;
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Wrong intput:");
-            LOGGER.warn("Wrong input from user about continue: "+sc);
+            LOGGER.warn("Wrong input from user about continue: " + sc);
         }
         return shouldContinue();
     }
@@ -49,39 +48,37 @@ public class UserComunicator {
         String choice = sc.nextLine().toLowerCase();
         try {
             int intChoice = Integer.parseInt(choice);
-            if(intChoice > 0 && intChoice <= currencyList.size()){
-                LOGGER.info("User input: "+choice);
+            if (intChoice > 0 && intChoice <= currencyList.size()) {
+                LOGGER.info("User input: " + choice);
                 return intChoice;
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             if (choice.equals("q")) {
                 LOGGER.info("User choice to exit");
                 System.exit(0);
             }
             System.out.println("Wrong input.");
-            LOGGER.warn("Wrong input from user when choice currency: "+choice);
+            LOGGER.warn("Wrong input from user when choice currency: " + choice);
         }
-        return getInputFromUser(currencyList,statement);
+        return getInputFromUser(currencyList, statement);
     }
+
     public static int getSubMenuInputFromUser(String statement) {
         System.out.println(statement);
         Scanner sc = new Scanner(System.in);
         String choice = sc.nextLine().toLowerCase();
         try {
             return Integer.parseInt(choice);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             if (choice.equals("q")) {
                 LOGGER.info("User choice to exit");
                 System.exit(0);
-            }
-            else if (choice.equals("b")){
+            } else if (choice.equals("b")) {
                 LOGGER.info("User back to choice currency menu");
                 return 0;
             }
             System.out.println("Wrong input");
-            LOGGER.warn("Wrong input from user in menu of currency: "+choice);
+            LOGGER.warn("Wrong input from user in menu of currency: " + choice);
         }
         return getSubMenuInputFromUser(statement);
     }
@@ -104,11 +101,11 @@ public class UserComunicator {
         String key;
         Integer n = 0;
         do {
-            dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date() + " "+configuration.getCharForSeparate()+" " + dd.getPriceUSD() + " USD"));
+            dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date() + " " + configuration.getCharForSeparate() + " " + dd.getPriceUSD() + " USD"));
             System.out.println("Press '+' to load more dates or '-' to back previous dates. Press 'b' to back to currency Menu");
             key = GetKey();
-            n += key.equals("+") && n*listNumbers<=dailyData.size() ? 1 : 0;
-            n -= key.equals("-") && n*listNumbers>=listNumbers ? 1 : 0;
+            n += key.equals("+") && n * listNumbers <= dailyData.size() ? 1 : 0;
+            n -= key.equals("-") && n * listNumbers >= listNumbers ? 1 : 0;
         } while (!key.equals("b"));
 
     }
@@ -121,12 +118,12 @@ public class UserComunicator {
 
     public static void printMainMenu(List<Currency> currencyList) {
         System.out.println("To choose currency press number from 1 to " + currencyList.size());
-        LOGGER.info("Number of found currency: "+currencyList.size());
+        LOGGER.info("Number of found currency: " + currencyList.size());
         for (int i = 0; i < currencyList.size(); i++) {
             Configuration configuration = ReadConfiguration.loadProperties();
-           // System.out.println((i + 1) + " - " + currencyList.get(i).getName());
+            // System.out.println((i + 1) + " - " + currencyList.get(i).getName());
             System.out.println((i + 1) + " - " + getName(configuration, currencyList.get(i).getName()));
-            LOGGER.info("Name of found currency: "+getName(configuration, currencyList.get(i).getName()));
+            LOGGER.info("Name of found currency: " + getName(configuration, currencyList.get(i).getName()));
         }
         System.out.println("Press 'q' to close program.");
 
@@ -135,8 +132,7 @@ public class UserComunicator {
     public static void printSubMenu(Currency currency) {
         Configuration configuration = ReadConfiguration.loadProperties();
         UserComunicator.clearScreen();
-        LOGGER.info("Create menu from currency: "+getName(configuration, currency.getName()));
-        //System.out.println("Your currency: " + currency.getName());
+        LOGGER.info("Create menu from currency: " + getName(configuration, currency.getName()));
         System.out.println("Your currency: " + getName(configuration, currency.getName()));
         System.out.println("1 - Actual value.");
         System.out.println("2 - Exchange rate history.");
@@ -199,7 +195,7 @@ public class UserComunicator {
         System.out.println("Incorrect input, try again.");
     }
 
-    public void printFirsOptionSubMenu(){
+    public void printFirsOptionSubMenu() {
 
     }
 }

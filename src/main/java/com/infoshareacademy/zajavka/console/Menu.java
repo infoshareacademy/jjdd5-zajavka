@@ -27,7 +27,7 @@ public class Menu {
         }
         while (true) {
             UserComunicator.printMainMenu(currencyList);
-            int usersChoice = UserComunicator.getInputFromUser(currencyList,"Enter: ");
+            int usersChoice = UserComunicator.getInputFromUser(currencyList, "Enter: ");
             SubMenu subMenu = new SubMenu(true, currencyList.get(usersChoice - 1));
             while (subMenu.isSubMenuActive()) {
                 UserComunicator.clearScreen();

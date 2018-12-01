@@ -26,7 +26,7 @@ public class DailyData {
     private BigDecimal medianFee;
     private BigDecimal blockSize;
     private BigDecimal blockCount;
-    private Map<LocalDate,BigDecimal> dateAndePrice;
+    private Map<LocalDate, BigDecimal> dateAndePrice;
     Configuration configuration = loadProperties();
 
     public DailyData(LocalDate date, BigDecimal txVolumeUSD, BigDecimal adjTxVolumeUSD, BigDecimal txCount, BigDecimal marcetCapUSD, BigDecimal priceUSD, BigDecimal exVolumeUSD, BigDecimal generatedCoins, BigDecimal fees, BigDecimal activeAdresess, BigDecimal averageDifficulty, BigDecimal paymentCount, BigDecimal medianTxValueUSD, BigDecimal medianFee, BigDecimal blockSize, BigDecimal blockCount) {
@@ -52,10 +52,9 @@ public class DailyData {
     }
 
 
-
-    public Map<LocalDate, BigDecimal> getDateWithPrice(){
-         dateAndePrice.put(date,priceUSD);
-         return dateAndePrice;
+    public Map<LocalDate, BigDecimal> getDateWithPrice() {
+        dateAndePrice.put(date, priceUSD);
+        return dateAndePrice;
     }
 
     public void setDate(LocalDate date) {

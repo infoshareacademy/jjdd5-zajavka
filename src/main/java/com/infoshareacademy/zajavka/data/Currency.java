@@ -138,10 +138,9 @@ public class Currency {
     }*/
 
 
-
     public DailyQuote mostActualData() {
         dailyDataList.sort(new CurrencyComparator());
-        return new DailyQuote(dailyDataList.get(0).Date(),dailyDataList.get(0).getPriceUSD());
+        return new DailyQuote(dailyDataList.get(0).Date(), dailyDataList.get(0).getPriceUSD());
     }
 
 
