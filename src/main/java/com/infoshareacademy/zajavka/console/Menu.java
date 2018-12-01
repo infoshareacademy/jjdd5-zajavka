@@ -15,20 +15,56 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class Menu {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(Menu.class);
 
-
     public static void main(String[] args) {
+        //    private static final Logger LOGGER = LoggerFactory.getLogger(Menu.class);
 
-        createMenu(args[0]);
-
+        if (args.length != 1) {
+            LOGGER.error("Incorrect parameters provided");
+            System.exit(1);
+        }
+        createMainMenu(args[0]);
     }
 
+    public static void createMainMenu(String dirPath) {
+        List<Currency> currencyList = new ArrayList<>();
+        FileReader fileReader = new FileReader();
+        try {
+            currencyList = fileReader.getCurrenciesFromDirectory(dirPath);
+        } catch (ListDirectoryException e) {
+            LOGGER.error("Error, no currency: " + e.getMessage());
+        }
+        while (true) {
+            UserComunicator.printMainMenu(currencyList);
+            int usersChoice = UserComunicator.getInputFromUser(currencyList,"Enter: ");
+            SubMenu subMenu = new SubMenu(true, currencyList.get(usersChoice - 1));
+            while (subMenu.isSubMenuActive()) {
+                UserComunicator.printSubMenu(subMenu.getCurrency());
+                int usersSubChoice = UserComunicator.getSubMenuInputFromUser("Enter: ");
+                subMenu.setUsersSubChoice(usersSubChoice);
+                subMenu.createSubMenu();
+            }
+        }
+    }
+}
 
-    public static void createMenu(String args) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*boolean shouldMainMenuActive = true;
         boolean shouldCloseApp = false;
-        boolean shouldMainMenuActive = true;
         boolean shouldSubMenuActive = true;
         boolean isMainInputCorrect = false;
         boolean isSubInputCorrect = false;
@@ -39,7 +75,6 @@ public class Menu {
         String dateFromUser = "";
         int choiceToInt;
         Currency chosenCurrency;
-        FileReader fileReader = new FileReader();
         List<Currency> currencyList = new ArrayList<>();
         try {
             currencyList = fileReader.getCurrenciesFromDirectory(args);
@@ -183,7 +218,7 @@ public class Menu {
                 .collect(Collectors.toList());
     }
 
-/*
+*//*
     private static void subMenuOutput(LocalDate date, int choice, List<Currency> currencyList){
         switch (choice){
             case 1:
@@ -194,8 +229,9 @@ public class Menu {
         }
 
     }
-*/
+*//*
+ */
 
 
-}
+
 
