@@ -7,35 +7,29 @@ import java.util.NoSuchElementException;
 
 import static com.infoshareacademy.zajavka.console.UserComunicator.PrintNElementsfromCurrencyList;
 
-public class SubMenu {
+class SubMenu {
     private boolean subMenuActive;
     private int usersSubChoice;
     private Currency currency;
 
-
-    /*public SubMenu(Currency currency) {
-        this.currency = currency;
-    }*/
-    public SubMenu(boolean subMenuActive, Currency currency) {
+    SubMenu(boolean subMenuActive, Currency currency) {
         this.subMenuActive = subMenuActive;
         this.currency = currency;
-//        this.usersChoice = usersChoice;
     }
 
-    public boolean isSubMenuActive() {
+    boolean isSubMenuActive() {
         return subMenuActive;
     }
 
-    public void setSubMenuActive(boolean subMenuActive) {
+    private void setSubMenuActive(boolean subMenuActive) {
         this.subMenuActive = subMenuActive;
     }
 
-
-    public void setUsersSubChoice(int usersSubChoice) {
+    void setUsersSubChoice(int usersSubChoice) {
         this.usersSubChoice = usersSubChoice;
     }
 
-    public Currency getCurrency() {
+    Currency getCurrency() {
         return currency;
     }
 
@@ -49,21 +43,23 @@ public class SubMenu {
                 }
             case 2:
                 printAllPrices();
-                /*if (UserComunicator.shouldContinue()) {
-                    UserComunicator.clearScreen();
-                }*/
                 break;
             case 3:
-                    LocalDate date = UserComunicator.readDateFromConsole("Type date: (YYYY-MM-DD");
-                    try {
-                        printSelectedDay(date);
-                        if (UserComunicator.shouldContinue()) {
-                            UserComunicator.clearScreen();
-                            break;
-                        }
-                    } catch (NoSuchElementException e) {
-                        System.out.println("We do not have value for this date.");
+                LocalDate date = UserComunicator.readDateFromConsole("Type date: (YYYY-MM-DD)");
+                try {
+                    printSelectedDay(date);
+                    if (UserComunicator.shouldContinue()) {
+                        UserComunicator.clearScreen();
+                        break;
                     }
+                } catch (NoSuchElementException e) {
+                    System.out.println("Sorry, we do not have value for this date.");
+                    System.out.println(" ");
+                    if (UserComunicator.shouldContinue()) {
+                        UserComunicator.clearScreen();
+                        break;
+                    }
+                }
             case 4:
                 printGlobalExtremes();
                 if (UserComunicator.shouldContinue()) {
@@ -71,12 +67,21 @@ public class SubMenu {
                     break;
                 }
             case 5:
-                LocalDate startDate = UserComunicator.readDateFromConsole("Type start date: (YYYY-MM-DD)");
-                LocalDate endDate = UserComunicator.readDateFromConsole("Type end date: (YYYY-MM-DD)");
-                printLocalExtremes(startDate, endDate);
-                if (UserComunicator.shouldContinue()) {
-                    UserComunicator.clearScreen();
-                    break;
+                try {
+                    LocalDate startDate = UserComunicator.readDateFromConsole("Type start date: (YYYY-MM-DD)");
+                    LocalDate endDate = UserComunicator.readDateFromConsole("Type end date: (YYYY-MM-DD)");
+                    printLocalExtremes(startDate, endDate);
+                    if (UserComunicator.shouldContinue()) {
+                        UserComunicator.clearScreen();
+                        break;
+                    }
+                } catch (NoSuchElementException e) {
+                    System.out.println("Sorry, we do not have value for this time range.");
+                    System.out.println(" ");
+                    if (UserComunicator.shouldContinue()) {
+                        UserComunicator.clearScreen();
+                        break;
+                    }
                 }
             case 0:
                 setSubMenuActive(false);
@@ -84,30 +89,27 @@ public class SubMenu {
         }
     }
 
-    void printNewestPrice() {
-        System.out.println("Most actual data: " + currency.mostActualData().getDate() + " | " + currency.mostActualData().getPrice());
+    private void printNewestPrice() {
+        System.out.println("Current price: " + currency.mostActualData().getDate() + " | " + currency.mostActualData().getPrice());
     }
 
-    void printAllPrices() {
+    private void printAllPrices() {
         PrintNElementsfromCurrencyList(currency.getDailyDataList(), 10);
     }
 
-    void printSelectedDay(LocalDate date) {
-        try {
-            System.out.println(currency.selectedDayPrice(date));
-        } catch (NoSuchElementException e) {
-            System.out.println("We do not have value for this date.");
-            UserComunicator.readDateFromConsole("Try other date:");
-        }
+    private void printSelectedDay(LocalDate date) {
+        System.out.println(date + " | " + currency.selectedDayPrice(date) + " USD");
     }
 
-    void printGlobalExtremes() {
-        System.out.println(currency.minPrice());
-        System.out.println(currency.maxPrice());
+    private void printGlobalExtremes() {
+        System.out.println("Global minimum price: " + currency.minPrice() + " USD");
+        System.out.println("Global minimum price: " + currency.maxPrice() + " USD");
     }
 
-    void printLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
-        System.out.println("Max price in range: " + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
-        System.out.println("Min price in range: " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
+    private void printLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
+        System.out.println("Minimum price from " + startDateExtreme + " to " + endDateExtreme + ": "
+                + currency.minPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
+        System.out.println("Maximum price from " + startDateExtreme + " to " + endDateExtreme + ": "
+                + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
     }
 }
