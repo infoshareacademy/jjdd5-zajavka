@@ -87,6 +87,7 @@ public class UserComunicator {
         System.out.println(statement);
         Scanner scanner = new Scanner(System.in);
         try {
+            LOGGER.error("User inseret date: " +LocalDate.parse(scanner.next()));
             return LocalDate.parse(scanner.next());
         } catch (Exception e) {
             UserComunicator.clearScreen();
@@ -101,7 +102,7 @@ public class UserComunicator {
         String key;
         Integer n = 0;
         do {
-            dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date() + " " + configuration.getCharForSeparate() + " " + dd.getPriceUSD() + " USD"));
+            dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + dd.getPriceUSD() + " USD"));
             System.out.println("Press '+' to load more dates or '-' to back previous dates. Press 'b' to back to currency Menu");
             key = GetKey();
             n += key.equals("+") && n * listNumbers <= dailyData.size() ? 1 : 0;
@@ -121,7 +122,6 @@ public class UserComunicator {
         LOGGER.info("Number of found currency: " + currencyList.size());
         for (int i = 0; i < currencyList.size(); i++) {
             Configuration configuration = ReadConfiguration.loadProperties();
-            // System.out.println((i + 1) + " - " + currencyList.get(i).getName());
             System.out.println((i + 1) + " - " + getName(configuration, currencyList.get(i).getName()));
             LOGGER.info("Name of found currency: " + getName(configuration, currencyList.get(i).getName()));
         }

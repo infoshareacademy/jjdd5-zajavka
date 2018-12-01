@@ -52,7 +52,7 @@ public class SubMenu {
         switch (usersSubChoice) {
             case 1:
                 printNewestPrice();
-                LOGGER.info("User choice to watch newest price " + getName(configuration, currency.getName()));
+                LOGGER.info("User choice to watch newest price " + getName(configuration, currency.getName()) );
                 if (UserComunicator.shouldContinue()) {
                     UserComunicator.clearScreen();
                     break;
@@ -103,7 +103,8 @@ public class SubMenu {
 
     void printNewestPrice() {
         Configuration configuration = ReadConfiguration.loadProperties();
-        System.out.println("Most actual data: " + currency.mostActualData().getDate() + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
+        LOGGER.info("Most actual date: "+ currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
+        System.out.println("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
     }
 
     void printAllPrices() {
@@ -112,6 +113,7 @@ public class SubMenu {
 
     void printSelectedDay(LocalDate date) {
         try {
+            LOGGER.info("Price for selected day: "+currency.selectedDayPrice(date));
             System.out.println(currency.selectedDayPrice(date));
         } catch (NoSuchElementException e) {
             System.out.println("We do not have value for this date.");
