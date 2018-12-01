@@ -87,11 +87,10 @@ public class UserComunicator {
         System.out.println(statement);
         Scanner scanner = new Scanner(System.in);
         try {
-            LOGGER.error("User inseret date: " +LocalDate.parse(scanner.next()));
             return LocalDate.parse(scanner.next());
         } catch (Exception e) {
             UserComunicator.clearScreen();
-            System.out.println("Incorrect format of date. Should be (YYYY-MM-DD");
+            System.out.println("Incorrect format of date. Should be (YYYY-MM-DD)");
             LOGGER.error("Incorrect format of date: " + e.getMessage());
         }
         return readDateFromConsole(statement);
@@ -108,6 +107,7 @@ public class UserComunicator {
             n += key.equals("+") && n * listNumbers <= dailyData.size() ? 1 : 0;
             n -= key.equals("-") && n * listNumbers >= listNumbers ? 1 : 0;
         } while (!key.equals("b"));
+        LOGGER.error("User end watch list currency");
 
     }
 

@@ -51,8 +51,8 @@ public class SubMenu {
         Configuration configuration = ReadConfiguration.loadProperties();
         switch (usersSubChoice) {
             case 1:
+                LOGGER.info("User choice to watch newest price " + getName(configuration, currency.getName()));
                 printNewestPrice();
-                LOGGER.info("User choice to watch newest price " + getName(configuration, currency.getName()) );
                 if (UserComunicator.shouldContinue()) {
                     UserComunicator.clearScreen();
                     break;
@@ -66,7 +66,7 @@ public class SubMenu {
                 break;
             case 3:
                 LOGGER.info("User choice to watch price in selected day " + getName(configuration, currency.getName()));
-                LocalDate date = UserComunicator.readDateFromConsole("Type date: (YYYY-MM-DD");
+                LocalDate date = UserComunicator.readDateFromConsole("Type date: (YYYY-MM-DD)");
                 try {
                     LOGGER.info("User insert the date " + date);
                     printSelectedDay(date);
@@ -103,7 +103,7 @@ public class SubMenu {
 
     void printNewestPrice() {
         Configuration configuration = ReadConfiguration.loadProperties();
-        LOGGER.info("Most actual date: "+ currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
+        LOGGER.info("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
         System.out.println("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
     }
 
@@ -113,7 +113,7 @@ public class SubMenu {
 
     void printSelectedDay(LocalDate date) {
         try {
-            LOGGER.info("Price for selected day: "+currency.selectedDayPrice(date));
+            LOGGER.info("Price for selected day: " + currency.selectedDayPrice(date));
             System.out.println(currency.selectedDayPrice(date));
         } catch (NoSuchElementException e) {
             System.out.println("We do not have value for this date.");
@@ -123,11 +123,15 @@ public class SubMenu {
 
     void printGlobalExtremes() {
         System.out.println("Min price : " + currency.minPrice());
+        LOGGER.info("Min price : " + currency.minPrice());
         System.out.println("Max price : " + currency.maxPrice());
+        LOGGER.info("Max price : " + currency.maxPrice());
     }
 
     void printLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
         System.out.println("Max price in range: " + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
+        LOGGER.info("Max price in range: " + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
         System.out.println("Min price in range: " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
+        LOGGER.info("Min price in range: " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
     }
 }
