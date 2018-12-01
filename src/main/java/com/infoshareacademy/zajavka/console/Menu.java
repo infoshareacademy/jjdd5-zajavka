@@ -30,6 +30,7 @@ public class Menu {
             int usersChoice = UserComunicator.getInputFromUser(currencyList,"Enter: ");
             SubMenu subMenu = new SubMenu(true, currencyList.get(usersChoice - 1));
             while (subMenu.isSubMenuActive()) {
+                UserComunicator.clearScreen();
                 UserComunicator.printSubMenu(subMenu.getCurrency());
                 int usersSubChoice = UserComunicator.getSubMenuInputFromUser("Enter: ");
                 subMenu.setUsersSubChoice(usersSubChoice);

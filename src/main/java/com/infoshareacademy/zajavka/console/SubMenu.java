@@ -3,6 +3,7 @@ package com.infoshareacademy.zajavka.console;
 import com.infoshareacademy.zajavka.data.Currency;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 import static com.infoshareacademy.zajavka.console.UserComunicator.PrintNElementsfromCurrencyList;
 
@@ -53,12 +54,16 @@ public class SubMenu {
                 }*/
                 break;
             case 3:
-                LocalDate date = UserComunicator.readDateFromConsole("Type date: (YYYY-MM-DD");
-                printSelectedDay(date);
-                if (UserComunicator.shouldContinue()) {
-                    UserComunicator.clearScreen();
-                    break;
-                }
+                    LocalDate date = UserComunicator.readDateFromConsole("Type date: (YYYY-MM-DD");
+                    try {
+                        printSelectedDay(date);
+                        if (UserComunicator.shouldContinue()) {
+                            UserComunicator.clearScreen();
+                            break;
+                        }
+                    } catch (NoSuchElementException e) {
+                        System.out.println("We do not have value for this date.");
+                    }
             case 4:
                 printGlobalExtremes();
                 if (UserComunicator.shouldContinue()) {
@@ -85,11 +90,15 @@ public class SubMenu {
 
     void printAllPrices() {
         PrintNElementsfromCurrencyList(currency.getDailyDataList(), 10);
-        UserComunicator.GetKey();
     }
 
     void printSelectedDay(LocalDate date) {
-        System.out.println(currency.selectedDayPrice(date));
+        try {
+            System.out.println(currency.selectedDayPrice(date));
+        } catch (NoSuchElementException e) {
+            System.out.println("We do not have value for this date.");
+            UserComunicator.readDateFromConsole("Try other date:");
+        }
     }
 
     void printGlobalExtremes() {

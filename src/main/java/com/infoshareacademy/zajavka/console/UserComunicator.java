@@ -88,11 +88,10 @@ public class UserComunicator {
         Integer n = 0;
         do {
             dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date() + " | " + dd.getPriceUSD() + " USD"));
-            System.out.println("Press 'b' to back to currency Menu");
+            System.out.println("Press '+' to load more dates or '-' to back previous dates. Press 'b' to back to currency Menu");
             key = GetKey();
             n += key.equals("+") && n*listNumbers<=dailyData.size() ? 1 : 0;
             n -= key.equals("-") && n*listNumbers>=listNumbers ? 1 : 0;
-            System.out.println("Press 'b' to back to currency Menu");
         } while (!key.equals("b"));
 
     }
