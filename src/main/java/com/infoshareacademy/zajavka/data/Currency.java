@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
+
 public class Currency {
 
     private static final String EMPTY_STRING = "";
@@ -45,7 +46,7 @@ public class Currency {
         try {
             return new BigDecimal(value);
         } catch (Exception e) {
-            LOGGER.error("Error at try read Date for " + name +": " +e.getMessage());
+            LOGGER.error("Error at try read Date for " + name + ": " + e.getMessage());
             System.out.println("Error at try read Date for " + name);
             return null;
         }
@@ -55,7 +56,7 @@ public class Currency {
         try {
             return LocalDate.parse(value);
         } catch (Exception e) {
-            LOGGER.error("Error " + value + "has't corret number format in " + name+ ": " +e.getMessage());
+            LOGGER.error("Error " + value + "has't corret number format in " + name + ": " + e.getMessage());
             System.out.println("Error " + value + "has't corret number format in " + name);
             return null;
         }

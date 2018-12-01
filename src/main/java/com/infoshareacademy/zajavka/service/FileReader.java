@@ -48,7 +48,7 @@ public class FileReader {
             Path filePathWithName = Paths.get(dirPath, actFileNameWithExt);
             try {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
-                if (dalyDataListForFile.size()>1) {
+                if (dalyDataListForFile.size() > 1) {
                     currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
                 }
             } catch (ReadFileException e) {
