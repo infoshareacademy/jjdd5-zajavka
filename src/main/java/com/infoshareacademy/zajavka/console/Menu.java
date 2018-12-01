@@ -17,16 +17,6 @@ import java.util.stream.Collectors;
 public class Menu {
     private static final Logger LOGGER = LoggerFactory.getLogger(Menu.class);
 
-    public static void main(String[] args) {
-        //    private static final Logger LOGGER = LoggerFactory.getLogger(Menu.class);
-
-        if (args.length != 1) {
-            LOGGER.error("Incorrect parameters provided");
-            System.exit(1);
-        }
-        createMainMenu(args[0]);
-    }
-
     public static void createMainMenu(String dirPath) {
         List<Currency> currencyList = new ArrayList<>();
         FileReader fileReader = new FileReader();

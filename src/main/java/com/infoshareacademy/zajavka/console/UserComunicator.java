@@ -1,6 +1,8 @@
 package com.infoshareacademy.zajavka.console;
 
 import com.infoshareacademy.zajavka.data.Currency;
+import com.infoshareacademy.zajavka.data.CurrencyComparator;
+import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.service.FileReader;
 
 import java.time.LocalDate;
@@ -10,6 +12,26 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class UserComunicator {
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    public static boolean shouldContinue(){
+        System.out.println("Press 'c' to continue.");
+        Scanner sc = new Scanner(System.in);
+        String choice = sc.nextLine().toLowerCase();
+        try {
+            if(choice.equals("c")){
+                return true;
+            }
+        }
+        catch (Exception e){
+            System.out.println("Wrong intput:");
+        }
+        return shouldContinue();
+    }
 
     public static int getInputFromUser(List<Currency> currencyList, String statement) {
         System.out.println(statement);
@@ -25,6 +47,7 @@ public class UserComunicator {
             if (choice.equals("q")) {
                 System.exit(0);
             }
+            System.out.println("Wrong input.");
         }
         return getInputFromUser(currencyList,statement);
     }
@@ -42,6 +65,7 @@ public class UserComunicator {
             else if (choice.equals("b")){
                 return 0;
             }
+            System.out.println("Wrong input");
         }
         return getSubMenuInputFromUser(statement);
     }
@@ -52,10 +76,31 @@ public class UserComunicator {
         try {
             return LocalDate.parse(scanner.next());
         } catch (Exception e) {
-            System.out.println("Incorrect format of date");
+            UserComunicator.clearScreen();
+            System.out.println("Incorrect format of date. Should be (YYYY-MM-DD");
          //   LOGGER.error("Incorrect format of date: " + e.getMessage());
         }
         return readDateFromConsole(statement);
+    }
+
+    public static void PrintNElementsfromCurrencyList(List<DailyData> dailyData, Integer listNumbers) {
+        String key;
+        Integer n = 0;
+        do {
+            dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date() + " | " + dd.getPriceUSD() + " USD"));
+            System.out.println("Press 'b' to back to currency Menu");
+            key = GetKey();
+            n += key.equals("+") && n*listNumbers<=dailyData.size() ? 1 : 0;
+            n -= key.equals("-") && n*listNumbers>=listNumbers ? 1 : 0;
+            System.out.println("Press 'b' to back to currency Menu");
+        } while (!key.equals("b"));
+
+    }
+
+    public static String GetKey() {
+
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next();
     }
 
     public static void printMainMenu(List<Currency> currencyList) {
@@ -67,10 +112,11 @@ public class UserComunicator {
     }
 
     public static void printSubMenu(Currency currency) {
-        System.out.println("Yours currency: " + currency.getName());
-        System.out.println("1 - Current exchange rate.");
+        UserComunicator.clearScreen();
+        System.out.println("Your currency: " + currency.getName());
+        System.out.println("1 - Actual value.");
         System.out.println("2 - Exchange rate history.");
-        System.out.println("3 - Exchange rate in selected day");
+        System.out.println("3 - Value in selected day");
         System.out.println("4 - Min and max value");
         System.out.println("5 - Min and max value in selected time range");
         System.out.println("");

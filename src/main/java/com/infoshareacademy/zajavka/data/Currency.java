@@ -136,12 +136,13 @@ public class Currency {
 
     }*/
 
-    public BigDecimal todayPrice(){
-        return dailyDataList.stream()
-                .filter(s -> s.getDate().equals(LocalDate.now()))
-                .findFirst()
-                .get().getPriceUSD();
+
+
+    public DailyQuote mostActualData() {
+        dailyDataList.sort(new CurrencyComparator());
+        return new DailyQuote(dailyDataList.get(0).Date(),dailyDataList.get(0).getPriceUSD());
     }
+
 
     public BigDecimal selectedDayPrice(LocalDate date) {
         return dailyDataList.stream()
