@@ -8,16 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
-public class Menu {
+
+class Menu {
     private static final Logger LOGGER = LoggerFactory.getLogger(Menu.class);
 
-    public static void createMainMenu(String dirPath) {
+    static void createMainMenu(String dirPath) {
         List<Currency> currencyList = new ArrayList<>();
         FileReader fileReader = new FileReader();
         try {
