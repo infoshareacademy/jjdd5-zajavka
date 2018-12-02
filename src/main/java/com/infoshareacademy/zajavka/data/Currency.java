@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Currency {
@@ -133,6 +130,19 @@ public class Currency {
         }
     }
 
+    public DailyQuote mostActualData() {
+        dailyDataList.sort(new CurrencyComparator());
+        return new DailyQuote(dailyDataList.get(0).Date(), dailyDataList.get(0).getPriceUSD());
+    }
+
+
+    public BigDecimal selectedDayPrice(LocalDate date) {
+        return dailyDataList.stream()
+                .filter(s -> s.getDate().equals(date))
+                .findFirst()
+                .get().getPriceUSD();
+    }
+
     public BigDecimal maxPrice() {
         return dailyDataList.stream()
                 .filter(s -> s.getPriceUSD() != null)
@@ -161,18 +171,6 @@ public class Currency {
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
                 .min(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD();
-    }
-
-    public LocalDate readDateFromConsole() {
-        System.out.println("Please inserts the date in correct format: RRRR-MM-DD");
-        Scanner scanner = new Scanner(System.in);
-        try {
-            return LocalDate.parse(scanner.nextLine());
-        } catch (Exception e) {
-            System.out.println("Incorrect format of date");
-
-        }
-        return readDateFromConsole();
     }
 
     public String getName() {
@@ -208,5 +206,4 @@ public class Currency {
         }
         return null;
     }
-
 }

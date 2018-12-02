@@ -5,6 +5,8 @@ import com.infoshareacademy.zajavka.configuration.Configuration;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import java.util.Map;
+
 import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
 public class DailyData {
@@ -24,6 +26,7 @@ public class DailyData {
     private BigDecimal medianFee;
     private BigDecimal blockSize;
     private BigDecimal blockCount;
+    private Map<LocalDate,BigDecimal> dateAndePrice;
     Configuration configuration = loadProperties();
 
     public DailyData(LocalDate date, BigDecimal txVolumeUSD, BigDecimal adjTxVolumeUSD, BigDecimal txCount, BigDecimal marcetCapUSD, BigDecimal priceUSD, BigDecimal exVolumeUSD, BigDecimal generatedCoins, BigDecimal fees, BigDecimal activeAdresess, BigDecimal averageDifficulty, BigDecimal paymentCount, BigDecimal medianTxValueUSD, BigDecimal medianFee, BigDecimal blockSize, BigDecimal blockCount) {
@@ -46,6 +49,13 @@ public class DailyData {
     }
 
     public DailyData() {
+    }
+
+
+
+    public Map<LocalDate, BigDecimal> getDateWithPrice(){
+         dateAndePrice.put(date,priceUSD);
+         return dateAndePrice;
     }
 
     public void setDate(LocalDate date) {
