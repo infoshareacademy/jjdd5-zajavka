@@ -154,7 +154,8 @@ public class Currency {
                 .filter(s -> s.getDate().equals(date))
                 .findFirst()
                 .get().getPriceUSD()
-                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
+                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN)
+                .stripTrailingZeros();
     }
 
     public BigDecimal maxPrice() {

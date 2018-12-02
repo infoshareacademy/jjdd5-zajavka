@@ -104,8 +104,8 @@ public class SubMenu {
 
     void printNewestPrice() {
         Configuration configuration = ReadConfiguration.loadProperties();
-        LOGGER.info("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) );
-        System.out.println("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) );
+        LOGGER.info("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN).stripTrailingZeros() );
+        System.out.println("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN).stripTrailingZeros());
     }
 
     void printAllPrices() {
@@ -124,16 +124,16 @@ public class SubMenu {
     }
 
     void printGlobalExtremes() {
-        System.out.println("Min price : " + currency.minPrice());
-        LOGGER.info("Min price : " + currency.minPrice());
-        System.out.println("Max price : " + currency.maxPrice());
-        LOGGER.info("Max price : " + currency.maxPrice());
+        System.out.println("Min price : " + currency.minPrice().stripTrailingZeros());
+        LOGGER.info("Min price : " + currency.minPrice().stripTrailingZeros());
+        System.out.println("Max price : " + currency.maxPrice().stripTrailingZeros());
+        LOGGER.info("Max price : " + currency.maxPrice().stripTrailingZeros());
     }
 
     void printLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
-        System.out.println("Max price in range: " + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
-        LOGGER.info("Max price in range: " + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
-        System.out.println("Min price in range: " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
-        LOGGER.info("Min price in range: " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
+        System.out.println("Max price in range: " + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme).stripTrailingZeros() + " USD");
+        LOGGER.info("Max price in range: " + currency.maxPriceInDateRange(startDateExtreme, endDateExtreme).stripTrailingZeros() + " USD");
+        System.out.println("Min price in range: " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme).stripTrailingZeros() + " USD");
+        LOGGER.info("Min price in range: " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme).stripTrailingZeros() + " USD");
     }
 }
