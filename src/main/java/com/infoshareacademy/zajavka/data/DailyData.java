@@ -51,11 +51,9 @@ public class DailyData {
     public DailyData() {
     }
 
-
-
-    public Map<LocalDate, BigDecimal> getDateWithPrice(){
-         dateAndePrice.put(date,priceUSD);
-         return dateAndePrice;
+    public Map<LocalDate, BigDecimal> getDateWithPrice() {
+        dateAndePrice.put(date, priceUSD);
+        return dateAndePrice;
     }
 
     public void setDate(LocalDate date) {
