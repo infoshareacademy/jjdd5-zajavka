@@ -130,14 +130,6 @@ public class Currency {
         }
     }
 
-
-/*
-    public List allTimePrices(){
-        return dailyDataList.stream()
-
-    }*/
-
-
     public DailyQuote mostActualData() {
         dailyDataList.sort(new CurrencyComparator());
         return new DailyQuote(dailyDataList.get(0).Date(), dailyDataList.get(0).getPriceUSD());
@@ -180,18 +172,6 @@ public class Currency {
                 .min(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD();
     }
-
-/*    public LocalDate readDateFromConsole() {
-        System.out.println("Please inserts the date in correct format: RRRR-MM-DD");
-        Scanner scanner = new Scanner(System.in);
-        try {
-            return LocalDate.parse(scanner.nextLine());
-        } catch (Exception e) {
-            System.out.println("Incorrect format of date");
-
-        }
-        return readDateFromConsole();
-    }*/
 
     public String getName() {
         return name;

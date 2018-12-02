@@ -78,7 +78,6 @@ class UserComunicator {
         } catch (Exception e) {
             UserComunicator.clearScreen();
             System.out.println("Incorrect format of date. Should be (YYYY-MM-DD)");
-            //   LOGGER.error("Incorrect format of date: " + e.getMessage());
         }
         return readDateFromConsole(statement);
     }
@@ -116,4 +115,20 @@ class UserComunicator {
         System.out.println(" ");
         System.out.println("Press 'q' to quit or 'b' to back to Main Menu");
     }
+
+
+    static void printWrongLocalExtremes() {
+        System.out.println("Sorry, we do not have value for this time range.");
+        if (UserComunicator.shouldContinue()) {
+            UserComunicator.clearScreen();
+        }
+    }
+
+    static void printWrongSelectedDay(){
+        System.out.println("Sorry, we do not have value for this date.");
+        System.out.println(" ");
+        if (UserComunicator.shouldContinue()) {
+            UserComunicator.clearScreen();}
+    }
+
 }

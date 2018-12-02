@@ -53,12 +53,8 @@ class SubMenu {
                         break;
                     }
                 } catch (NoSuchElementException e) {
-                    System.out.println("Sorry, we do not have value for this date.");
-                    System.out.println(" ");
-                    if (UserComunicator.shouldContinue()) {
-                        UserComunicator.clearScreen();
-                        break;
-                    }
+                    UserComunicator.printWrongSelectedDay();
+                    break;
                 }
             case 4:
                 printGlobalExtremes();
@@ -68,24 +64,25 @@ class SubMenu {
                 }
             case 5:
                 try {
-                    LocalDate startDate = UserComunicator.readDateFromConsole("Type start date: (YYYY-MM-DD)");
-                    LocalDate endDate = UserComunicator.readDateFromConsole("Type end date: (YYYY-MM-DD)");
-                    printLocalExtremes(startDate, endDate);
-                    if (UserComunicator.shouldContinue()) {
-                        UserComunicator.clearScreen();
-                        break;
-                    }
+                    createLocalExtremes();
+                    break;
                 } catch (NoSuchElementException e) {
-                    System.out.println("Sorry, we do not have value for this time range.");
-                    System.out.println(" ");
-                    if (UserComunicator.shouldContinue()) {
-                        UserComunicator.clearScreen();
-                        break;
-                    }
+                    UserComunicator.printWrongLocalExtremes();
+                    break;
                 }
             case 0:
                 setSubMenuActive(false);
                 break;
+        }
+
+    }
+
+    private void createLocalExtremes() {
+        LocalDate startDate = UserComunicator.readDateFromConsole("Type start date: (YYYY-MM-DD)");
+        LocalDate endDate = UserComunicator.readDateFromConsole("Type end date: (YYYY-MM-DD)");
+        createLocalExtremes(startDate, endDate);
+        if (UserComunicator.shouldContinue()) {
+            UserComunicator.clearScreen();
         }
     }
 
@@ -106,7 +103,7 @@ class SubMenu {
         System.out.println("Global minimum price: " + currency.maxPrice() + " USD");
     }
 
-    private void printLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
+    private void createLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
         System.out.println("Minimum price from " + startDateExtreme + " to " + endDateExtreme + ": "
                 + currency.minPriceInDateRange(startDateExtreme, endDateExtreme) + " USD");
         System.out.println("Maximum price from " + startDateExtreme + " to " + endDateExtreme + ": "
