@@ -1,11 +1,14 @@
 package com.infoshareacademy.zajavka.data;
 
+import com.infoshareacademy.zajavka.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
+
+import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
 
 public class Currency {
@@ -29,6 +32,8 @@ public class Currency {
     private static final int INDEX_BLOCK_SIZE = 14;
     private static final int INDEX_BLOCK_COUNT = 15;
     private static final int DAILY_DATA_LENGTH = 16;
+
+    Configuration configuration = loadProperties();
 
     private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
@@ -148,21 +153,24 @@ public class Currency {
         return dailyDataList.stream()
                 .filter(s -> s.getDate().equals(date))
                 .findFirst()
-                .get().getPriceUSD();
+                .get().getPriceUSD()
+                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal maxPrice() {
         return dailyDataList.stream()
                 .filter(s -> s.getPriceUSD() != null)
                 .max(Comparator.comparing(DailyData::getPriceUSD))
-                .get().getPriceUSD();
+                .get().getPriceUSD()
+                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal minPrice() {
         return dailyDataList.stream()
                 .filter(s -> s.getPriceUSD() != null)
                 .min(Comparator.comparing(DailyData::getPriceUSD))
-                .get().getPriceUSD();
+                .get().getPriceUSD()
+                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal maxPriceInDateRange(LocalDate startDate, LocalDate endDate) {
@@ -170,7 +178,8 @@ public class Currency {
                 .filter(s -> s.getPriceUSD() != null)
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
                 .max(Comparator.comparing(DailyData::getPriceUSD))
-                .get().getPriceUSD();
+                .get().getPriceUSD()
+                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal minPriceInDateRange(LocalDate startDate, LocalDate endDate) {
@@ -178,7 +187,8 @@ public class Currency {
                 .filter(s -> s.getPriceUSD() != null)
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
                 .min(Comparator.comparing(DailyData::getPriceUSD))
-                .get().getPriceUSD();
+                .get().getPriceUSD()
+                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
     }
 
 /*    public LocalDate readDateFromConsole() {

@@ -9,6 +9,7 @@ import com.infoshareacademy.zajavka.service.FileReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -91,7 +92,7 @@ public class UserComunicator {
         } catch (Exception e) {
             UserComunicator.clearScreen();
             System.out.println("Incorrect format of date. Should be (YYYY-MM-DD)");
-            LOGGER.error("Incorrect format of date: " + e.getMessage());
+            LOGGER.warn("Incorrect format of date: " + e.getMessage());
         }
         return readDateFromConsole(statement);
     }
@@ -101,13 +102,13 @@ public class UserComunicator {
         String key;
         Integer n = 0;
         do {
-            dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + dd.getPriceUSD() + " USD"));
+            dailyData.stream().sorted(new CurrencyComparator()).skip(n * listNumbers).limit(listNumbers).forEach(dd -> System.out.println(dd.Date().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + dd.getPriceUSD().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN)  + " USD"));
             System.out.println("Press '+' to load more dates or '-' to back previous dates. Press 'b' to back to currency Menu");
             key = GetKey();
             n += key.equals("+") && n * listNumbers <= dailyData.size() ? 1 : 0;
             n -= key.equals("-") && n * listNumbers >= listNumbers ? 1 : 0;
         } while (!key.equals("b"));
-        LOGGER.error("User end watch list currency");
+        LOGGER.info("User end watch list currency");
 
     }
 

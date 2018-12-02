@@ -6,6 +6,7 @@ import com.infoshareacademy.zajavka.data.Currency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
@@ -103,8 +104,8 @@ public class SubMenu {
 
     void printNewestPrice() {
         Configuration configuration = ReadConfiguration.loadProperties();
-        LOGGER.info("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
-        System.out.println("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice());
+        LOGGER.info("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) );
+        System.out.println("Most actual date: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN) );
     }
 
     void printAllPrices() {
@@ -116,6 +117,7 @@ public class SubMenu {
             LOGGER.info("Price for selected day: " + currency.selectedDayPrice(date));
             System.out.println(currency.selectedDayPrice(date));
         } catch (NoSuchElementException e) {
+            LOGGER.warn("We do not have value for this date.");
             System.out.println("We do not have value for this date.");
             UserComunicator.readDateFromConsole("Try other date:");
         }
