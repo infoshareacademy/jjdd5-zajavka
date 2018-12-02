@@ -10,7 +10,6 @@ import java.util.*;
 
 import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
-
 public class Currency {
 
     private static final String EMPTY_STRING = "";

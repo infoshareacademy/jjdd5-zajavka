@@ -65,7 +65,6 @@ class SubMenu {
                         break;
                     }
                 } catch (NoSuchElementException e) {
-                    // loggery
                     UserComunicator.printWrongSelectedDay();
                     break;
                 }
@@ -77,7 +76,6 @@ class SubMenu {
                 }
             case 5:
                 try {
-                    //loggery
                     createLocalExtremes();
                     break;
                 } catch (NoSuchElementException e) {
@@ -90,7 +88,7 @@ class SubMenu {
         }
 
     }
-        // Loggery tu będą
+
     private void createLocalExtremes() {
         LocalDate startDate = UserComunicator.readDateFromConsole("Type start date: (YYYY-MM-DD)");
         LocalDate endDate = UserComunicator.readDateFromConsole("Type end date: (YYYY-MM-DD)");
@@ -112,8 +110,9 @@ class SubMenu {
     }
 
     private void printSelectedDay(LocalDate date) {
-        LOGGER.info("Price for selected day: " + currency.selectedDayPrice(date));
-        System.out.println(date + " | " + currency.selectedDayPrice(date) + " USD");
+        Configuration configuration = ReadConfiguration.loadProperties();
+        LOGGER.info("Price for selected day: " + date.format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.selectedDayPrice(date));
+        System.out.println(date.format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.selectedDayPrice(date) + " USD");
     }
 
     private void printGlobalExtremes() {

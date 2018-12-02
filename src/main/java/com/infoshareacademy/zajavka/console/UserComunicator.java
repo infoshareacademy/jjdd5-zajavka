@@ -2,20 +2,16 @@ package com.infoshareacademy.zajavka.console;
 
 import com.infoshareacademy.zajavka.configuration.Configuration;
 import com.infoshareacademy.zajavka.configuration.ReadConfiguration;
-import com.infoshareacademy.zajavka.configuration.Configuration;
 import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.CurrencyComparator;
 import com.infoshareacademy.zajavka.data.DailyData;
-import com.infoshareacademy.zajavka.service.FileReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
@@ -144,19 +140,22 @@ class UserComunicator {
         System.out.println(" ");
         System.out.println("Press 'q' to quit or 'b' to back to Main Menu");
     }
-        //loggery
+
     static void printWrongLocalExtremes() {
+        LOGGER.info("We do not have value for this time range.");
         System.out.println("Sorry, we do not have value for this time range.");
         if (UserComunicator.shouldContinue()) {
             UserComunicator.clearScreen();
         }
     }
 
-    static void printWrongSelectedDay(){
+    static void printWrongSelectedDay() {
+        LOGGER.info("We do not have value for this date.");
         System.out.println("Sorry, we do not have value for this date.");
         System.out.println(" ");
         if (UserComunicator.shouldContinue()) {
-            UserComunicator.clearScreen();}
+            UserComunicator.clearScreen();
+        }
     }
 
     static String getName(Configuration configuration, String name) {
