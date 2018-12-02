@@ -153,12 +153,4 @@ class UserComunicator {
         return fullName;
     }
 
-
-    public static void incorrectInputMessage() {
-        System.out.println("Incorrect input, try again.");
-    }
-
-    public void printFirsOptionSubMenu() {
-
-    }
 }
