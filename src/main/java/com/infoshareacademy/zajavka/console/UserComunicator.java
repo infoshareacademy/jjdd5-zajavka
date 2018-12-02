@@ -144,6 +144,20 @@ class UserComunicator {
         System.out.println(" ");
         System.out.println("Press 'q' to quit or 'b' to back to Main Menu");
     }
+        //loggery
+    static void printWrongLocalExtremes() {
+        System.out.println("Sorry, we do not have value for this time range.");
+        if (UserComunicator.shouldContinue()) {
+            UserComunicator.clearScreen();
+        }
+    }
+
+    static void printWrongSelectedDay(){
+        System.out.println("Sorry, we do not have value for this date.");
+        System.out.println(" ");
+        if (UserComunicator.shouldContinue()) {
+            UserComunicator.clearScreen();}
+    }
 
     static String getName(Configuration configuration, String name) {
         String fullName = configuration.getNameCurrency(name);

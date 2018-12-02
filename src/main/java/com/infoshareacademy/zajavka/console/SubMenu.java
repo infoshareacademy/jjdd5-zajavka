@@ -14,9 +14,7 @@ import static com.infoshareacademy.zajavka.console.UserComunicator.PrintNElement
 import static com.infoshareacademy.zajavka.console.UserComunicator.getName;
 
 class SubMenu {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(SubMenu.class);
-
     private boolean subMenuActive;
     private int usersSubChoice;
     private Currency currency;
@@ -67,16 +65,11 @@ class SubMenu {
                         break;
                     }
                 } catch (NoSuchElementException e) {
-                    LOGGER.info("We do not have value for this date: " + e.getMessage());
-                    System.out.println("Sorry, we do not have value for this date.");
-                    System.out.println(" ");
-                    if (UserComunicator.shouldContinue()) {
-                        UserComunicator.clearScreen();
-                        break;
-                    }
+                    // loggery
+                    UserComunicator.printWrongSelectedDay();
+                    break;
                 }
             case 4:
-                LOGGER.info("User choice to print global extremes " + getName(configuration, currency.getName()));
                 printGlobalExtremes();
                 if (UserComunicator.shouldContinue()) {
                     UserComunicator.clearScreen();
@@ -84,27 +77,26 @@ class SubMenu {
                 }
             case 5:
                 try {
-                    LOGGER.info("User choice to print extremes from selected time range " + getName(configuration, currency.getName()));
-                    LocalDate startDate = UserComunicator.readDateFromConsole("Type start date: (YYYY-MM-DD)");
-                    LocalDate endDate = UserComunicator.readDateFromConsole("Type end date: (YYYY-MM-DD)");
-                    LOGGER.info("Start date: " + startDate + " End date: " + endDate);
-                    printLocalExtremes(startDate, endDate);
-                    if (UserComunicator.shouldContinue()) {
-                        UserComunicator.clearScreen();
-                        break;
-                    }
+                    //loggery
+                    createLocalExtremes();
+                    break;
                 } catch (NoSuchElementException e) {
-                    LOGGER.info("We do not have value for this date: " + e.getMessage());
-                    System.out.println("Sorry, we do not have value for this time range.");
-                    System.out.println(" ");
-                    if (UserComunicator.shouldContinue()) {
-                        UserComunicator.clearScreen();
-                        break;
-                    }
+                    UserComunicator.printWrongLocalExtremes();
+                    break;
                 }
             case 0:
                 setSubMenuActive(false);
                 break;
+        }
+
+    }
+        // Loggery tu będą
+    private void createLocalExtremes() {
+        LocalDate startDate = UserComunicator.readDateFromConsole("Type start date: (YYYY-MM-DD)");
+        LocalDate endDate = UserComunicator.readDateFromConsole("Type end date: (YYYY-MM-DD)");
+        createLocalExtremes(startDate, endDate);
+        if (UserComunicator.shouldContinue()) {
+            UserComunicator.clearScreen();
         }
     }
 
@@ -113,6 +105,7 @@ class SubMenu {
         LOGGER.info("Current price: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN).stripTrailingZeros());
         System.out.println("Current price: " + currency.mostActualData().getDate().format(configuration.getDateFormat()) + " " + configuration.getCharForSeparate() + " " + currency.mostActualData().getPrice().setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN).stripTrailingZeros());
     }
+
 
     private void printAllPrices() {
         PrintNElementsfromCurrencyList(currency.getDailyDataList(), 10);
@@ -130,7 +123,7 @@ class SubMenu {
         LOGGER.info("Global maximum price : " + currency.maxPrice().stripTrailingZeros() + " USD");
     }
 
-    private void printLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
+    private void createLocalExtremes(LocalDate startDateExtreme, LocalDate endDateExtreme) {
         System.out.println("Minimum price from " + startDateExtreme + " to " + endDateExtreme + ": "
                 + currency.minPriceInDateRange(startDateExtreme, endDateExtreme).stripTrailingZeros() + " USD");
         LOGGER.info("Minimum price from " + startDateExtreme + " to " + endDateExtreme + ": " + currency.minPriceInDateRange(startDateExtreme, endDateExtreme).stripTrailingZeros() + " USD");
