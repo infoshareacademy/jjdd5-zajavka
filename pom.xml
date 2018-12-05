@@ -7,6 +7,7 @@
     <groupId>com.infoshareacademy.zajavka</groupId>
     <artifactId>crypto-analyzer</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,9 +16,9 @@
     </properties>
 
     <modules>
-       <module>crypto-analyzer-base</module>
-       <module>crypto-analyzer-web</module>
-    </modueles>
+        <module>crypto-analyzer-base</module>
+        <module>crypto-analyzer-web</module>
+    </modules>
 
     <dependencies>
         <dependency>

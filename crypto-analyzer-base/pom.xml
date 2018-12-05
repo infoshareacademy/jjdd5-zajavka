@@ -9,9 +9,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <parent>
-         <groupId>com.infoshareacademy.zajavka</groupId>
-         <artifactId>crypto-analyzer</artifactId>
-          <version>1.0-SNAPSHOT</version>
+        <groupId>com.infoshareacademy.zajavka</groupId>
+        <artifactId>crypto-analyzer</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>

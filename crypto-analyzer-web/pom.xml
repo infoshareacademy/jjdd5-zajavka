@@ -7,11 +7,12 @@
     <groupId>com.infoshareacademy.zajavka</groupId>
     <artifactId>crypto-analyzer-web</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <parent>
-         <groupId>com.infoshareacademy.zajavka</groupId>
-         <artifactId>crypto-analyzer</artifactId>
-          <version>1.0-SNAPSHOT</version>
+        <groupId>com.infoshareacademy.zajavka</groupId>
+        <artifactId>crypto-analyzer</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -20,7 +21,63 @@
             <artifactId>crypto-analyzer-base</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- Java EE API -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- FreeMarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.28</version>
+        </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.2.1.Final</version>
+                <configuration>
+                    <name>crypto-analyzer.war</name>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>
 
