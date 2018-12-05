@@ -31,11 +31,10 @@ public class FileReader {
         try (Stream<Path> filePathStream = Files.walk(path)) {
             filePathStream.forEach(filePath -> {
                 if (Files.isRegularFile(filePath) && filePath.toString().endsWith(".csv")) {
-                    LOGGER.info("Good file: "+filePath.getFileName().toString());
+                    LOGGER.info("Found csv file: " + filePath.getFileName().toString());
                     fileList.add(filePath.getFileName().toString());
-                }
-                else{
-                    LOGGER.info("Bad file: " + filePath.getFileName().toString());
+                } else {
+                    LOGGER.info("Skipping file: " + filePath.getFileName().toString());
                 }
             });
         } catch (IOException e) {
@@ -54,9 +53,8 @@ public class FileReader {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
                 if (dalyDataListForFile.size() > 1) {
                     currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
-                    LOGGER.info("File is read: "+actFileNameWithExt);
-                }
-                else{
+                    LOGGER.info("File is read: " + actFileNameWithExt);
+                } else {
                     LOGGER.info("File is empty: " + actFileNameWithExt);
                 }
             } catch (ReadFileException e) {
