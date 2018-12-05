@@ -14,8 +14,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <dependencies>
+    <modules>
+       <module>crypto-analyzer-base</module>
+       <module>crypto-analyzer-web</module>
+    </modueles>
 
+    <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -49,3 +53,4 @@
     </dependencies>
 
 </project>
+
