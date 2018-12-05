@@ -25,6 +25,6 @@ public class Configuration {
     }
 
     public String getNameCurrency(String a) {
-        return properties.getProperty(a);
+        return properties.getProperty(a.replaceAll(".csv", ""));
     }
 }
