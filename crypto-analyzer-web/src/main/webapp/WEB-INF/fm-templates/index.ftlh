@@ -42,8 +42,8 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="file"></span>
-                  Orders
+                  <span data-feather="check-square"></span>
+                  Wybierz walute
                 </a>
               </li>
               <li class="nav-item">
