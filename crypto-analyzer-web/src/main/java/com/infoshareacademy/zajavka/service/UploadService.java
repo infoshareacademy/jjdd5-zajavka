@@ -58,8 +58,9 @@ public class UploadService {
 
                                 LOG.info("File saved successfully to '{}'", filePath);
                                 return filePath;
+                            }else{
+                            LOG.warn("Incorrect file type: {}");
                             }
-                            LOG.warn("Incorect file type");
                         }
                     }
                 }
