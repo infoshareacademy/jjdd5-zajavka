@@ -52,7 +52,7 @@ public class FileReader {
             try {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
                 if (dalyDataListForFile.size() > 1) {
-                    currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile));
+                    currencyDataList.add(new Currency(actFileNameWithExt, dalyDataListForFile, null));
                     LOGGER.info("File is read: " + actFileNameWithExt);
                 } else {
                     LOGGER.info("File is empty: " + actFileNameWithExt);
