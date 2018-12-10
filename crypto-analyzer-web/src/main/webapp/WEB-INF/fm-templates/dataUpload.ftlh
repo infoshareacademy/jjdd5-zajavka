@@ -1,6 +1,6 @@
 <html>
 <body>
-<form method="post"action="multiPartServlet" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     Choose a file: <input type ="file" name="multiPartServlet"/>
     <input type="submit" value="Upload" />
     </form>
