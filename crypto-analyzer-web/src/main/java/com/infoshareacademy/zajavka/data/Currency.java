@@ -17,8 +17,9 @@ public class Currency {
     public Currency() {
     }
 
-    public Currency(String name) {
+    public Currency(String name, List<DailyData> dailyDataList) {
         this.name = name;
+        this.dailyDataList = dailyDataList;
     }
 
     public String getName() {

@@ -28,11 +28,11 @@ public class DailyData {
     public DailyData() {
     }
 
-    public DailyData(LocalDate date, BigDecimal priceUSD) {
+    public DailyData(@NotNull LocalDate date, BigDecimal priceUSD, Currency currency) {
         this.date = date;
         this.priceUSD = priceUSD;
+        this.currency = currency;
     }
-
 
     public Long getId() {
         return id;
