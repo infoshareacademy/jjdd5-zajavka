@@ -11,19 +11,22 @@ public class DailyData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "DATE")
     @NotNull
     private LocalDate date;
 
-    @Column(name = "priceUSD")
+    @Column(name = "PRICE_USD")
     private BigDecimal priceUSD;
 
     @ManyToOne
-    @JoinColumn(name = "currency")
+    @JoinColumn(name = "CURRENCY_NAME")
     private Currency currency;
+
+    public DailyData() {
+    }
 
     public DailyData(LocalDate date, BigDecimal priceUSD) {
         this.date = date;

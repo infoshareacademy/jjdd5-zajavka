@@ -8,12 +8,14 @@ import java.util.List;
 public class Currency {
 
     @Id
-    @Column(name = "NAME")
+    @Column(name = "NAME", length = 32)
     private String name;
-
 
     @OneToMany(mappedBy = "currency", fetch = FetchType.EAGER)
     private List<DailyData> dailyDataList;
+
+    public Currency() {
+    }
 
     public Currency(String name) {
         this.name = name;
