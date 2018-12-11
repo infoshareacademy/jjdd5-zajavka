@@ -1,13 +1,18 @@
 package com.infoshareacademy.zajavka.data;
 
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.util.List;
 
-
-@Table(name = "CURRENCY", uniqueConstraints = @UniqueConstraint(columnNames = "currency_id"))
+@Entity
+@Table(name = "CURRENCIES")
 public class Currency {
+
+    @Id
+    @Column(name = "NAME")
     private String name;
+
+
+    @OneToMany(mappedBy = "currency", fetch = FetchType.EAGER)
     private List<DailyData> dailyDataList;
 
     public Currency(String name) {
@@ -29,5 +34,7 @@ public class Currency {
     public void setDailyDataList(List<DailyData> dailyDataList) {
         this.dailyDataList = dailyDataList;
     }
+
+
 }
 
