@@ -25,17 +25,14 @@ import java.util.Map;
         maxRequestSize = UploadService.MAX_REQUEST_SIZE)
 public class DataUploadServlet extends HttpServlet {
 
-    @Inject
-    private TemplateProvider templateProvider;
-
-    @Inject
-    private UploadService uploadService;
-
-    @Inject
-    private UnzipService unzipService;
-
     private static final Logger LOG = LoggerFactory.getLogger(DataUploadServlet.class);
     private static final String TEMPLATE_NAME = "dataUpload";
+    @Inject
+    private TemplateProvider templateProvider;
+    @Inject
+    private UploadService uploadService;
+    @Inject
+    private UnzipService unzipService;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -47,17 +44,16 @@ public class DataUploadServlet extends HttpServlet {
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
-            e.printStackTrace();
+            LOG.error("Error while processing the template: " + e);
         }
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         String uploadedFile = uploadService.readFileFromRequest(req);
         if (uploadedFile == null) {
-            resp.getWriter().println("File upload failed" );
+            resp.getWriter().println("File upload failed");
 
         } else {
             String extractedPath = UnzipService.EXTRACTED_DATA_PATH;
@@ -65,6 +61,4 @@ public class DataUploadServlet extends HttpServlet {
             resp.getWriter().println("Extracted to " + extractedPath);
         }
     }
-
-
 }

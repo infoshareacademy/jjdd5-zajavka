@@ -14,13 +14,11 @@ import java.util.List;
 @Stateless
 public class UploadService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UploadService.class);
-
     public static final int MEMORY_THRESHOLD = 1024 * 1024;
     public static final int MAX_REQUEST_SIZE = 1024 * 1024 * 5 * 5;
     public static final int MAX_FILE_SIZE = 1024 * 1024 * 10;
     public static final String UPLOAD_PATH = System.getProperty("java.io.tmpdir") + "/zajavka-data";
-
+    private static final Logger LOG = LoggerFactory.getLogger(UploadService.class);
 
     public String readFileFromRequest(HttpServletRequest request) {
 
@@ -30,7 +28,6 @@ public class UploadService {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-
             if (ServletFileUpload.isMultipartContent(request)) {
                 LOG.info("Received correct multipart data");
 
@@ -48,7 +45,6 @@ public class UploadService {
                         if (!item.isFormField()) {
                             String fileName = new File(item.getName()).getName();
                             String filePath = UPLOAD_PATH + File.separator + fileName;
-
                             if (fileName.endsWith(".zip")) {
 
                                 LOG.info("Saving file '{}' to '{}'", fileName, filePath);
@@ -58,18 +54,16 @@ public class UploadService {
 
                                 LOG.info("File saved successfully to '{}'", filePath);
                                 return filePath;
-                            }else{
-                            LOG.warn("Incorrect file type: {}");
+                            } else {
+                                LOG.warn("Incorrect file type: {}");
                             }
                         }
                     }
                 }
             }
-
         } catch (Exception e) {
             LOG.error("Error while saving file: {}", e.getMessage());
         }
-
         return null;
     }
 }

@@ -14,9 +14,8 @@ import java.util.zip.ZipInputStream;
 @Stateless
 public class UnzipService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UnzipService.class);
-
     public static final String EXTRACTED_DATA_PATH = System.getProperty("java.io.tmpdir") + "/zajavka-data/extracted";
+    private static final Logger LOG = LoggerFactory.getLogger(UnzipService.class);
 
     public void unzip(String file, String outputDir) {
 
@@ -30,11 +29,9 @@ public class UnzipService {
             if (folder.exists()) {
                 deleteDir(folder);
             }
-
             if (!folder.exists()) {
                 folder.mkdir();
             }
-
             ZipInputStream zis = new ZipInputStream(new FileInputStream(file));
             ZipEntry ze = zis.getNextEntry();
 
@@ -43,7 +40,6 @@ public class UnzipService {
                 File newFile = new File(outputDir + File.separator + fileName);
                 LOG.info("Extracting {} to {}", fileName, newFile.getAbsolutePath());
 
-                // make sure we have all the directories in place
                 new File(newFile.getParent()).mkdirs();
 
                 FileOutputStream fos = new FileOutputStream(newFile);
@@ -52,14 +48,12 @@ public class UnzipService {
                 while ((len = zis.read(buffer)) > 0) {
                     fos.write(buffer, 0, len);
                 }
-
                 fos.close();
 
                 LOG.info("Successfully extracted {} to {}", fileName, newFile.getAbsolutePath());
 
                 ze = zis.getNextEntry();
             }
-
             zis.closeEntry();
             zis.close();
 
@@ -69,7 +63,6 @@ public class UnzipService {
             LOG.error("Error while unzipping {} to {}: {}", file, outputDir, ex.getMessage());
         }
     }
-
     private boolean deleteDir(File dir) {
         if (dir.isDirectory()) {
             String[] children = dir.list();
@@ -80,7 +73,6 @@ public class UnzipService {
                 }
             }
         }
-
         return dir.delete();
     }
 }
