@@ -11,7 +11,7 @@ public class ReadConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReadConfiguration.class);
 
     public static Configuration loadProperties() {
-        try (InputStream resourceAsStream = new FileInputStream("/home/danielmodrzejewski/Filereader/jjdd5-zajavka/crypto-analyzer-base/config/configuration.properties")) {
+        try (InputStream resourceAsStream = ReadConfiguration.class.getResourceAsStream("configuration.properties")) {
             Properties properties = new Properties();
             properties.load(resourceAsStream);
             return new Configuration(properties);
@@ -21,6 +21,4 @@ public class ReadConfiguration {
             throw new UncheckedIOException(e);
         }
     }
-
-
 }

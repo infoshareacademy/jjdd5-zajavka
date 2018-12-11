@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
-import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
 public class Currency {
 
