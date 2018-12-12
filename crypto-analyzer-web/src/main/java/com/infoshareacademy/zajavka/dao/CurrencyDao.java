@@ -1,4 +1,4 @@
-/*
+
 package com.infoshareacademy.zajavka.dao;
 
 import com.infoshareacademy.zajavka.domain.Currency;
@@ -41,4 +41,4 @@ public class CurrencyDao {
         return query.getResultList();
     }
 }
-*/
+

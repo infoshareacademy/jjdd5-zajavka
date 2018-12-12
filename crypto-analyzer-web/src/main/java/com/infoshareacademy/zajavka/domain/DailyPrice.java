@@ -19,6 +19,10 @@ public class DailyPrice {
     @Column(name = "PRICE")
     BigDecimal price;
 
+    @ManyToOne
+    @JoinColumn(name = "CURRENCY_ID")
+    private Currency currency;
+
     public DailyPrice() {
     }
 

@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "CURRENCIES")
@@ -15,15 +16,15 @@ public class Currency {
     @Column(name = "NAME")
     String name;
 
-    @Column(name = "DAILY_PRICE_LIST")
-    List<DailyPrice> dailyPriceList;
+    @OneToMany(mappedBy = "currency", fetch = FetchType.EAGER)
+    private Set<DailyPrice> dailyPrices;
 
     public Currency() {
     }
 
-    public Currency(String name, List<DailyPrice> dailyPriceList) {
+    public Currency(String name, Set<DailyPrice> dailyPrices) {
         this.name = name;
-        this.dailyPriceList = dailyPriceList;
+        this.dailyPrices = dailyPrices;
     }
 
     public Long getId() {
@@ -42,11 +43,11 @@ public class Currency {
         this.name = name;
     }
 
-    public List<DailyPrice> getDailyPriceList() {
-        return dailyPriceList;
+    public Set<DailyPrice> getDailyPrices() {
+        return dailyPrices;
     }
 
-    public void setDailyPriceList(List<DailyPrice> dailyPriceList) {
-        this.dailyPriceList = dailyPriceList;
+    public void setDailyPrices(Set<DailyPrice> dailyPrices) {
+        this.dailyPrices = dailyPrices;
     }
 }

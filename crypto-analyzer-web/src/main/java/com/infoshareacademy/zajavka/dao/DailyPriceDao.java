@@ -1,4 +1,4 @@
-/*
+
 package com.infoshareacademy.zajavka.dao;
 
 import com.infoshareacademy.zajavka.domain.DailyPrice;
@@ -43,4 +43,5 @@ public class DailyPriceDao {
 }
 
 
-*/
+
+
