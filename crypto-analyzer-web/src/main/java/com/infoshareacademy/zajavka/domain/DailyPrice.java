@@ -20,15 +20,26 @@ public class DailyPrice {
     BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "CURRENCY_ID")
+    @JoinColumn(name = "CURRENCY_NAME")
     private Currency currency;
 
     public DailyPrice() {
     }
 
-    public DailyPrice(LocalDate date, BigDecimal price) {
+    public DailyPrice(LocalDate date, BigDecimal price, Currency currency) {
         this.date = date;
         this.price = price;
+        this.currency = currency;
+    }
+
+
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     public Long getId() {

@@ -15,24 +15,24 @@ public class CurrencyDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Long save(Currency s) {
+    public String save(Currency s) {
         entityManager.persist(s);
-        return s.getId();
+        return s.getName();
     }
 
     public Currency update(Currency s) {
         return entityManager.merge(s);
     }
 
-    public void delete(Long id) {
-        final Currency s = entityManager.find(Currency.class, id);
+    public void delete(String name) {
+        final Currency s = entityManager.find(Currency.class, name);
         if (s != null) {
             entityManager.remove(s);
         }
     }
 
-    public Currency findById(Long id) {
-        return entityManager.find(Currency.class, id);
+    public Currency findByName(String name) {
+        return entityManager.find(Currency.class, name);
     }
 
     public List<Currency> findAll() {

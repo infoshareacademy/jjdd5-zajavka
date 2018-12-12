@@ -9,30 +9,16 @@ import java.util.Set;
 public class Currency {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    Long id;
-
-    @Column(name = "NAME")
+    @Column(name = "NAME", length = 32)
     String name;
 
     @OneToMany(mappedBy = "currency", fetch = FetchType.EAGER)
-    private Set<DailyPrice> dailyPrices;
-
+    private List<DailyPrice> dailyPrices;
     public Currency() {
     }
 
-    public Currency(String name, Set<DailyPrice> dailyPrices) {
+    public Currency(String name) {
         this.name = name;
-        this.dailyPrices = dailyPrices;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -43,11 +29,11 @@ public class Currency {
         this.name = name;
     }
 
-    public Set<DailyPrice> getDailyPrices() {
+    public List<DailyPrice> getDailyPrices() {
         return dailyPrices;
     }
 
-    public void setDailyPrices(Set<DailyPrice> dailyPrices) {
+    public void setDailyPrices(List<DailyPrice> dailyPrices) {
         this.dailyPrices = dailyPrices;
     }
 }

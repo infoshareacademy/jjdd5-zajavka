@@ -4,6 +4,9 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.DailyPriceDao;
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 */
+
+import com.infoshareacademy.zajavka.dao.CurrencyDao;
+import com.infoshareacademy.zajavka.dao.DailyPriceDao;
 import com.infoshareacademy.zajavka.domain.Currency;
 import com.infoshareacademy.zajavka.domain.DailyPrice;
 import
@@ -22,10 +25,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet(urlPatterns = "/test")
 public class TestServlet extends HttpServlet {
@@ -35,11 +35,11 @@ public class TestServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
-/*    @Inject
+    @Inject
     private DailyPriceDao dailyPriceDao;
 
     @Inject
-    private CurrencyDao currencyDao;*/
+    private CurrencyDao currencyDao;
 
 
     @Override
@@ -55,46 +55,32 @@ public class TestServlet extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
-    }}
-/*
-        final String action = req.getParameter("action");
-        //          LOG.info("Requested action: {}", action);
-        if (action == null || action.isEmpty()) {
-            resp.getWriter().write("Empty action parameter.");
-            return;
-        }
-
-        if (action.equals("findAll")) {
-            findAll(req, resp);
-        } else if (action.equals("add")) {
-            addStudent(req, resp);
-        } else if (action.equals("delete")) {
-            deleteCurrency(req, resp);
-        } else if (action.equals("update")) {
-            updateStudent(req, resp);
-        } else if (action.equals("findByDate")) {
-            findByDate(req, resp);
-        } else {
-            resp.getWriter().write("Unknown action.");
-        }
-    }*/
-
-/*
+    }
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
-        //dailyprice
-        DailyPrice p1 = new DailyPrice(LocalDate.parse("2018-01-02"), BigDecimal.valueOf(30));
-        dailyPriceDao.save(p1);
-
         List<DailyPrice> priceList = new ArrayList<>();
-        priceList.add(p1);
 
         //currency
-        Currency bitCoin = new Currency("Bitcoin", priceList);
-        currencyDao.save(bitCoin);
+        Currency c1 = new Currency("Bitcoin");
+        currencyDao.save(c1);
+
+        Currency c2 = new Currency("LiteCoin");
+        currencyDao.save(c2);
+
+        //dailyprice
+        DailyPrice p1 = new DailyPrice(LocalDate.parse("2018-01-02"), BigDecimal.valueOf(30),c1);
+        dailyPriceDao.save(p1);
+        DailyPrice p2 = new DailyPrice(LocalDate.parse("2007-01-02"), BigDecimal.valueOf(60),c1);
+        dailyPriceDao.save(p2);
+        DailyPrice p3 = new DailyPrice(LocalDate.parse("2001-01-02"), BigDecimal.valueOf(90),c2);
+        dailyPriceDao.save(p3);
+        DailyPrice p4 = new DailyPrice(LocalDate.parse("1993-08-04"), BigDecimal.valueOf(78),c2);
+        dailyPriceDao.save(p4);
+
+
     }
 }
-*/
+
