@@ -35,6 +35,8 @@ public class TestServlet extends HttpServlet {
 
         Configuration c1 = new Configuration("dataFormat", "dd-MM-yyyy");
         Configuration c2 = new Configuration( "afterSign", "3");
+        configurationDao.save(c1);
+        configurationDao.save(c2);
 
     }
 

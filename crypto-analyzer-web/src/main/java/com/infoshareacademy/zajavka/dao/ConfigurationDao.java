@@ -30,8 +30,17 @@ public class ConfigurationDao {
         }
     }
 
+    public Configuration findById(String name) {
+        return entityManager.find(Configuration.class, name);
+    }
+
+    public String findValue(String name) {
+        final Query query = entityManager.createQuery("SELECT c.value FROM Configuration c WHERE c.name = :name");
+        return  query.toString();
+    }
+
     public List<Configuration> findAll(){
-        final Query query = entityManager.createQuery("SELECT * FROM Configuration c");
+        final Query query = entityManager.createQuery("SELECT c FROM Configuration c");
 
         return query.getResultList();
     }
