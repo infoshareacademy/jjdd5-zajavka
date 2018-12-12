@@ -37,6 +37,7 @@ public class SerwletT2 extends HttpServlet {
 
         try {
             List<String> names = readFilesToBase.GetFileNames();
+            model.put("Currency", names);
             readFilesToBase.ReadFilesAndSaveInBase(names);
         } catch (ListDirectoryException e) {
             e.printStackTrace();

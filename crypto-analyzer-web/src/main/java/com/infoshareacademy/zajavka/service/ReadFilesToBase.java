@@ -32,7 +32,7 @@ public class ReadFilesToBase {
     private static final String SEPARATOR = ",";
     private static final int INDEX_DATE = 0;
     private static final int INDEX_PRICE_USD = 5;
-    public static final String UPLOAD_PATH = System.getProperty("java.io.tmpdir") + "/zajavka-data";
+    private static final int DAILY_DATA_LENGTH = 16;
     private static final Logger LOG = LoggerFactory.getLogger(ReadFilesToBase.class);
 
     @Inject
@@ -63,7 +63,6 @@ public class ReadFilesToBase {
     }
 
     public void ReadFilesAndSaveInBase (List<String> names){
-        List<Currency> currencyDataList = new ArrayList<>();
         for (String actFileNameWithExt : names) {
             Path filePathWithName = Paths.get(EXTRACTED_DATA_PATH, actFileNameWithExt);
             try {
@@ -81,7 +80,7 @@ public class ReadFilesToBase {
     }
 
     private List<String> readAllLinesFile(final Path path) throws ReadFileException {
-        List<String> file = null;
+        List<String> file;
         try {
             file = Files.readAllLines(path);
         } catch (IOException e) {
@@ -96,24 +95,21 @@ public class ReadFilesToBase {
 
         Currency currency = new Currency(actFileNameWithExt);
         currencyDao.save(currency);
-        int i = 0;
-        for (String line : dalyDataListForFile) {
-            if (i > 0) {
-                String[] parseDay = line.split(SEPARATOR);
+        for (int i=1; i < dalyDataListForFile.size(); i++) {
+                String[] parseDay = dalyDataListForFile.get(i).split(SEPARATOR);
 
-                try {
-                    DailyData dailyData = new DailyData();
-                    dailyData.setCurrency(currency);
-                    dailyData.setDate(LocalDate.parse(parseDay[INDEX_DATE]));
-                    dailyData.setPriceUSD(new BigDecimal(parseDay[INDEX_PRICE_USD]));
+                if (parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING)) {
+                    try {
+                        DailyData dailyData = new DailyData();
+                        dailyData.setCurrency(currency);
+                        dailyData.setDate(LocalDate.parse(parseDay[INDEX_DATE]));
+                        dailyData.setPriceUSD(new BigDecimal(parseDay[INDEX_PRICE_USD]));
 
-                    dailyDataDao.save(dailyData);
-                } catch (Exception e) {
-                    LOG.error("Cannot save daILY DATA: {}", e.getMessage());
+                        dailyDataDao.save(dailyData);
+                    } catch (Exception e) {
+                        LOG.error("Cannot save dailyData: {}", e.getMessage());
+                    }
                 }
-            }
-
-            i++;
         }
 
     }
