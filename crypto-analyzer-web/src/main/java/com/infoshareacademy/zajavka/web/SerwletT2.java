@@ -1,5 +1,7 @@
 package com.infoshareacademy.zajavka.web;
 
+import com.infoshareacademy.zajavka.dao.DailyDataDao;
+import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +33,9 @@ public class SerwletT2 extends HttpServlet {
     @Inject
     private ReadFilesToBase readFilesToBase;
 
+    @Inject
+    private DailyDataDao dailyDataDao;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -42,6 +48,10 @@ public class SerwletT2 extends HttpServlet {
         } catch (ListDirectoryException e) {
             e.printStackTrace();
         }
+
+
+        model.put("Daily", dailyDataDao.findDailyDataForDate(LocalDate.parse("2017-12-21")).get(0).toString());
+
 
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);

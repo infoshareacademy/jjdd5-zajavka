@@ -15,6 +15,14 @@
                         </#list>
                     </ul>
                     </#if>
+                    <#if Daily??>
+                        <ul>
+                            <li>Daily : </li>
+
+                                <li class="list-group-item list-group-item-success">${Daily}</li>
+
+                        </ul>
+                    </#if>
                 </b>
             </p>
 

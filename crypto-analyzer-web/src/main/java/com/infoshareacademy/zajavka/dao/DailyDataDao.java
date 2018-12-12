@@ -33,4 +33,12 @@ public class DailyDataDao {
 
         return query.getResultList();
     }
+
+    public List<DailyData> findDailyDataForDate(LocalDate date){//, String currencyName) {
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE s.date = :date"); //  AND s.currency = :currencyName");
+        query.setParameter("date", date);
+//        query.setParameter("currencyName", currencyName);
+        return query.getResultList();
+    }
 }
