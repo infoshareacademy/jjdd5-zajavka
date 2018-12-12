@@ -1,10 +1,13 @@
 package com.infoshareacademy.zajavka.web;
 
+import com.infoshareacademy.zajavka.dao.ConfigurationDao;
+import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +25,18 @@ public class TestServlet extends HttpServlet {
 
     @Inject
     private TemplateProvider templateProvider;
+
+    @Inject
+    private ConfigurationDao configurationDao;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+
+        Configuration c1 = new Configuration("dataFormat", "dd-MM-yyyy");
+        Configuration c2 = new Configuration( "afterSign", "3");
+
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
