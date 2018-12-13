@@ -65,4 +65,14 @@ public class DailyData {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
+
+    @Override
+    public String toString() {
+        return "DailyData{" +
+                "id=" + id +
+                ", date=" + date +
+                ", priceUSD=" + priceUSD +
+                ", currency=" + currency.getName() +
+                '}';
+    }
 }

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "CURRENCY_NAME")
+@Table(name = "CURRENCY_NAMES")
 public class CurrencyName {
 
     @Id

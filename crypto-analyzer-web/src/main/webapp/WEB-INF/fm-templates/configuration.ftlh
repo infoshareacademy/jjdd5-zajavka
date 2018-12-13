@@ -1,5 +1,7 @@
-<html>
-<body>
+<#include "header.ftlh"/>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+
 <h1>Edit configuration</h1>
 <div>
 Actual fomrat date: ${dateFormat}<br>
@@ -33,5 +35,6 @@ Amount number after sign:  ${afterSign}<br>
     <input type="radio" name="value" value="6"> 6<br>
     <input type="submit">
 </form>
-</body>
-</html>
+
+        </main>
+<#include "footer.ftlh"/>

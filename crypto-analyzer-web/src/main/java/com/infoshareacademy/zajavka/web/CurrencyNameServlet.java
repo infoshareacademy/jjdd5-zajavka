@@ -1,7 +1,6 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
-import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -16,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/currency-name")
 @Transactional
@@ -37,27 +37,36 @@ public class CurrencyNameServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+        Map<String, Object> model = new HashMap<>();
+
+        Map<String,String> currencyList = currencyNameDao.findAllMap();
+
+        model.put("currencyList", currencyList.entrySet());
+
+
+        /*
         final List<CurrencyName> result = currencyNameDao.findAll();
         LOG.info("Found {} objects", result.size());
         for (CurrencyName c : result) {
-            resp.getWriter().write(c.toString() + "\n");
+            resp.getWriter().write(c.toString() + "\n");*/
 
 
        /*
-        Map<String, Object> nameCurrency = new HashMap<>();
-        currencyNameDao.findAll().stream().forEach();
-
-
         config.put("dateFormat", configurationDao.findValue("dateFormat"));
-        config.put("afterSign", configurationDao.findValue("afterSign"));
+        config.put("afterSign", configurationDao.findValue("afterSign"));*/
 
         try {
-            template.process(config, resp.getWriter());
+            template.process(model, resp.getWriter());
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e.getMessage());
             e.printStackTrace();
-        }*/
+        }
 
         }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 }
+

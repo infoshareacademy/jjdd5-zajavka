@@ -1,10 +1,15 @@
-<html>
-<body>
-<h1>Edit configuration</h1>
-<div>
-    Actual fomrat date: ${dateFormat}<br>
-    Amount number after sign:  ${afterSign}<br>
-
-</div>
-</body>
-</html>
+<#include "header.ftlh"/>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h1>currencyList</h1>
+            <div method="post">
+                <ul>
+    <#list currencyList as oneCurrency>
+        <li>
+            ${oneCurrency.key} - ${oneCurrency.value}
+            <button type="button" action="edit" name="/editCurrencyName" value="${oneCurrency.key}">Edit</button>
+        </li>
+    </#list>
+                </ul>
+            </div>
+        </main>
+<#include "footer.ftlh"/>

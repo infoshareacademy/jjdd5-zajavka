@@ -11,9 +11,17 @@
                     <ul>
                         <li>Loading currencies : </li>
                         <#list Currency as oneCurrency>
-                            <li class="list-group-item list-group-item-success">${oneCurrency.name}</li>
+                            <li class="list-group-item list-group-item-success">${oneCurrency}</li>
                         </#list>
                     </ul>
+                    </#if>
+                    <#if Daily??>
+                        <ul>
+                            <li>Daily : </li>
+
+                                <li class="list-group-item list-group-item-success">${Daily}</li>
+
+                        </ul>
                     </#if>
                 </b>
             </p>

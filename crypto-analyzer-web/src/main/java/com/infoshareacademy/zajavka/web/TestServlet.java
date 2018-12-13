@@ -40,7 +40,7 @@ public class TestServlet extends HttpServlet {
         super.init(config);
 
         Configuration c1 = new Configuration("dateFormat", "dd-MM-yyyy");
-        Configuration c2 = new Configuration( "afterSign", "3");
+        Configuration c2 = new Configuration( "afterSign", "1");
         configurationDao.save(c1);
         configurationDao.save(c2);
 

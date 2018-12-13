@@ -77,6 +77,18 @@
                             Local extremes
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/crypto-analyzer-web-1.0-SNAPSHOT/configuration">
+                            <span data-feather="minimize-2"></span>
+                            Configuration
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/crypto-analyzer-web-1.0-SNAPSHOT/currency-name">
+                            <span data-feather="minimize-2"></span>
+                            Currency name
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

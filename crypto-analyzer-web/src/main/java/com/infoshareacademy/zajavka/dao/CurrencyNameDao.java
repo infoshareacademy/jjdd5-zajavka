@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Stateless
 public class CurrencyNameDao {
@@ -38,4 +40,12 @@ public class CurrencyNameDao {
 
         return query.getResultList();
     }
+    public Map<String ,String> findAllMap() {
+        final Query query = entityManager.createQuery("SELECT s FROM CurrencyName s");
+        List<CurrencyName> currency = query.getResultList();
+       return currency.stream().collect(Collectors.toMap(CurrencyName :: getNameFile, CurrencyName::getNameCurrency));
+
+    }
+
+
 }
