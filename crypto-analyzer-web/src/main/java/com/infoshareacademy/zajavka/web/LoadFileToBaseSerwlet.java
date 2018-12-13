@@ -47,7 +47,6 @@ public class LoadFileToBaseSerwlet extends HttpServlet {
             model.put("Currency", names);
             readFilesToBase.readFilesAndSaveInBase(names);
         } catch (ListDirectoryException e) {
-            e.printStackTrace();
             LOG.error("Error readFilesToBase.getFileNames(): " + e);
         }
 
@@ -58,7 +57,6 @@ public class LoadFileToBaseSerwlet extends HttpServlet {
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
-            e.printStackTrace();
             LOG.error("template.process(model, resp.getWriter()): " + e);
         }
     }
