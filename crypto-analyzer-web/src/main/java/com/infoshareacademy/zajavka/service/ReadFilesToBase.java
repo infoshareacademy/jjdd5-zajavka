@@ -40,7 +40,7 @@ public class ReadFilesToBase {
     @Inject
     private DailyDataDao dailyDataDao;
 
-    public List GetFileNames() throws ListDirectoryException {
+    public List getFileNames() throws ListDirectoryException {
         List<String> fileList = new ArrayList<>();
 
         LOG.info("Scanning directory");
@@ -61,7 +61,7 @@ public class ReadFilesToBase {
         return fileList;
     }
 
-    public void ReadFilesAndSaveInBase (List<String> names){
+    public void readFilesAndSaveInBase(List<String> names){
         for (String actFileNameWithExt : names) {
             Path filePathWithName = Paths.get(EXTRACTED_DATA_PATH, actFileNameWithExt);
             try {
