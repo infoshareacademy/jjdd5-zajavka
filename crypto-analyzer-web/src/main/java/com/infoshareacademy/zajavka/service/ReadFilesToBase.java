@@ -66,7 +66,7 @@ public class ReadFilesToBase {
             Path filePathWithName = Paths.get(EXTRACTED_DATA_PATH, actFileNameWithExt);
             try {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
-                if (dalyDataListForFile.size() > 1) {
+                if (dalyDataListForFile != null && dalyDataListForFile.size() > 1) {
                     saveToBase(actFileNameWithExt, dalyDataListForFile );
                     LOG.info("File is read: " + actFileNameWithExt);
                 } else {

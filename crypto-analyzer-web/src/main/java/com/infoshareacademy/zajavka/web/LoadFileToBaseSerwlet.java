@@ -50,7 +50,6 @@ public class LoadFileToBaseSerwlet extends HttpServlet {
             LOG.error("Error readFilesToBase.getFileNames(): " + e);
         }
 
-        model.put("Daily", dailyDataDao.findDailyDataForDate(LocalDate.parse("2017-12-21")).get(0).toString());
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 

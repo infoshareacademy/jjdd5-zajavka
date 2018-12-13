@@ -36,13 +36,13 @@
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" href="test2">
                             <span data-feather="download"></span>
                             Load files <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="chose">
                             <span data-feather="check-square"></span>
                             Chose curreny
                         </a>

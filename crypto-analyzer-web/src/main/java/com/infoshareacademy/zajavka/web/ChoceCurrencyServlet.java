@@ -31,10 +31,39 @@ public class ChoceCurrencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
+
+        HttpSession session = req.getSession();
+
+        showSide(session,templateProvider, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession();
+        String currency = req.getParameter("currency");
+        if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))){
+            session.setAttribute("currency", currency);
+        }
+
+        showSide(session,templateProvider, resp);
+
+    }
+    private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp) throws IOException {
+        String chosenCurrency;
+        String currency = (String) session.getAttribute("currency");
+        if (currency == null || currency.isEmpty()){
+            chosenCurrency="No chosen currency";
+        } else {
+            chosenCurrency="Actual currency: " + currency;
+        }
+
+
         Map<String, Object> model = new HashMap<>();
 
 
         model.put("Names", currencyDao.getNames());
+        model.put("chosenCurrency", chosenCurrency);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
@@ -45,13 +74,4 @@ public class ChoceCurrencyServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String currency = req.getParameter("currency");
-        HttpSession session = req.getSession();
-        session.setAttribute("currency", currency);
-
-        resp.getWriter().println("Wybrales: " + currency);
-    }
 }
