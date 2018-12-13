@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,9 +32,11 @@ public class CurrencyNameDao {
         }
     }
 
-    public CurrencyName findById(Long id) {
-        return entityManager.find(CurrencyName.class, id);
-    }
+ /*   public Map<String ,String> findByName(String name) {
+        String fileName = entityManager.find(CurrencyName.class, name).getNameFile();
+        String currencyName = entityManager.find(CurrencyName.class, name).getNameCurrency();
+        return  fileName & currencyName;
+    }*/
 
     public List<CurrencyName> findAll() {
         final Query query = entityManager.createQuery("SELECT s FROM CurrencyName s");
@@ -46,6 +49,14 @@ public class CurrencyNameDao {
        return currency.stream().collect(Collectors.toMap(CurrencyName :: getNameFile, CurrencyName::getNameCurrency));
 
     }
+
+    public String findValue(String name) {
+        final Query query = entityManager.createQuery("SELECT c.value FROM Configuration c WHERE c.name = :name");
+        query.setParameter("name", name);
+        return  query.getResultList().toString();
+    }
+
+
 
 
 }

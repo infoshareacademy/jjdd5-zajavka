@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = "/editCurrencyName")
 @Transactional
@@ -35,6 +37,9 @@ public class EditCurrencyNameServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         String param = req.getParameter("edit");
+
+        Map<String, Object> config = new HashMap<>();
+        config.put("dateFormat", currencyNameDao.findValue("dateFormat"));
 
     }
 }
