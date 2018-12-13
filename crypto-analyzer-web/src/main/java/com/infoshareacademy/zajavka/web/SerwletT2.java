@@ -42,9 +42,9 @@ public class SerwletT2 extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
 
         try {
-            List<String> names = readFilesToBase.GetFileNames();
+            List<String> names = readFilesToBase.getFileNames();
             model.put("Currency", names);
-            readFilesToBase.ReadFilesAndSaveInBase(names);
+            readFilesToBase.readFilesAndSaveInBase(names);
         } catch (ListDirectoryException e) {
             e.printStackTrace();
         }
