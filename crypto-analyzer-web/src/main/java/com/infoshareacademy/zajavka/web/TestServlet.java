@@ -33,7 +33,7 @@ public class TestServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
-        Configuration c1 = new Configuration("dataFormat", "dd-MM-yyyy");
+        Configuration c1 = new Configuration("dateFormat", "dd-MM-yyyy");
         Configuration c2 = new Configuration( "afterSign", "3");
         configurationDao.save(c1);
         configurationDao.save(c2);
