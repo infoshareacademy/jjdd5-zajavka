@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet("/test2")
-public class SerwletT2 extends HttpServlet {
+public class LoadFileToBaseSerwlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(DataUploadServlet.class);
 
