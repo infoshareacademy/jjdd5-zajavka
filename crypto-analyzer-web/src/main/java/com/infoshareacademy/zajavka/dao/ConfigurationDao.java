@@ -36,7 +36,8 @@ public class ConfigurationDao {
 
     public String findValue(String name) {
         final Query query = entityManager.createQuery("SELECT c.value FROM Configuration c WHERE c.name = :name");
-        return  query.toString();
+        query.setParameter("name", name);
+        return  query.getResultList().toString();
     }
 
     public List<Configuration> findAll(){

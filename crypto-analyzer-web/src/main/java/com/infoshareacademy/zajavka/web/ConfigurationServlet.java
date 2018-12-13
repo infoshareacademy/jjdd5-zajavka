@@ -3,6 +3,7 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import freemarker.core.ReturnInstruction;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -17,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "/configuration")
@@ -39,14 +39,8 @@ public class ConfigurationServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        /*final List<Configuration> result = configurationDao.findAll();
-        LOG.info("Found {} objects", result.size());
-        for (Configuration c : result) {
-            resp.getWriter().write(c.toString() + "\n");
-        }*/
-
         Map<String, Object> config = new HashMap<>();
-        config.put("dateFormat", configurationDao.findValue("dataFormat"));
+        config.put("dateFormat", configurationDao.findValue("dateFormat"));
         config.put("afterSign", configurationDao.findValue("afterSign"));
 
         try {
@@ -55,6 +49,48 @@ public class ConfigurationServlet extends HttpServlet {
             LOG.error("Error while processing the template: " + e.getMessage());
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        final String nameConfig = req.getParameter("nameConfig");
+        final String sign = req.getParameter("afterSign");
+
+        final String action = req.getParameter("action");
+        LOG.info("Requested action: {}", action);
+        if (action == null || action.isEmpty()) {
+            resp.getWriter().write("Empty action parameter.");
+            return;
+        }
+        if (action.equals("update")) {
+            update(req, resp);
+        }
+
+        resp.sendRedirect("configuration");
+        //doGet(req, resp);
+    }
+
+    private void update(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        final String nameConfiguration = req.getParameter("nameConfig");
+        LOG.info("Updating configuration with name = {}", nameConfiguration);
+
+        final Configuration existingConfiguration = configurationDao.findById(nameConfiguration);
+        if (existingConfiguration == null) {
+            LOG.info("No configuration found for name = {}, nothing to be updated", nameConfiguration);
+        } else {
+            existingConfiguration.setValue(req.getParameter("value"));
+
+            configurationDao.update(existingConfiguration);
+
+            LOG.info("Configuration updated: {}", existingConfiguration);
+        }
+
+        // Return all persisted objects
+       // findAll(req, resp);
 
     }
 }
