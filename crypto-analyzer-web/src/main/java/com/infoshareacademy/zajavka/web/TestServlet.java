@@ -1,7 +1,9 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
+import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
 import com.infoshareacademy.zajavka.data.Configuration;
+import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +32,9 @@ public class TestServlet extends HttpServlet {
     @Inject
     private ConfigurationDao configurationDao;
 
+    @Inject
+    private CurrencyNameDao currencyNameDao;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -38,6 +44,12 @@ public class TestServlet extends HttpServlet {
         configurationDao.save(c1);
         configurationDao.save(c2);
 
+        CurrencyName n1 = new CurrencyName("btc", "Bitcoin");
+        CurrencyName n2 = new CurrencyName("afdgh", "Ala");
+        CurrencyName n3 = new CurrencyName("jtfc", "Kota");
+        currencyNameDao.save(n1);
+        currencyNameDao.save(n2);
+        currencyNameDao.save(n3);
     }
 
     @Override
