@@ -44,11 +44,4 @@ public class Configuration {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "Configuration{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                '}';
-    }
 }

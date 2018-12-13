@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,24 +38,85 @@ public class ConfigurationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        /*final List<Configuration> result = configurationDao.findAll();
-        LOG.info("Found {} objects", result.size());
-        for (Configuration c : result) {
-            resp.getWriter().write(c.toString() + "\n");
-        }*/
-
-        Map<String, Object> config = new HashMap<>();
-        config.put("dateFormat", configurationDao.findValue("dataFormat"));
-        config.put("afterSign", configurationDao.findValue("afterSign"));
+ /*       Map<String, Object> model = new HashMap<>();
+        model.put("date", LocalDateTime.now());
+        model.put("grup", "jjdd5-zajavka");
+        model.put("student", "Bartosz Wisniewski");
 
         try {
-            template.process(config, resp.getWriter());
+            template.process(model, resp.getWriter());
         } catch (TemplateException e) {
-            LOG.error("Error while processing the template: " + e.getMessage());
             e.printStackTrace();
+        }*/
+        Map<String, Object> model = new HashMap<>();
+
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+        try {
+            template.process(model, resp.getWriter());
+        } catch (TemplateException e) {
+            LOG.error("Error while processing the template: " + e);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        final String action = req.getParameter("action");
+        LOG.info("Requested action: {}", action);
+        if (action == null || action.isEmpty()) {
+            resp.getWriter().write("Empty action parameter.");
+            return;
+        }
+        if (action.equals("update")) {
+            update(req, resp);
+        } else {
+            resp.getWriter().write("Unknown action.");
         }
 
+
+     /*   Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+            final String name = req.getParameter("name");
+            LOG.info("Updating Computer with id = {}", name);
+
+            final Configuration existingConfiguration = configurationDao.findByName(name);
+            if (existingConfiguration == null) {
+                LOG.info("No Computer found for id = {}, nothing to be updated", name);
+            } else {
+                existingConfiguration.setName(req.getParameter("name"));
+                existingConfiguration.setValue(req.getParameter("value"));
+
+                configurationDao.update(existingConfiguration);
+                LOG.info("Computer object updated: {}", existingConfiguration);
+            }
+*/
+            // Return all persisted objects
+            //findAll(req, resp);
+        }
+
+    private void update(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+        final String name = req.getParameter("name");
+        LOG.info("Updating Computer with id = {}", name);
+
+        final Configuration existingConfiguration = configurationDao.findByName(name);
+        if (existingConfiguration == null) {
+            LOG.info("No Computer found for id = {}, nothing to be updated", name);
+        } else {
+            existingConfiguration.setName(req.getParameter("name"));
+            existingConfiguration.setValue(req.getParameter("value"));
+
+            configurationDao.update(existingConfiguration);
+            LOG.info("Computer object updated: {}", existingConfiguration);
+        }
+
+        // Return all persisted objects
+        //findAll(req, resp);
     }
-}
+    }
+
