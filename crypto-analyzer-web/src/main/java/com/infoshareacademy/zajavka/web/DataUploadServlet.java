@@ -51,16 +51,7 @@ public class DataUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-
-        Map<String, Object> model = new HashMap<>();
-
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
-
-        try {
-            template.process(model, resp.getWriter());
-        } catch (TemplateException e) {
-            LOG.error("Error while processing the template: " + e);
-        }
+        doGet(req, resp);
 
         String uploadedFile = uploadService.readFileFromRequest(req);
         if (uploadedFile == null) {
