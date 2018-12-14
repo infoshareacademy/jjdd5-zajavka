@@ -1,12 +1,12 @@
 package com.infoshareacademy.zajavka.dao;
 
+import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.CurrencyName;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,12 +21,12 @@ public class CurrencyNameDao {
         entityManager.persist(s);
         return s.getNameFile();
     }
-    public CurrencyName update(CurrencyName s) {
+    public Currency update(Currency s) {
         return entityManager.merge(s);
     }
 
-    public void delete(Long id) {
-        final CurrencyName s = entityManager.find(CurrencyName.class, id);
+    public void delete(String nameFile) {
+        final CurrencyName s = entityManager.find(CurrencyName.class, nameFile);
         if (s != null) {
             entityManager.remove(s);
         }
@@ -37,6 +37,10 @@ public class CurrencyNameDao {
         String currencyName = entityManager.find(CurrencyName.class, name).getNameCurrency();
         return  fileName & currencyName;
     }*/
+
+    public Currency findById(String name) {
+        return entityManager.find(Currency.class, name);
+    }
 
     public List<CurrencyName> findAll() {
         final Query query = entityManager.createQuery("SELECT s FROM CurrencyName s");

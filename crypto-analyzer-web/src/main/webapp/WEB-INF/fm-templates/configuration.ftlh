@@ -21,7 +21,6 @@ Amount number after sign:  ${afterSign}<br>
     <input type="radio" name="value" value="dd:MM:yy"> dd:MM:yy<br>
     <input type="radio" name="value" value="yy:MM:dd"> yy:MM:dd<br>
     <input type="radio" name="value" value="yyyy:MM:dd"> yyyy:MM:dd<br><br>
-
     <input type="submit">
 </form>
 <form action="configuration" method="post">
@@ -32,7 +31,7 @@ Amount number after sign:  ${afterSign}<br>
     <input type="radio" name="value" value="3"> 3<br>
     <input type="radio" name="value" value="4"> 4<br>
     <input type="radio" name="value" value="5"> 5<br>
-    <input type="radio" name="value" value="6"> 6<br>
+    <input type="radio" name="value" value="6"> 6<br><br>
     <input type="submit">
 </form>
 

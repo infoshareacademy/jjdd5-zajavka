@@ -1,6 +1,7 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
+import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import org.slf4j.Logger;
@@ -31,15 +32,42 @@ public class EditCurrencyNameServlet extends HttpServlet {
     @Inject
     private CurrencyNameDao currencyNameDao;
 
-    @Override
+  /*  @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+        *//*Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        String param = req.getParameter("edit");
+        String param1 = req.getParameter("fileName");
+        String param2 = req.getParameter("currencyName");
 
         Map<String, Object> config = new HashMap<>();
-        config.put("dateFormat", currencyNameDao.findValue("dateFormat"));
+        config.put("dateFormat", currencyNameDao.findValue("dateFormat"));*//*
+
+    }
+*/
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+/*
+
+        String param2 = req.getParameter("value");
+*/
+        String namefile = req.getParameter("key");
+        LOG.info("Updating currency name with name = {}", namefile);
+
+        final Currency existingCurrency = currencyNameDao.findById(namefile);
+        if (existingCurrency == null) {
+            LOG.info("No currency found for name = {}, nothing to be updated", namefile);
+        } else {
+            existingCurrency.setName(req.getParameter("value"));
+
+            currencyNameDao.update(existingCurrency);
+
+            LOG.info("Configuration updated: {}", existingCurrency);
+        }
+
+       // resp.sendRedirect("currency-name");
 
     }
 }

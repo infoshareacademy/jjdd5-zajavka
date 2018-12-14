@@ -3,7 +3,6 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
-import freemarker.core.ReturnInstruction;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -54,10 +53,6 @@ public class ConfigurationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
-        final String nameConfig = req.getParameter("nameConfig");
-        final String sign = req.getParameter("afterSign");
 
         final String action = req.getParameter("action");
         LOG.info("Requested action: {}", action);
