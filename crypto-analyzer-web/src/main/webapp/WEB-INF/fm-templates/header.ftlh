@@ -48,7 +48,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="current">
                             <span data-feather="dollar-sign"></span>
                             Current value
                         </a>

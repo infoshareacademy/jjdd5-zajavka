@@ -35,7 +35,7 @@ public class DailyDataDao {
         return query.getResultList();
     }
 
-    public List<DailyData> findDailyDataForDate(LocalDate date){
+    public List<DailyData> findDailyDataForDate(LocalDate date) {
         final Query query = entityManager
                 .createQuery("SELECT s FROM DailyData s WHERE s.date = :date");
         query.setParameter("date", date);
@@ -48,5 +48,12 @@ public class DailyDataDao {
         query.setParameter("date", date);
         query.setParameter("currency", currencyName);
         return query.getResultList();
+    }
+
+    public DailyData getMostActualDataForCurrency(String currencyName) {
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :currency ORDER BY s.date DESC");
+        query.setParameter("currency", currencyName);
+        return (DailyData) query.setMaxResults(1).getSingleResult();
     }
 }
