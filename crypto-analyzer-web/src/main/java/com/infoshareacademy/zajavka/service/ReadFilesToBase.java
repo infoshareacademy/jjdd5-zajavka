@@ -93,11 +93,13 @@ public class ReadFilesToBase {
     private void saveToBase(String actFileNameWithExt, List<String> dalyDataListForFile ){
 
         Currency currency = new Currency(actFileNameWithExt);
-        currencyDao.save(currency);
+        if (!currencyDao.getNames().stream().anyMatch(i -> i.equals(currency.getName()))){
+            currencyDao.save(currency);
+        }
         for (int i=1; i < dalyDataListForFile.size(); i++) {
                 String[] parseDay = dalyDataListForFile.get(i).split(SEPARATOR);
 
-                if (parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING)) {
+                if (dataIsCorrect(parseDay) && DataIsNotInDataBase(parseDay,currency)) {
                     try {
                         DailyData dailyData = new DailyData();
                         dailyData.setCurrency(currency);
@@ -110,6 +112,15 @@ public class ReadFilesToBase {
                     }
                 }
         }
+
+    }
+
+    private boolean dataIsCorrect(String[] parseDay){
+        return parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
+    }
+
+    private boolean DataIsNotInDataBase(String[] parseDay,Currency currency){
+        return (dailyDataDao.getDataForCurrencyInDate(currency.getName(),LocalDate.parse(parseDay[INDEX_DATE])).isEmpty());
 
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Stateless
@@ -38,6 +39,14 @@ public class DailyDataDao {
         final Query query = entityManager
                 .createQuery("SELECT s FROM DailyData s WHERE s.date = :date");
         query.setParameter("date", date);
+        return query.getResultList();
+    }
+
+    public List<DailyData> getDataForCurrencyInDate(String currencyName, LocalDate date) {
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE s.date = :date AND s.currency.name = :currency");
+        query.setParameter("date", date);
+        query.setParameter("currency", currencyName);
         return query.getResultList();
     }
 }
