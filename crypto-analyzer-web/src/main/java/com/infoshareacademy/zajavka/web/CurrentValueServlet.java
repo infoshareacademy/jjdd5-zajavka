@@ -1,9 +1,12 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
+import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -19,6 +22,7 @@ import java.util.Map;
 @WebServlet("/current")
 public class CurrentValueServlet extends HttpServlet {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CurrentValueServlet.class);
     private static final String TEMPLATE_NAME = "currentValue";
 
     @Inject
@@ -37,7 +41,7 @@ public class CurrentValueServlet extends HttpServlet {
         if (currency == null || currency.isEmpty()){
             chosenCurrency="No chosen currency";
         } else {
-            model.put("DailyData", dailyDataDao.getMostActualDataForCurrency(currency).toString());
+            model.put("DailyData", dailyDataDao.getMostActualDataForCurrency(currency));
             chosenCurrency="Actual currency: " + currency;
         }
 
@@ -51,7 +55,7 @@ public class CurrentValueServlet extends HttpServlet {
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
-            e.printStackTrace();
+            LOG.error("Error while processing the template: " + e);
         }
 
     }

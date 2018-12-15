@@ -105,7 +105,6 @@ public class ReadFilesToBase {
                         dailyData.setCurrency(currency);
                         dailyData.setDate(LocalDate.parse(parseDay[INDEX_DATE]));
                         dailyData.setPriceUSD(new BigDecimal(parseDay[INDEX_PRICE_USD]));
-
                         dailyDataDao.save(dailyData);
                     } catch (Exception e) {
                         LOG.error("Cannot save dailyData: {}", e.getMessage());

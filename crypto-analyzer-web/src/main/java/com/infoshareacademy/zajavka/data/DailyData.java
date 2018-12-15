@@ -18,7 +18,7 @@ public class DailyData {
     @NotNull
     private LocalDate date;
 
-    @Column(name = "PRICE_USD")
+    @Column(name = "PRICE_USD", precision = 13, scale = 6)
     private BigDecimal priceUSD;
 
     @ManyToOne
@@ -54,9 +54,14 @@ public class DailyData {
         return priceUSD;
     }
 
+    public String getStrPriceUSD() {
+        return priceUSD.toString();
+    }
+
     public void setPriceUSD(BigDecimal priceUSD) {
         this.priceUSD = priceUSD;
     }
+
 
     public Currency getCurrency() {
         return currency;
