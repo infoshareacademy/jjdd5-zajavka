@@ -4,13 +4,13 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="test2">
+                <a class="nav-link" href="test2">
                     <span data-feather="download"></span>
                     Load files <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="chose">
+                <a class="nav-link active" href="chose">
                     <span data-feather="check-square"></span>
                     Chose curreny
                 </a>
@@ -50,22 +50,19 @@
 </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-            <FORM ACTION="http://localhost:8080/crypto-analyzer/load2" METHOD="POST">
-                <button type="submit" class="btn btn-primary btn-lg btn-block" formaction="http://localhost:8080/crypto-analyzer/load">Load File</button>
-            </FORM>
 
-            <p>
-                <b>
-                    <#if Currency??>
-                        <ul>
-                            <li>Loading currencies : </li>
-                        <#list Currency as oneCurrency>
-                            <li class="list-group-item list-group-item-success">${oneCurrency}</li>
-                        </#list>
-                        </ul>
-                    </#if>
-                </b>
-            </p>
+            <div class="p-3 mb-2 bg-info text-white">${chosenCurrency}</div>
 
-        </main>
+<#if Names??>
+    <form method="post">
+        <select name="currency" class="custom-select custom-select-lg mb-3">
+            <option selected>Chose currency</option>
+                <#list Names as oneName>
+                <option value="${oneName}">${oneName}</option>
+                </#list>
+        </select>
+        <button type="submit" class="btn btn-secondary btn-lg">Confirm chose</button>
+    </form>
+
+</#if>
 <#include "footer.ftlh"/>

@@ -5,7 +5,6 @@ import com.infoshareacademy.zajavka.data.Currency;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.time.LocalDate;
 import java.util.List;
 
 public class CurrencyDao {
@@ -30,6 +29,12 @@ public class CurrencyDao {
     public List<Currency> findAll() {
         final Query query = entityManager.createQuery("SELECT s FROM Currency s");
 
+        return query.getResultList();
+    }
+
+    public List<String> getNames(){
+        final Query query = entityManager
+                .createQuery("SELECT s.name FROM Currency s");
         return query.getResultList();
     }
 }

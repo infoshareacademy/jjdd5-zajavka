@@ -1,6 +1,7 @@
 package com.infoshareacademy.zajavka.service;
 
 
+import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.Currency;
@@ -18,8 +19,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -40,6 +41,9 @@ public class ReadFilesToBase {
 
     @Inject
     private DailyDataDao dailyDataDao;
+
+    @Inject
+    private ConfigurationDao configurationDao;
 
     public List getFileNames() throws ListDirectoryException {
         List<String> fileList = new ArrayList<>();
@@ -67,7 +71,7 @@ public class ReadFilesToBase {
             Path filePathWithName = Paths.get(EXTRACTED_DATA_PATH, actFileNameWithExt);
             try {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
-                if (dalyDataListForFile.size() > 1) {
+                if (dalyDataListForFile != null && dalyDataListForFile.size() > 1) {
                     saveToBase(actFileNameWithExt, dalyDataListForFile );
                     LOG.info("File is read: " + actFileNameWithExt);
                 } else {
@@ -94,17 +98,18 @@ public class ReadFilesToBase {
     private void saveToBase(String actFileNameWithExt, List<String> dalyDataListForFile ){
 
         Currency currency = new Currency(actFileNameWithExt);
-        currencyDao.save(currency);
+        if (!currencyDao.getNames().stream().anyMatch(i -> i.equals(currency.getName()))){
+            currencyDao.save(currency);
+        }
         for (int i=1; i < dalyDataListForFile.size(); i++) {
                 String[] parseDay = dalyDataListForFile.get(i).split(SEPARATOR);
 
-                if (parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING)) {
+                if (dataIsCorrect(parseDay) && DataIsNotInDataBase(parseDay,currency)) {
                     try {
                         DailyData dailyData = new DailyData();
                         dailyData.setCurrency(currency);
-                        dailyData.setDate(LocalDate.parse(parseDay[INDEX_DATE]));
+                        dailyData.setDate(LocalDate.parse(parseDay[INDEX_DATE])) ;
                         dailyData.setPriceUSD(new BigDecimal(parseDay[INDEX_PRICE_USD]));
-
                         dailyDataDao.save(dailyData);
                     } catch (Exception e) {
                         LOG.error("Cannot save dailyData: {}", e.getMessage());
@@ -112,5 +117,24 @@ public class ReadFilesToBase {
                 }
         }
 
+    }
+
+    private boolean dataIsCorrect(String[] parseDay){
+        return parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
+    }
+
+    private boolean DataIsNotInDataBase(String[] parseDay,Currency currency){
+        return (dailyDataDao.getDataForCurrencyInDate(currency.getName(),LocalDate.parse(parseDay[INDEX_DATE])).isEmpty());
+
+    }
+
+    private DateTimeFormatter dateFormatter(){
+        String formatter = configurationDao.findValue("dateFormat");
+        return DateTimeFormatter.ofPattern(formatter);
+    }
+
+    private Integer numberAfterSign() {
+        String afterSignNumber = configurationDao.findValue("afterSign");
+        return Integer.valueOf(afterSignNumber);
     }
 }
