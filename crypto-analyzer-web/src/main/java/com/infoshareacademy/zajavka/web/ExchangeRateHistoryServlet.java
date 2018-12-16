@@ -2,6 +2,8 @@ package com.infoshareacademy.zajavka.web;
 
 
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
+import com.infoshareacademy.zajavka.data.Currency;
+import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -16,8 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet("/rateHistory")
 public class ExchangeRateHistoryServlet extends HttpServlet {
@@ -43,6 +50,8 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
         } else {
             model.put("DailyDatas", dailyDataDao.getAllDailyDatasForCurrency(currency));
             chosenCurrency="Actual currency: " + currency;
+            LOG.error(dailyDataDao.getDataChartForCurrency(currency).toString());
+            model.put("ChartData", dailyDataDao.getDataChartForCurrency(currency));
         }
 
         model.put("chosenCurrency", chosenCurrency);
@@ -56,5 +65,6 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
         }
 
     }
+
 }
 
