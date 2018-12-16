@@ -56,4 +56,11 @@ public class DailyDataDao {
         query.setParameter("currency", currencyName);
         return (DailyData) query.setMaxResults(1).getSingleResult();
     }
+
+    public List<DailyData> getAllDailyDatasForCurrency(String currencyName) {
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :currency ORDER BY s.date DESC");
+        query.setParameter("currency", currencyName);
+        return query.setMaxResults(100).getResultList();
+    }
 }

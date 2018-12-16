@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="rateHistory">
                     <span data-feather="trending-up"></span>
                     Exchange rate history
                 </a>

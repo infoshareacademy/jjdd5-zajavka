@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="rateHistory">
+                <a class="nav-link active" href="rateHistory">
                     <span data-feather="trending-up"></span>
                     Exchange rate history
                 </a>
@@ -48,12 +48,31 @@
         </ul>
     </div>
 </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-<form method="post" enctype="multipart/form-data">
-    Choose a file: <input type="file" name="multiPartServlet"/>
-    <input type="submit" value="Upload"/>
-</form>
 
-        </main>
+    <div class="p-3 mb-2 bg-info text-white">${chosenCurrency}</div>
+
+<#if DailyDatas??>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Data</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <#list DailyDatas as DailyData>
+        <tr>
+            <td>${DailyData.date}</td>
+            <td >
+            ${DailyData.strPriceUSD}
+            </td>
+        </tr>
+        </#list>
+        </tbody>
+    </table>
+
+</#if>
+
 <#include "footer.ftlh"/>
