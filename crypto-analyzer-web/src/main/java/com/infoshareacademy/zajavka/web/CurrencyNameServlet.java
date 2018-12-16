@@ -1,7 +1,9 @@
 package com.infoshareacademy.zajavka.web;
 
+import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.ConfigurationService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -32,6 +34,9 @@ public class CurrencyNameServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
+    @Inject
+    private ConfigurationDao configurationDao;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -43,13 +48,16 @@ public class CurrencyNameServlet extends HttpServlet {
 
         model.put("currencyList", currencyList.entrySet());
 
-
+//        model.put("aaa", configurationService.);
         /*
         final List<CurrencyName> result = currencyNameDao.findAll();
         LOG.info("Found {} objects", result.size());
         for (CurrencyName c : result) {
             resp.getWriter().write(c.toString() + "\n");*/
 
+        String aa = configurationDao.findValue("dateFormat");
+
+        model.put("ada", aa);
 
        /*
         config.put("dateFormat", configurationDao.findValue("dateFormat"));

@@ -18,6 +18,12 @@
                         <input type="submit" value="Add">
                     </form>
 
+                    <input type="button" name="edit" >
+
+                    <input type="text" value="${ada}" name="key"/>
+                    <input type="text" value="${aa}" name="value"/>
+
+
                 </ul>
             </div>
         </main>
