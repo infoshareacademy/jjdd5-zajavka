@@ -6,10 +6,11 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Zajavka-crypto_analyzer</title>
+    <title>CryptoAnalyzer by zaJavkar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style>
         body{
+            font-family: Helvetica DejaVu Sans Light;
             background-image: url("bg-upload.jpg");
             background-position: center;
             background-repeat: no-repeat;
@@ -32,20 +33,14 @@
         }
 
         h3{
+            font-family: opensuns, roboto, monospace;
             color: whitesmoke;
-        }
+                }
     </style>
 
 </head>
 
 <body>
-
-<#--<form method="post" enctype="multipart/form-data">-->
-    <#--Choose a file: <input type="file" name="multiPartServlet"/>-->
-    <#--<input type="submit" value="Upload"/>-->
-<#--</form>-->
-
-
 
 <div class="content">
 
@@ -59,8 +54,7 @@
 
         <div class="send">
         </div>
-        <#--<h3>Choose a zip file:</h3><input type="file" name ="multiPartServlet"/>-->
-    <#--<input type="submit" value="Upload"/>-->
+
     </form>
     </div>
 </body>
