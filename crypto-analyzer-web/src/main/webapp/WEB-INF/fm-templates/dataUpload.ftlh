@@ -1,4 +1,8 @@
+
 <html>
+
+<#include "header.ftlh"/>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
 <head>
     <meta charset="UTF-8" />
@@ -10,16 +14,13 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-
-
         }
 
         .content {
             width: 100%;
             height: 50%;
             padding: 20%;
-            border: 2px solid cadetblue;
-
+            border: 1px;
         }
         .custom-file{
             width: 300px;
@@ -38,6 +39,11 @@
 </head>
 
 <body>
+
+<#--<form method="post" enctype="multipart/form-data">-->
+    <#--Choose a file: <input type="file" name="multiPartServlet"/>-->
+    <#--<input type="submit" value="Upload"/>-->
+<#--</form>-->
 
 
 
@@ -58,4 +64,7 @@
     </form>
     </div>
 </body>
+        </main>
+<#include "footer.ftlh"/>
+
 </html>

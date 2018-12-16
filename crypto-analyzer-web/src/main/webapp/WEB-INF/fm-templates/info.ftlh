@@ -1,5 +1,8 @@
 <html lang="pl-PL">
 
+<#include "header.ftlh"/>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
 <head>
        <meta charset="UTF-8" />
     <title>Zajavka-crypto_analyzer</title>
@@ -43,4 +46,7 @@
 </div>
 
 <body>
+
+<#--</main>-->
+<#--<#include "footer.ftlh"/>-->
 </html>

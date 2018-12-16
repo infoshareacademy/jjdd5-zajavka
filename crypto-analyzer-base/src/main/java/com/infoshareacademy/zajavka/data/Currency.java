@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
-import static com.infoshareacademy.zajavka.configuration.ReadConfiguration.loadProperties;
 
 public class Currency {
 
@@ -31,16 +30,21 @@ public class Currency {
     private static final int INDEX_BLOCK_SIZE = 14;
     private static final int INDEX_BLOCK_COUNT = 15;
     private static final int DAILY_DATA_LENGTH = 16;
-
-    Configuration configuration = loadProperties();
-
+    private static final int DEFAULT_NUMBER_PRECISION=2;
+    private int precision;
     private String name;
     private List<DailyData> dailyDataList = new ArrayList<>();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Currency.class);
 
-    public Currency(String name, List<String> dailyDataList) {
+    public Currency(String name, List<String> dailyDataList, Configuration configuration) {
         this.name = name;
+
+        this.precision = DEFAULT_NUMBER_PRECISION;
+        if (configuration != null) {
+            this.precision = configuration.getAmountNumberAfterSign();
+        }
+
         for (int j = 1; j < dailyDataList.size(); j++) {
             addDailyData(dailyDataList.get(j).split(SEPARATOR));
         }
@@ -145,7 +149,7 @@ public class Currency {
                 .filter(s -> s.getDate().equals(date))
                 .findFirst()
                 .get().getPriceUSD()
-                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN)
+                .setScale(this.precision, BigDecimal.ROUND_HALF_DOWN)
                 .stripTrailingZeros();
     }
 
@@ -154,7 +158,7 @@ public class Currency {
                 .filter(s -> s.getPriceUSD() != null)
                 .max(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD()
-                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
+                .setScale(this.precision, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal minPrice() {
@@ -162,7 +166,7 @@ public class Currency {
                 .filter(s -> s.getPriceUSD() != null)
                 .min(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD()
-                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
+                .setScale(this.precision, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal maxPriceInDateRange(LocalDate startDate, LocalDate endDate) {
@@ -171,7 +175,7 @@ public class Currency {
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
                 .max(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD()
-                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
+                .setScale(this.precision, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal minPriceInDateRange(LocalDate startDate, LocalDate endDate) {
@@ -180,7 +184,7 @@ public class Currency {
                 .filter(s -> endDate.isAfter(s.getDate()) && startDate.isBefore(s.getDate()))
                 .min(Comparator.comparing(DailyData::getPriceUSD))
                 .get().getPriceUSD()
-                .setScale(configuration.getAmountNumberAfterSign(), BigDecimal.ROUND_HALF_DOWN);
+                .setScale(this.precision, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public String getName() {
