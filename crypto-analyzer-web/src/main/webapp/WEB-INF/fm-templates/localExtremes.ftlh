@@ -27,7 +27,7 @@
     <h4 class="my-0 font-weight-normal">Minimum value</h4>
 </div>
     <div class="card-body">
-    <h1 class="card-title pricing-card-title">$${localMin.priceUSD}
+    <h1 class="card-title pricing-card-title">$${localMin.strPriceUSD}
     <small class="text-muted">/ ${localMin.date}</small></h1>
     </div>
     </div>
@@ -36,7 +36,7 @@
     <h4 class="my-0 font-weight-normal">Maximum value</h4>
 </div>
     <div class="card-body">
-    <h1 class="card-title pricing-card-title">$${localMax.priceUSD}
+    <h1 class="card-title pricing-card-title">$${localMax.strPriceUSD}
     <small class="text-muted">/ ${localMax.date}</small></h1>
     </div>
     </div>

@@ -33,6 +33,7 @@ public class SelectedDayServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectedDay";
+    private static final String WRONG_TEMPLATE_NAME = "somethingWrong";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,26 +46,36 @@ public class SelectedDayServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
         PrintWriter out = resp.getWriter();
 
-
-        HttpSession session = req.getSession();
-        String currency = (String) session.getAttribute("currency");
-        String param1 = req.getParameter("date");
-
-        if (currency == null || currency.isEmpty()){
-            out.println("no currency");
-        } else {
-            DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
-            String price = dd.getPriceUSD().toString();
-            model.put("dayPrice", price);
-            model.put("date",param1);
-            model.put("currency",currency);
-        }
         try {
-            template.process(model, resp.getWriter());
-        } catch (TemplateException e) {
-            LOG.error("Error while processing the template: " + e);
-        }
 
+
+            HttpSession session = req.getSession();
+            String currency = (String) session.getAttribute("currency");
+
+            String param1 = req.getParameter("date");
+
+            if (currency == null || currency.isEmpty()) {
+                out.println("no currency");
+            } else {
+                DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
+
+                model.put("price", dd);
+
+            }
+            try {
+                template.process(model, resp.getWriter());
+            } catch (TemplateException e) {
+                LOG.error("Error while processing the template: " + e);
+            }
+        }
+        catch (Exception e){
+            Template template2 = templateProvider.getTemplate(getServletContext(), WRONG_TEMPLATE_NAME);
+            try {
+                template.process(model, resp.getWriter());
+            } catch (TemplateException f) {
+                LOG.error("Error while processing the template: " + f);
+            }
+        }
 
 
 

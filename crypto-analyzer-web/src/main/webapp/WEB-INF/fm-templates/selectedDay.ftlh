@@ -13,9 +13,9 @@
     </div>
     <div class="card-body">
     <h1 class="card-title pricing-card-title">
-    <small class="text-muted">price </small>${dayPrice}</h1>
+    <small class="text-muted">price </small>${price.strPriceUSD}</h1>
     <h1 class="card-title pricing-card-title">
-<small class="text-muted">in </small>${date}</h1>
+<small class="text-muted">in </small>${price.date}</h1>
     </div>
     </div>
     </main>

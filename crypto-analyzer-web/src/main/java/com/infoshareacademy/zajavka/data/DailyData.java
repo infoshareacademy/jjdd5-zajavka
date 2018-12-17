@@ -54,6 +54,10 @@ public class DailyData {
         return priceUSD;
     }
 
+    public String getStrPriceUSD() {
+        return priceUSD.toString();
+    }
+
     public void setPriceUSD(BigDecimal priceUSD) {
         this.priceUSD = priceUSD;
     }
