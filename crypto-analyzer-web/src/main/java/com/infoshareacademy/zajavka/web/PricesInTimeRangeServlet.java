@@ -57,6 +57,8 @@ public class PricesInTimeRangeServlet extends HttpServlet {
 
         List<DailyData> prices = dailyDataDao.getPricesInTimeRange(currency,startDate,endDate);
 
+        model.put("ChartData", dailyDataDao.getDataChartForTimeRange(currency,startDate,endDate));
+
         model.put("prices", prices);
 
         try {

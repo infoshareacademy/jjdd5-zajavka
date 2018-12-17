@@ -117,6 +117,19 @@ public class DailyDataDao {
         return query.setMaxResults(100).getResultList();
     }
 
+    public Chart getDataChartForTimeRange(String currencyName, LocalDate startDate, LocalDate endDate) {
+        Chart retChart = new Chart();
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.date DESC");
+        query.setParameter("currency", currencyName);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        List<DailyData> dd = query.setMaxResults(100).getResultList();
+        retChart.setDatesStr(dd.stream().map(d -> d.getDate().toString()).collect(Collectors.toList()));
+        retChart.setPricesStr(ReturnListStringOfPrices (dd));
+        return  retChart;
+    }
+
     public Chart getDataChartForCurrency(String currencyName) {
         Chart retChart = new Chart();
         final Query query = entityManager
