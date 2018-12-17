@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.dao;
 
 import com.infoshareacademy.zajavka.data.DailyData;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -56,4 +57,54 @@ public class DailyDataDao {
         query.setParameter("currency", currencyName);
         return (DailyData) query.setMaxResults(1).getSingleResult();
     }
+
+    public DailyData getPriceForSelectedDay(LocalDate date, String currencyName){
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE s.date = :date AND s.currency.name = :currency");
+        query.setParameter("date", date);
+        query.setParameter("currency", currencyName);
+        return (DailyData) query.getSingleResult();
+    }
+
+    public DailyData getGlobalMin(String currencyName){
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency ORDER BY s.priceUSD ASC ");
+        query.setParameter("currency", currencyName);
+        return (DailyData) query.setMaxResults(1).getSingleResult();
+    }
+
+    public DailyData getGlobalMax(String currencyName){
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency ORDER BY s.priceUSD DESC ");
+        query.setParameter("currency", currencyName);
+        return (DailyData) query.setMaxResults(1).getSingleResult();
+    }
+
+    public DailyData getLocalMax(String currencyName, LocalDate startDate, LocalDate endDate){
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.priceUSD DESC ");
+        query.setParameter("currency", currencyName);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return (DailyData) query.setMaxResults(1).getSingleResult();
+    }
+
+    public DailyData getLocalMin(String currencyName, LocalDate startDate, LocalDate endDate){
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.priceUSD ASC ");
+        query.setParameter("currency", currencyName);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return (DailyData) query.setMaxResults(1).getSingleResult();
+    }
+
+    public List<DailyData> getPricesInTimeRange(String currencyName, LocalDate startDate, LocalDate endDate){
+        final Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.date DESC ");
+        query.setParameter("currency", currencyName);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        return query.getResultList();
+    }
+
 }
