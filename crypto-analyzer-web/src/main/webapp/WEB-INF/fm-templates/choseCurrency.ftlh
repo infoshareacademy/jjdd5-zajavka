@@ -12,7 +12,7 @@
             <li class="nav-item">
                 <a class="nav-link active" href="chose">
                     <span data-feather="check-square"></span>
-                    Chose curreny
+                    Choose currency
                 </a>
             </li>
             <li class="nav-item">
