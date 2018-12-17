@@ -1,4 +1,5 @@
 <#include "header.ftlh"/>
+
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
@@ -33,7 +34,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="select-day">
+                <a class="nav-link active" href="select-day">
                     <span data-feather="crosshair"></span>
                     Value in selected day
                 </a>
@@ -60,62 +61,24 @@
     </div>
 </nav>
 
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-<head>
-    <meta charset="UTF-8" />
-    <title>CryptoAnalyzer by zaJavkar</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style>
-        body{
-            font-family: Helvetica DejaVu Sans Light;
-            background-image: url("bg-upload.jpg");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .content {
-            width: 100%;
-            height: 50%;
-            padding: 20%;
-            border: 1px;
-        }
-        .custom-file{
-            width: 300px;
-            float: right;
-        }
-        .send{
-            margin-top: 20px;
-            float: right;
-        }
-
-        h3{
-            font-family: opensuns, roboto, monospace;
-            color: whitesmoke;
-                }
-    </style>
-
-</head>
-
-<body>
-
-<div class="content">
-
-    <form method="post" enctype="multipart/form-data">
-        <div class="custom-file">
-            <input type="file" name="multiPartServlet" class="custom-file-input" id="customFile">
-            <label class="custom-file-label" for="customFile">Choose file</label>
-            <input type="submit" class="btn btn-success send"value="Upload"/>
-
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 font-weight-normal">Day price</h1>
+            <p class="lead font-weight-normal">Presented value for selected day.</p>
         </div>
-
-        <div class="send">
-        </div>
-
-    </form>
     </div>
-</body>
-        </main>
+    <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+        <h4 class="my-0 font-weight-normal"></h4>
+    </div>
+    <div class="card-body">
+    <h1 class="card-title pricing-card-title">
+    <small class="text-muted">price </small>${price.strPriceUSD}</h1>
+    <h1 class="card-title pricing-card-title">
+<small class="text-muted">in </small>${price.date}</h1>
+    </div>
+    </div>
+    </main>
 <#include "footer.ftlh"/>

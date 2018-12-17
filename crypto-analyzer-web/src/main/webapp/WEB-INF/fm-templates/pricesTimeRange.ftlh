@@ -1,4 +1,5 @@
 <#include "header.ftlh"/>
+
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
@@ -27,7 +28,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="select-time-range">
+                <a class="nav-link active" href="select-time-range">
                     <span data-feather="trending-up"></span>
                     Selected time range prices
                 </a>
@@ -60,62 +61,63 @@
     </div>
 </nav>
 
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <canvas class="my-4 chartjs-render-monitor" id="myChart" width="1541" height="650" style="display: block; width: 1541px; height: 650px;"></canvas>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-
-<head>
-    <meta charset="UTF-8" />
-    <title>CryptoAnalyzer by zaJavkar</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style>
-        body{
-            font-family: Helvetica DejaVu Sans Light;
-            background-image: url("bg-upload.jpg");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .content {
-            width: 100%;
-            height: 50%;
-            padding: 20%;
-            border: 1px;
-        }
-        .custom-file{
-            width: 300px;
-            float: right;
-        }
-        .send{
-            margin-top: 20px;
-            float: right;
-        }
-
-        h3{
-            font-family: opensuns, roboto, monospace;
-            color: whitesmoke;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                datasets: [{
+                    data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false,
                 }
-    </style>
+            }
+        });
+    </script>
 
-</head>
 
-<body>
 
-<div class="content">
 
-    <form method="post" enctype="multipart/form-data">
-        <div class="custom-file">
-            <input type="file" name="multiPartServlet" class="custom-file-input" id="customFile">
-            <label class="custom-file-label" for="customFile">Choose file</label>
-            <input type="submit" class="btn btn-success send"value="Upload"/>
 
-        </div>
 
-        <div class="send">
-        </div>
-
-    </form>
+    <div class="table-responsive">
+    <table class="table table-striped table-sm">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+<#list prices as onePrice>
+    <tr>
+    <td>${onePrice.date}</td>
+    <td>${onePrice.strPriceUSD}</td>
+    </tr>
+</#list>
+    </tbody>
+    </table>
     </div>
-</body>
-        </main>
+
+    </main>
 <#include "footer.ftlh"/>

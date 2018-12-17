@@ -30,19 +30,25 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="select-time-range">
+                    <span data-feather="trending-up"></span>
+                    Selected time range prices
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="select-day">
                     <span data-feather="crosshair"></span>
                     Value in selected day
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="global-extremes">
                     <span data-feather="maximize-2"></span>
                     Global extremes
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="select-day-local">
                     <span data-feather="minimize-2"></span>
                     Local extremes
                 </a>
