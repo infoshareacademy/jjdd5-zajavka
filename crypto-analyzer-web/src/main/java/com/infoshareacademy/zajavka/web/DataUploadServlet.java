@@ -51,6 +51,8 @@ public class DataUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        doGet(req, resp);
+
         String uploadedFile = uploadService.readFileFromRequest(req);
         if (uploadedFile == null) {
             resp.getWriter().println("File upload failed");
@@ -58,7 +60,8 @@ public class DataUploadServlet extends HttpServlet {
         } else {
             String extractedPath = UnzipService.EXTRACTED_DATA_PATH;
             unzipService.unzip(uploadedFile, extractedPath);
-            resp.getWriter().println("Extracted to " + extractedPath);
+            resp.getWriter().println();
+//            "Extracted to " + extractedPath
         }
     }
 }
