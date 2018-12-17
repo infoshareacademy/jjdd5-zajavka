@@ -1,7 +1,7 @@
 package com.infoshareacademy.zajavka.service;
 
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
-
+import com.infoshareacademy.zajavka.data.Configuration;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,14 +13,17 @@ public class ConfigurationService {
     @Inject
     private ConfigurationDao configurationDao;
 
-    private DateTimeFormatter dateFormatter(){
+
+    public DateTimeFormatter dateFormatter(){
         String formatter = configurationDao.findValue("dateFormat");
         return DateTimeFormatter.ofPattern(formatter);
     }
 
-    private Integer numberAfterSign() {
-         String afterSignNumber = configurationDao.findValue("afterSign");
-         return Integer.valueOf(afterSignNumber);
+    public Integer numberAfterSign() {
+         Configuration afterSignNumber = configurationDao.findById("afterSign");
+         String afterString = afterSignNumber.getValue();
+         return Integer.valueOf(afterString);
     }
+
 
 }

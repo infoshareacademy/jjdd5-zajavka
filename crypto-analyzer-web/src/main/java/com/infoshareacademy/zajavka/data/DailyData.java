@@ -1,5 +1,9 @@
 package com.infoshareacademy.zajavka.data;
 
+import com.infoshareacademy.zajavka.dao.ConfigurationDao;
+import com.infoshareacademy.zajavka.service.ConfigurationService;
+
+import javax.inject.Inject;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;

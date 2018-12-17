@@ -51,9 +51,8 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
 
-            <div class="p-3 mb-2 bg-info text-white">${chosenCurrency}</div>
+            <div class="p-3 mb-2 bg-info text-white">${chosenCurrency} </div>
 
-<#if DailyData??>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -64,13 +63,11 @@
                 <tbody>
                 <tr>
                     <td>${DailyDataDate}</td>
-                    <td >
-                        ${DailyDataPrice}
+                    <td>
+                    ${DailyDataPrice}
                     </td>
                 </tr>
                 </tbody>
             </table>
-
-</#if>
 
 <#include "footer.ftlh"/>
