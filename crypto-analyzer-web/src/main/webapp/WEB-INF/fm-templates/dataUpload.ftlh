@@ -99,7 +99,7 @@
 
     <form method="post" enctype="multipart/form-data">
         <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
+            <input type="file" name="multiPartServlet" class="custom-file-input" id="customFile">
             <label class="custom-file-label" for="customFile">Choose file</label>
             <input type="submit" class="btn btn-success send"value="Upload"/>
 

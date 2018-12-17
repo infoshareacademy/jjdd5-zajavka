@@ -24,7 +24,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="rateHistory">
+                <a class="nav-link" href="rateHistory">
                     <span data-feather="trending-up"></span>
                     Exchange rate history
                 </a>
@@ -48,7 +48,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="info">
+                <a class="nav-link active" href="info">
                     <span data-feather="info"></span>
                     Info
                 </a>
