@@ -36,7 +36,7 @@
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="http://127.0.0.1:8080/crypto-analyzer/data-upload">
+                        <a class="nav-link active" href="#">
                             <span data-feather="download"></span>
                             Load files <span class="sr-only">(current)</span>
                         </a>
