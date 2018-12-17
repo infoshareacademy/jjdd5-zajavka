@@ -18,24 +18,25 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/info")
 public class InfoServlet extends HttpServlet {
 
-@Inject
-    TemplateProvider templateProvider;
-
-    private static final Logger LOG = LoggerFactory.getLogger(DataUploadServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(InfoServlet.class);
     private static final String TEMPLATE_NAME = "info";
+
+    @Inject
+    TemplateProvider templateProvider;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws SecurityException, IOException {
 
         Map<String, Object> model = new HashMap<>();
-        model.put("member1","Bartosz Wiśniewski");
-        model.put("member2","Daniel Modrzejewski");
-        model.put("member3","Przemek Grabski");
-        model.put("member4","Waldek Wódczak");
+        model.put("member1", "Bartosz Wiśniewski");
+        model.put("member2", "Daniel Modrzejewski");
+        model.put("member3", "Przemek Grabski");
+        model.put("member4", "Waldek Wódczak");
 
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
+
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         try {
@@ -43,7 +44,6 @@ public class InfoServlet extends HttpServlet {
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
-
     }
-    }
+}
 
