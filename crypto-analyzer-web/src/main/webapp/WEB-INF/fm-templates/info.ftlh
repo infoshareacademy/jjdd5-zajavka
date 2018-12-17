@@ -6,7 +6,7 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="test2">
+                <a class="nav-link" href="data-upload">
                     <span data-feather="download"></span>
                     Load files <span class="sr-only">(current)</span>
                 </a>
@@ -82,7 +82,7 @@
                 font-size: 30px;
                 color: whitesmoke;
                 margin-top: 100px;
-                width: 300px;
+                width: 350px;
                 margin-left: 55%;
             }
 

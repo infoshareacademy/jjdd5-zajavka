@@ -3,7 +3,7 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="test2">
+                <a class="nav-link  active" href="data-upload">
                     <span data-feather="download"></span>
                     Load files <span class="sr-only">(current)</span>
                 </a>
@@ -91,6 +91,12 @@
             float: right;
         }
 
+        .loadingCurr {
+            margin-top: 100px;
+            width: 300px;
+            float: right;
+        }
+
         h3{
             font-family: opensuns, roboto, monospace;
             color: whitesmoke;
@@ -112,6 +118,21 @@
         </div>
 
         <div class="send">
+        </div>
+
+        <div class="loadingCurr" >
+        <p>
+            <b>
+                    <#if Currency??>
+                        <ul>
+                            <li style="color: whitesmoke" >Loading currencies : </li>
+                        <#list Currency as oneCurrency>
+                            <li class="list-group-item list-group-item-success">${oneCurrency}</li>
+                        </#list>
+                        </ul>
+                    </#if>
+            </b>
+        </p>
         </div>
 
     </form>
