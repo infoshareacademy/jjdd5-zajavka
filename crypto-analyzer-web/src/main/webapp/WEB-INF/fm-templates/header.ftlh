@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="zajavka.ico">
 
     <title>CryptoAnalyzer by zaJavka</title>
 
@@ -75,6 +75,12 @@
                         <a class="nav-link" href="#">
                             <span data-feather="minimize-2"></span>
                             Local extremes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8080/crypto-analyzer/info">
+                            <span data-feather="info"></span>
+                            Info
                         </a>
                     </li>
                 </ul>
