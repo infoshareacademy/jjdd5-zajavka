@@ -32,4 +32,10 @@ public class CurrencyDao {
 
         return query.getResultList();
     }
+
+    public List<String> getNames(){
+        final Query query = entityManager
+                .createQuery("SELECT s.name FROM Currency s");
+        return query.getResultList();
+    }
 }

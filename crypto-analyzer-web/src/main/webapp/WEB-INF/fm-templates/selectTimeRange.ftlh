@@ -1,5 +1,3 @@
-<html lang="pl-PL">
-
 <#include "header.ftlh"/>
 
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -30,7 +28,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="select-time-range">
+                <a class="nav-link active" href="select-time-range">
                     <span data-feather="trending-up"></span>
                     Selected time range prices
                 </a>
@@ -54,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="info">
+                <a class="nav-link" href="info">
                     <span data-feather="info"></span>
                     Info
                 </a>
@@ -63,70 +61,31 @@
     </div>
 </nav>
 
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <form ACTION="http://localhost:8080/crypto-analyzer/time-range" METHOD="POST" class="needs-validation"
+              novalidate="">
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+                <div class="col-md-5 p-lg-5 mx-auto my-5">
+                    <h1 class="display-4 font-weight-normal">Selected time range history</h1>
+                    <p class="lead font-weight-normal">Pick up the dates from calendar to see all prices in this period.</p>
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mx-auto">
+                            <label for="firstName"><span style="font-size: x-large; ">Start date</span></label>
+                            <input type="date" name="startDate" class="form-control"  placeholder="" value="" required="">
+                        </div>
+                        <div class="col-md-6 mb-3 mx-auto">
+                            <label for="lastName"><span style="font-size: x-large; ">End date</span></label>
+                            <input name="endDate" type="date" class="form-control"  placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
 
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                </div>
+            </div>
+        </form>
 
-    <head>
-        <meta charset="UTF-8"/>
-        <title>CryptoAnalyzer by zaJavka</title>
-        <style>
-            body {
-                font-family: Helvetica DejaVu Sans Light;
-                background-image: url("bg-info.jpg");
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-
-            .names {
-                font-size: 30px;
-                color: whitesmoke;
-                margin-top: 100px;
-                width: 350px;
-                margin-left: 55%;
-            }
-
-            .logo {
-                background: whitesmoke;
-                text-align: center;
-                margin-top: 50px;
-                margin-left: 55%;
-               width: 250px;
-                height: 250px;
-            }
-
-            .cooperation {
-                color: whitesmoke;
-                margin-left: 55%;
-            }
-
-        </style>
-
-    </head>
-
-    <body>
-
-    <div class="logo">
-        <img src="zajawka.jpg" alt="Zajavka logo" width="300" height="300">
-    </div>
-
-    <div class="names">
-
-        <p lang="pl">${member1}</p>
-        <p lang="pl">${member2}</p>
-        <p lang="pl">${member3}</p>
-        <p lang="pl">${member4}</p>
-
-    </div>
-
-    <div class="cooperation">
-        <p> This project created at the classes
-            <a href="https://infoshareacademy.com/" target="_blank">infoShare ACADEMY. </a>
-        </p>
-    </div>
-
-    <body>
-
-</main>
+    </main>
 <#include "footer.ftlh"/>
-</html>

@@ -1,5 +1,3 @@
-<html lang="pl-PL">
-
 <#include "header.ftlh"/>
 
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -42,7 +40,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="global-extremes">
+                <a class="nav-link active" href="global-extremes">
                     <span data-feather="maximize-2"></span>
                     Global extremes
                 </a>
@@ -54,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="info">
+                <a class="nav-link" href="info">
                     <span data-feather="info"></span>
                     Info
                 </a>
@@ -63,70 +61,39 @@
     </div>
 </nav>
 
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
 
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h1 class="display-4 font-weight-normal">Global extremes</h1>
+            <p class="lead font-weight-normal">Presented minimum and maximum price in exchange history.</p>
 
-    <head>
-        <meta charset="UTF-8"/>
-        <title>CryptoAnalyzer by zaJavka</title>
-        <style>
-            body {
-                font-family: Helvetica DejaVu Sans Light;
-                background-image: url("bg-info.jpg");
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-
-            .names {
-                font-size: 30px;
-                color: whitesmoke;
-                margin-top: 100px;
-                width: 350px;
-                margin-left: 55%;
-            }
-
-            .logo {
-                background: whitesmoke;
-                text-align: center;
-                margin-top: 50px;
-                margin-left: 55%;
-               width: 250px;
-                height: 250px;
-            }
-
-            .cooperation {
-                color: whitesmoke;
-                margin-left: 55%;
-            }
-
-        </style>
-
-    </head>
-
-    <body>
-
-    <div class="logo">
-        <img src="zajawka.jpg" alt="Zajavka logo" width="300" height="300">
-    </div>
-
-    <div class="names">
-
-        <p lang="pl">${member1}</p>
-        <p lang="pl">${member2}</p>
-        <p lang="pl">${member3}</p>
-        <p lang="pl">${member4}</p>
+        </div>
 
     </div>
 
-    <div class="cooperation">
-        <p> This project created at the classes
-            <a href="https://infoshareacademy.com/" target="_blank">infoShare ACADEMY. </a>
-        </p>
+    <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Max value</h4>
+    </div>
+    <div class="card-body">
+    <h1 class="card-title pricing-card-title">$${globalMax.strPriceUSD}
+    <small class="text-muted">/ ${globalMax.date}</small></h1>
+    </div>
+    </div>
+    <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Min value</h4>
+    </div>
+    <div class="card-body">
+    <h1 class="card-title pricing-card-title">$${globalMin.strPriceUSD}
+    <small class="text-muted">/ ${globalMin.date}</small></h1>
+    </div>
     </div>
 
-    <body>
 
-</main>
+
+    </div>
+    </main>
 <#include "footer.ftlh"/>
-</html>

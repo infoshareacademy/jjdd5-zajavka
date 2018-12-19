@@ -1,5 +1,3 @@
-<html lang="pl-PL">
-
 <#include "header.ftlh"/>
 
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -18,7 +16,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="current">
+                <a class="nav-link active" href="current">
                     <span data-feather="dollar-sign"></span>
                     Current value
                 </a>
@@ -54,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="info">
+                <a class="nav-link" href="info">
                     <span data-feather="info"></span>
                     Info
                 </a>
@@ -62,71 +60,29 @@
         </ul>
     </div>
 </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
 
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="p-3 mb-2 bg-info text-white">${chosenCurrency}</div>
 
-    <head>
-        <meta charset="UTF-8"/>
-        <title>CryptoAnalyzer by zaJavka</title>
-        <style>
-            body {
-                font-family: Helvetica DejaVu Sans Light;
-                background-image: url("bg-info.jpg");
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
+<#if DailyData??>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>${DailyData.date}</td>
+                    <td >
+                        ${DailyData.strPriceUSD}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-            .names {
-                font-size: 30px;
-                color: whitesmoke;
-                margin-top: 100px;
-                width: 350px;
-                margin-left: 55%;
-            }
+</#if>
 
-            .logo {
-                background: whitesmoke;
-                text-align: center;
-                margin-top: 50px;
-                margin-left: 55%;
-               width: 250px;
-                height: 250px;
-            }
-
-            .cooperation {
-                color: whitesmoke;
-                margin-left: 55%;
-            }
-
-        </style>
-
-    </head>
-
-    <body>
-
-    <div class="logo">
-        <img src="zajawka.jpg" alt="Zajavka logo" width="300" height="300">
-    </div>
-
-    <div class="names">
-
-        <p lang="pl">${member1}</p>
-        <p lang="pl">${member2}</p>
-        <p lang="pl">${member3}</p>
-        <p lang="pl">${member4}</p>
-
-    </div>
-
-    <div class="cooperation">
-        <p> This project created at the classes
-            <a href="https://infoshareacademy.com/" target="_blank">infoShare ACADEMY. </a>
-        </p>
-    </div>
-
-    <body>
-
-</main>
 <#include "footer.ftlh"/>
-</html>
