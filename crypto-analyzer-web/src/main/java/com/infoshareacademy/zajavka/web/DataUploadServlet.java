@@ -1,5 +1,9 @@
 package com.infoshareacademy.zajavka.web;
 
+import com.infoshareacademy.zajavka.dao.ConfigurationDao;
+import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
+import com.infoshareacademy.zajavka.data.Configuration;
+import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.UnzipService;
 import com.infoshareacademy.zajavka.service.UploadService;
@@ -33,6 +37,29 @@ public class DataUploadServlet extends HttpServlet {
     private UploadService uploadService;
     @Inject
     private UnzipService unzipService;
+
+    @Inject
+    private ConfigurationDao configurationDao;
+
+    @Inject
+    private CurrencyNameDao currencyNameDao;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+
+        Configuration c1 = new Configuration("dateFormat", "dd-MM-yyyy");
+        Configuration c2 = new Configuration("afterSign", "2");
+        configurationDao.save(c1);
+        configurationDao.save(c2);
+
+        CurrencyName n1 = new CurrencyName("btc", "Bitcoin");
+       /* CurrencyName n2 = new CurrencyName("afdgh", "Ala");
+        CurrencyName n3 = new CurrencyName("jtfc", "Kota");
+        currencyNameDao.save(n3);
+        currencyNameDao.save(n2);*/
+        currencyNameDao.save(n1);
+    }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class CurrencyName {
 
     @Id
-    @Column(name = "NAME_FILE", length = 60)
+    @Column(name = "NAME_FILE", length = 60, unique = true)
     @NotNull
     private String nameFile;
 

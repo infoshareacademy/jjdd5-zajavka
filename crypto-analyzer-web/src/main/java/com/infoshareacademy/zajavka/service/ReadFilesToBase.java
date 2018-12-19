@@ -1,7 +1,5 @@
 package com.infoshareacademy.zajavka.service;
 
-
-import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.Currency;
@@ -19,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -42,8 +39,6 @@ public class ReadFilesToBase {
     @Inject
     private DailyDataDao dailyDataDao;
 
-    @Inject
-    private ConfigurationDao configurationDao;
 
     public List getFileNames() throws ListDirectoryException {
         List<String> fileList = new ArrayList<>();
@@ -126,15 +121,5 @@ public class ReadFilesToBase {
     private boolean DataIsNotInDataBase(String[] parseDay, Currency currency) {
         return (dailyDataDao.getDataForCurrencyInDate(currency.getName(), LocalDate.parse(parseDay[INDEX_DATE])).isEmpty());
 
-    }
-
-    private DateTimeFormatter dateFormatter() {
-        String formatter = configurationDao.findValue("dateFormat");
-        return DateTimeFormatter.ofPattern(formatter);
-    }
-
-    private Integer numberAfterSign() {
-        String afterSignNumber = configurationDao.findValue("afterSign");
-        return Integer.valueOf(afterSignNumber);
     }
 }

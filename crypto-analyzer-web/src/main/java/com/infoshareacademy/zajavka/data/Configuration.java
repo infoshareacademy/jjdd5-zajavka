@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class Configuration {
 
     @Id
-    @Column(name = "NAME", length = 60)
+    @Column(name = "NAME", length = 60, unique = true)
     @NotNull
     private String name;
 
