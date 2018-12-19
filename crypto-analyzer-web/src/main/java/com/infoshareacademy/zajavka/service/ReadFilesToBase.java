@@ -99,7 +99,7 @@ public class ReadFilesToBase {
         for (int i=1; i < dalyDataListForFile.size(); i++) {
                 String[] parseDay = dalyDataListForFile.get(i).split(SEPARATOR);
 
-                if (dataIsCorrect(parseDay) && DataIsNotInDataBase(parseDay,currency)) {
+                if (dataIsCorrect(parseDay) && dataIsNotInDataBase(parseDay,currency)) {
                     try {
                         DailyData dailyData = new DailyData();
                         dailyData.setCurrency(currency);
@@ -118,7 +118,7 @@ public class ReadFilesToBase {
         return parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
     }
 
-    private boolean DataIsNotInDataBase(String[] parseDay,Currency currency){
+    private boolean dataIsNotInDataBase(String[] parseDay, Currency currency){
         return (dailyDataDao.getDataForCurrencyInDate(currency.getName(),LocalDate.parse(parseDay[INDEX_DATE])).isEmpty());
 
     }

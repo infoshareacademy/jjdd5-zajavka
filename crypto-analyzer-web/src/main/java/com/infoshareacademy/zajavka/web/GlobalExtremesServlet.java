@@ -38,7 +38,6 @@ public class GlobalExtremesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Map<String, Object> model = new HashMap<>();
-        PrintWriter out = resp.getWriter();
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");

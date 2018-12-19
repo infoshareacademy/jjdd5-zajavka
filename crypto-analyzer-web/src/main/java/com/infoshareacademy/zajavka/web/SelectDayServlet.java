@@ -27,16 +27,6 @@ public class SelectDayServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-/*
-        Map<String, Object> model = new HashMap<>();
-
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
-
-        try {
-            template.process(model, resp.getWriter());
-        } catch (TemplateException e) {
-            LOG.error("Error while processing the template: " + e);
-        }*/
         doPost(req, resp);
     }
 

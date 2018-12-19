@@ -3,13 +3,11 @@ package com.infoshareacademy.zajavka.dao;
 import com.infoshareacademy.zajavka.data.Chart;
 import com.infoshareacademy.zajavka.data.DailyData;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -126,7 +124,7 @@ public class DailyDataDao {
         query.setParameter("endDate", endDate);
         List<DailyData> dd = query.setMaxResults(100).getResultList();
         retChart.setDatesStr(dd.stream().map(d -> d.getDate().toString()).collect(Collectors.toList()));
-        retChart.setPricesStr(ReturnListStringOfPrices (dd));
+        retChart.setPricesStr(returnListStringOfPrices(dd));
         return  retChart;
     }
 
@@ -137,23 +135,14 @@ public class DailyDataDao {
         query.setParameter("currency", currencyName);
         List<DailyData> dd = query.setMaxResults(100).getResultList();
         retChart.setDatesStr(dd.stream().map(d -> d.getDate().toString()).collect(Collectors.toList()));
-        retChart.setPricesStr(ReturnListStringOfPrices (dd));
+        retChart.setPricesStr(returnListStringOfPrices(dd));
         return  retChart;
     }
-     private String ReturnListStringOfDates (List<DailyData> dd){
+
+    private String returnListStringOfPrices(List<DailyData> dd){
         String retStr= new String();
         for (int i=0 ; i< dd.size() ; i++){
-            retStr += "\"" + dd.get(i).getDate().toString() + "\"";
-            if (i< dd.size()-1) {
-                retStr+= ", ";
-            }
-        }
-        return retStr;
-     }
-    private String ReturnListStringOfPrices (List<DailyData> dd){
-        String retStr= new String();
-        for (int i=0 ; i< dd.size() ; i++){
-            retStr += dd.get(i).getStrPriceUSD().toString();
+            retStr += dd.get(i).getStrPriceUSD();
             if (i< dd.size()-1) {
                 retStr+= ", ";
             }
