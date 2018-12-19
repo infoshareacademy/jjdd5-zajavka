@@ -30,7 +30,7 @@ public class ReadFilesToBase {
     private static final String SEPARATOR = ",";
     private static final int INDEX_DATE = 0;
     private static final int INDEX_PRICE_USD = 5;
-    private static final int DAILY_DATA_LENGTH = 17;
+    private static final int DAILY_DATA_LENGTH = 16;
     private static final Logger LOG = LoggerFactory.getLogger(ReadFilesToBase.class);
 
     @Inject
@@ -38,7 +38,6 @@ public class ReadFilesToBase {
 
     @Inject
     private DailyDataDao dailyDataDao;
-
 
     public List getFileNames() throws ListDirectoryException {
         List<String> fileList = new ArrayList<>();
@@ -61,13 +60,13 @@ public class ReadFilesToBase {
         return fileList;
     }
 
-    public void readFilesAndSaveInBase(List<String> names) {
+    public void readFilesAndSaveInBase(List<String> names){
         for (String actFileNameWithExt : names) {
             Path filePathWithName = Paths.get(EXTRACTED_DATA_PATH, actFileNameWithExt);
             try {
                 List<String> dalyDataListForFile = readAllLinesFile(filePathWithName);
                 if (dalyDataListForFile != null && dalyDataListForFile.size() > 1) {
-                    saveToBase(actFileNameWithExt, dalyDataListForFile);
+                    saveToBase(actFileNameWithExt, dalyDataListForFile );
                     LOG.info("File is read: " + actFileNameWithExt);
                 } else {
                     LOG.info("File is empty: " + actFileNameWithExt);
@@ -90,36 +89,36 @@ public class ReadFilesToBase {
         return file;
     }
 
-    private void saveToBase(String actFileNameWithExt, List<String> dalyDataListForFile) {
+    private void saveToBase(String actFileNameWithExt, List<String> dalyDataListForFile ){
 
         Currency currency = new Currency(actFileNameWithExt);
-        if (!currencyDao.getNames().stream().anyMatch(i -> i.equals(currency.getName()))) {
+        if (!currencyDao.getNames().stream().anyMatch(i -> i.equals(currency.getName()))){
             currencyDao.save(currency);
         }
-        for (int i = 1; i < dalyDataListForFile.size(); i++) {
-            String[] parseDay = dalyDataListForFile.get(i).split(SEPARATOR);
+        for (int i=1; i < dalyDataListForFile.size(); i++) {
+                String[] parseDay = dalyDataListForFile.get(i).split(SEPARATOR);
 
-            if (dataIsCorrect(parseDay) && DataIsNotInDataBase(parseDay, currency)) {
-                try {
-                    DailyData dailyData = new DailyData();
-                    dailyData.setCurrency(currency);
-                    dailyData.setDate(LocalDate.parse(parseDay[INDEX_DATE]));
-                    dailyData.setPriceUSD(new BigDecimal(parseDay[INDEX_PRICE_USD]));
-                    dailyDataDao.save(dailyData);
-                } catch (Exception e) {
-                    LOG.error("Cannot save dailyData: {}", e.getMessage());
+                if (dataIsCorrect(parseDay) && dataIsNotInDataBase(parseDay,currency)) {
+                    try {
+                        DailyData dailyData = new DailyData();
+                        dailyData.setCurrency(currency);
+                        dailyData.setDate(LocalDate.parse(parseDay[INDEX_DATE]));
+                        dailyData.setPriceUSD(new BigDecimal(parseDay[INDEX_PRICE_USD]));
+                        dailyDataDao.save(dailyData);
+                    } catch (Exception e) {
+                        LOG.error("Cannot save dailyData: {}", e.getMessage());
+                    }
                 }
-            }
         }
 
     }
 
-    private boolean dataIsCorrect(String[] parseDay) {
+    private boolean dataIsCorrect(String[] parseDay){
         return parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
     }
 
-    private boolean DataIsNotInDataBase(String[] parseDay, Currency currency) {
-        return (dailyDataDao.getDataForCurrencyInDate(currency.getName(), LocalDate.parse(parseDay[INDEX_DATE])).isEmpty());
+    private boolean dataIsNotInDataBase(String[] parseDay, Currency currency){
+        return (dailyDataDao.getDataForCurrencyInDate(currency.getName(),LocalDate.parse(parseDay[INDEX_DATE])).isEmpty());
 
     }
 }

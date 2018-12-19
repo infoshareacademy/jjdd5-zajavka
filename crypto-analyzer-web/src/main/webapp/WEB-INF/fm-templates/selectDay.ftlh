@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="current">
+                <a class="nav-link" href="current">
                     <span data-feather="dollar-sign"></span>
                     Current value
                 </a>
@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="select-day">
+                <a class="nav-link active" href="select-day">
                     <span data-feather="crosshair"></span>
                     Value in selected day
                 </a>
@@ -60,29 +60,26 @@
         </ul>
     </div>
 </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+            <div class="col-md-5 p-lg-5 mx-auto my-5">
+                <h1 class="display-4 font-weight-normal">Select date</h1>
+                <p class="lead font-weight-normal">Pick up the date from calendar to see price for selected day.</p>
 
 
-            <div class="p-3 mb-2 bg-info text-white">${chosenCurrency}</div>
+                <form ACTION="http://localhost:8080/crypto-analyzer/selected-day" METHOD="POST class=" needs-validation
+                " novalidate="">
+                <div class="row">
+                    <div class="col-md-6 mb-3 mx-auto">
+                        <input type="date" name="date" class="form-control" placeholder="" value="" required="">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
 
-<#if DailyDataDate??>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Data</th>
-                    <th scope="col">Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>${DailyDataDate}</td>
-                    <td>
-                    ${DailyDataPrice}
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-</#if>
+                </form>
+            </div>
+        </div>
+    </main>
 
 <#include "footer.ftlh"/>

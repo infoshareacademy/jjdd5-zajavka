@@ -1,10 +1,13 @@
 package com.infoshareacademy.zajavka.web;
 
+import com.infoshareacademy.zajavka.dao.DailyDataDao;
+import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
 import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.ReadFilesToBase;
 import com.infoshareacademy.zajavka.service.UnzipService;
 import com.infoshareacademy.zajavka.service.UploadService;
 import freemarker.template.Template;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/data-upload"})
@@ -37,6 +41,10 @@ public class DataUploadServlet extends HttpServlet {
     private UploadService uploadService;
     @Inject
     private UnzipService unzipService;
+    @Inject
+    private ReadFilesToBase readFilesToBase;
+    @Inject
+    private DailyDataDao dailyDataDao;
 
     @Inject
     private ConfigurationDao configurationDao;
@@ -78,6 +86,17 @@ public class DataUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        Map<String, Object> model = new HashMap<>();
+
+        try {
+            List<String> names = readFilesToBase.getFileNames();
+            model.put("Currency", names);
+            readFilesToBase.readFilesAndSaveInBase(names);
+        } catch (ListDirectoryException e) {
+            LOG.error("Error readFilesToBase.getFileNames(): " + e);
+        }
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
         String uploadedFile = uploadService.readFileFromRequest(req);
         if (uploadedFile == null) {
             resp.getWriter().println("File upload failed");
@@ -85,7 +104,15 @@ public class DataUploadServlet extends HttpServlet {
         } else {
             String extractedPath = UnzipService.EXTRACTED_DATA_PATH;
             unzipService.unzip(uploadedFile, extractedPath);
-            resp.getWriter().println("Extracted to " + extractedPath);
+            resp.getWriter().println();
+//            "Extracted to " + extractedPath
         }
+
+        try {
+            template.process(model, resp.getWriter());
+        } catch (TemplateException e) {
+            LOG.error("Error while processing the template: " + e);
+        }
+
     }
 }
