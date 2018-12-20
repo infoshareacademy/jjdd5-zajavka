@@ -53,7 +53,7 @@ public class DataUploadServlet extends HttpServlet {
         configurationDao.save(c1);
         configurationDao.save(c2);
 
-        CurrencyName n1 = new CurrencyName("btc", "Bitcoin");
+        CurrencyName n1 = new CurrencyName("btc", "Bitcoin", true);
        /* CurrencyName n2 = new CurrencyName("afdgh", "Ala");
         CurrencyName n3 = new CurrencyName("jtfc", "Kota");
         currencyNameDao.save(n3);

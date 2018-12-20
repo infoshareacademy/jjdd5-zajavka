@@ -45,6 +45,12 @@
                     Local extremes
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span data-feather="minimize-2"></span>
+                    Local extremes
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
