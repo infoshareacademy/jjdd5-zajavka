@@ -59,6 +59,7 @@ public class CurrencyNameServlet extends HttpServlet {
 
         model.put("ada", aa);
 
+        //dfsafd
        /*
         config.put("dateFormat", configurationDao.findValue("dateFormat"));
         config.put("afterSign", configurationDao.findValue("afterSign"));*/
