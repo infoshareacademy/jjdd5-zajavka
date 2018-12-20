@@ -19,7 +19,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/chose")
+@WebServlet("/choose")
 public class ChoceCurrencyServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ChoceCurrencyServlet.class);
