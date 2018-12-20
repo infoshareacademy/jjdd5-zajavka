@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 public class ChoceCurrencyServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ChoceCurrencyServlet.class);
-    private static final String TEMPLATE_NAME = "choseCurrency";
+    private static final String TEMPLATE_NAME = "chooseCurrency";
 
     @Inject
     private TemplateProvider templateProvider;

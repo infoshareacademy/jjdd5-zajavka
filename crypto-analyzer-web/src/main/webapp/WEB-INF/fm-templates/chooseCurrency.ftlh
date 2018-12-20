@@ -9,7 +9,7 @@
 <#if Names??>
     <form method="post">
         <select name="currency" class="custom-select custom-select-lg mb-3">
-            <option selected>Chose currency</option>
+            <option selected>Choose currency</option>
                 <#list Names as oneName>
                 <option value="${oneName}">${oneName}</option>
                 </#list>
