@@ -12,5 +12,7 @@
     <user>root</user>
     <password>pass123</password>
   </data-source>
-
+<welcome-file-list>  
+   <welcome-file>info.ftlh</welcome-file>  
+  </welcome-file-list> 
 </web-app>
