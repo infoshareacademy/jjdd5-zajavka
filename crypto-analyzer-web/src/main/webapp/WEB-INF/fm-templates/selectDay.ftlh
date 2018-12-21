@@ -9,7 +9,7 @@
                 <p class="lead font-weight-normal">Pick up the date from calendar to see price for selected day.</p>
 
 
-                <form ACTION="http://localhost:8080/crypto-analyzer/selected-day" METHOD="POST class=" needs-validation
+                <form ACTION="selected-day" METHOD="POST class=" needs-validation
                 " novalidate="">
                 <div class="row">
                     <div class="col-md-6 mb-3 mx-auto">

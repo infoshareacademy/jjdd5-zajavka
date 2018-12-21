@@ -4,7 +4,7 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-        <form ACTION="http://localhost:8080/crypto-analyzer/local-extremes" METHOD="POST" class="needs-validation" novalidate="">
+        <form ACTION="local-extremes" METHOD="POST" class="needs-validation" novalidate="">
             <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
                 <div class="col-md-5 p-lg-5 mx-auto my-5">
                     <h1 class="display-4 font-weight-normal">Local extremes</h1>
