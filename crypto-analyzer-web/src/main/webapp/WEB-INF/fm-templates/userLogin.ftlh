@@ -2,9 +2,12 @@
 <html lang="en">
     <head>
         <#include "head1.ftlh"/>
-            <meta name="google-signin-scope" content="profile email">
-            <meta name="google-signin-client_id" content="738989560971-cbgka85jgvbd3mju5r9i9i4r6uj3blnm.apps.googleusercontent.com">
+            <!-- Google -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <script src="https://apis.google.com/js/client.js" async defer></script>
+            <meta name="google-signin-scope" content="profile email">
+            <meta name="google-signin-client_id">
     </head>
 
 <body>
@@ -30,7 +33,7 @@
                                 <p class="card-text">Your email: <b>${sessionEmail}</b></p>
 
                                 <div class="card-body">
-                                <a href="/logout" class="card-link" onclick="signOut();">Sing out</a>
+                                <a href="logout" class="card-link" onclick="signOut();">Sing out</a>
                                 </div>
                             </div>
                         </div>
@@ -47,15 +50,13 @@
 
 <script>
     function signOut() {
-        console.log("logging out ...");
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
         });
-        console.log("redirecting to logout servlet");
-        window.location.href = '/logout';
     }
 </script>
+
 
 
 </body>

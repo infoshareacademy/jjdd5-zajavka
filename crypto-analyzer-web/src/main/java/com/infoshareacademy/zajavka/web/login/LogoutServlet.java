@@ -22,7 +22,7 @@ import java.util.Map;
 public class LogoutServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(LogoutServlet.class);
-    private static final String TEMPLATE_NAME = "login";
+    private static final String TEMPLATE_NAME = "info";
 
     @Inject
     private TemplateProvider templateProvider;
