@@ -115,7 +115,7 @@ public class ReadFilesToBase {
     }
 
     private boolean dataIsCorrect(String[] parseDay){
-        return parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
+        return parseDay.length >= DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
     }
 
     private boolean dataIsNotInDataBase(String[] parseDay, Currency currency){
