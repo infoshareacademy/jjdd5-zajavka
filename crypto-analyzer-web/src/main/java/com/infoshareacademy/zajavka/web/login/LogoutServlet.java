@@ -35,7 +35,7 @@ public class LogoutServlet extends HttpServlet {
         final PrintWriter writer = resp.getWriter();
 
             Map<String, Object> model = new HashMap<>();
-            HttpSession session = req.getSession(true);
+            HttpSession session = req.getSession(false);
             session.invalidate();
 
             Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);

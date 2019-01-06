@@ -33,7 +33,27 @@
                                 <p class="card-text">Your email: <b>${sessionEmail}</b></p>
 
                                 <div class="card-body">
-                                <a href="logout" class="card-link" onclick="signOut();">Sing out</a>
+                                    <a href="logout" onclick="signOut();">Sign out</a>
+                                    <script>
+                                        function signOut() {
+                                            console.log("logging out ...");
+                                            gapi.auth.authorize(
+                                                    {
+                                                        'client_id': "738989560971-cbgka85jgvbd3mju5r9i9i4r6uj3blnm.apps.googleusercontent.com",
+                                                        'scope': "profile email",
+                                                        'immediate': false,
+                                                        cookie_policy: 'single_host_origin',
+                                                        response_type: 'token id_token'
+                                                    },
+                                                    function (authResult) {
+                                                        gapi.auth.signOut();
+                                                        gapi.auth.disconnect();
+                                                    }
+                                            );
+                                            console.log("redirecting to logout servlet");
+                                            window.location.href = 'logout';
+                                        }
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -47,17 +67,6 @@
 </div>
 
 <#include "jScripts.ftlh" />
-
-<script>
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
-    }
-</script>
-
-
 
 </body>
 </html>
