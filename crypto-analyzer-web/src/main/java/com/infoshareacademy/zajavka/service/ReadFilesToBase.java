@@ -30,7 +30,7 @@ public class ReadFilesToBase {
     private static final String SEPARATOR = ",";
     private static final int INDEX_DATE = 0;
     private static final int INDEX_PRICE_USD = 5;
-    private static final int DAILY_DATA_LENGTH = 17;
+    private static final int DAILY_DATA_LENGTH = 16;
     private static final Logger LOG = LoggerFactory.getLogger(ReadFilesToBase.class);
 
     @Inject
@@ -114,7 +114,7 @@ public class ReadFilesToBase {
     }
 
     private boolean dataIsCorrect(String[] parseDay){
-        return parseDay.length == DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
+        return parseDay.length >= DAILY_DATA_LENGTH && !parseDay[INDEX_DATE].equals(EMPTY_STRING) && !parseDay[INDEX_PRICE_USD].equals(EMPTY_STRING);
     }
 
     private boolean dataIsNotInDataBase(String[] parseDay, Currency currency){

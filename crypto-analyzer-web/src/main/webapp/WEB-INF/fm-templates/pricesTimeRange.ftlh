@@ -66,14 +66,14 @@
             var ctx = document.getElementById("myChart");
             var myChart = new Chart(ctx, {
                 type: 'line',
-                data: {
+                date: {
                     labels: [
                 <#list ChartData.datesStr as oneData>
                 "${oneData}",
                 </#list>
                     ],
                     datasets: [{
-                        data: [${ChartData.pricesStr}],
+                        date: [${ChartData.pricesStr}],
                         lineTension: 0,
                         backgroundColor: 'transparent',
                         borderColor: '#007bff',

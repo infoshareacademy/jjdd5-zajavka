@@ -67,7 +67,7 @@
 
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
-<#if DailyDatas??>
+<#if prices??>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -76,11 +76,11 @@
         </tr>
         </thead>
         <tbody>
-        <#list DailyDatas as DailyData>
+        <#list prices as entry>
         <tr>
-            <td>${DailyData.date}</td>
+            <td>${entry.date}</td>
             <td >
-            ${DailyData.strPriceUSD}
+            ${entry.price}
             </td>
         </tr>
         </#list>
@@ -114,12 +114,14 @@
             type: 'line',
             data: {
                 labels: [
-                <#list ChartData.datesStr as oneData>
-                "${oneData}",
+                <#list prices as entry>
+                "${entry.date}",
                 </#list>
                 ],
                 datasets: [{
-                    data: [${ChartData.pricesStr}],
+                    data: [<#list prices as entry>
+                "${entry.price}",
+                    </#list>],
                     lineTension: 0,
                     backgroundColor: 'transparent',
                     borderColor: '#007bff',
