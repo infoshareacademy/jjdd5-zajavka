@@ -2,12 +2,7 @@
 <html lang="pl">
     <head>
         <#include "head1.ftlh"/>
-            <!-- Google -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="https://apis.google.com/js/client.js" async defer></script>
-            <meta name="google-signin-scope" content="profile email">
-        <meta name="google-signin-client_id" content="738989560971-cbgka85jgvbd3mju5r9i9i4r6uj3blnm.apps.googleusercontent.com">
+        <#include "googleLogoutHead.ftlh"/>
     </head>
 
 <body onload="onLoad()">
@@ -48,42 +43,7 @@
 </div>
 
 <#include "jScripts.ftlh" />
-<script>
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
-
-        window.location.href = 'logout';
-    }
-
-    function onLoad() {
-        gapi.load('auth2', function() {
-            gapi.auth2.init();
-        });
-    }
-</script>
-<#--<script>-->
-    <#--function signOut() {-->
-        <#--console.log("logging out ...");-->
-        <#--gapi.auth.authorize(-->
-                <#--{-->
-                    <#--'client_id': "738989560971-cbgka85jgvbd3mju5r9i9i4r6uj3blnm.apps.googleusercontent.com",-->
-                    <#--'scope': "profile email",-->
-                    <#--'immediate': false,-->
-                    <#--cookie_policy: 'single_host_origin',-->
-                    <#--response_type: 'token id_token'-->
-                <#--},-->
-                <#--function (authResult) {-->
-                    <#--gapi.auth.signOut();-->
-                    <#--gapi.auth.disconnect();-->
-                <#--}-->
-        <#--);-->
-        <#--console.log("redirecting to logout servlet");-->
-        <#--//window.location.href = 'logout';-->
-    <#--}-->
-<#--</script>-->
+<#include "googleLogoutScript.ftlh"/>
 
 </body>
 </html>

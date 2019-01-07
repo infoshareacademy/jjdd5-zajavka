@@ -22,24 +22,24 @@ import java.util.Map;
 public class LogoutServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(LogoutServlet.class);
-    private static final String TEMPLATE_NAME = "info";
+    private static final String TEMPLATE_NAME = "login";
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Override
-    protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        final PrintWriter writer = resp.getWriter();
+    protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws  IOException {
 
             Map<String, Object> model = new HashMap<>();
-            HttpSession session = req.getSession();
+            HttpSession session = req.getSession(true);
             session.invalidate();
 
             Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+            resp.sendRedirect(req.getContextPath() + "/login");
+
             try {
-                template.process(model, writer);
+                template.process(model, resp.getWriter());
                 LOG.info("Logout user");
             } catch (TemplateException e) {
                 LOG.error("Failed to logout user");
