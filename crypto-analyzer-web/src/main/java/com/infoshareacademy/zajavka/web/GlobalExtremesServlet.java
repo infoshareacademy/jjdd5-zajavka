@@ -4,6 +4,7 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.ConfigurationService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +30,9 @@ public class GlobalExtremesServlet extends HttpServlet {
 
     @Inject
     DailyDataDao dailyDataDao;
+
+    @Inject
+    private ConfigurationService configurationService;
 
     @Inject
     private TemplateProvider templateProvider;
@@ -44,13 +51,24 @@ public class GlobalExtremesServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+        DateTimeFormatter formatter = configurationService.dateFormatter();
+        Integer afterSign = configurationService.numberAfterSign();
 
-        DailyData globalMin = dailyDataDao.getGlobalMin(currency);
-        DailyData globalMax = dailyDataDao.getGlobalMax(currency);
+
+        String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign).toString();
+        LocalDate globalMinDate = dailyDataDao.getGlobalMin(currency).getDate();
+        String formattedGlobalMinDate = formatter.format(globalMinDate);
+
+        String globalMaxPrice = dailyDataDao.getGlobalMax(currency).getPriceUSD().setScale(afterSign).toString();
+        LocalDate globalMaxDate = dailyDataDao.getGlobalMax(currency).getDate();
+        String formattedGlobalMaxDate = formatter.format(globalMaxDate);
+
+        model.put("globalMinPrice", globalMinPrice);
+        model.put("globalMinDate", formattedGlobalMinDate);
 
 
-        model.put("globalMin", globalMin);
-        model.put("globalMax",globalMax);
+        model.put("globalMaxPrice",globalMaxPrice);
+        model.put("globalMaxDate",formattedGlobalMaxDate);
 
         try {
             template.process(model, resp.getWriter());

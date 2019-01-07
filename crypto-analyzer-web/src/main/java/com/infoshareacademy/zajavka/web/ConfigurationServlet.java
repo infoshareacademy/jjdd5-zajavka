@@ -66,7 +66,6 @@ public class ConfigurationServlet extends HttpServlet {
         } else {
             resp.getWriter().write("Unknown action.");
         }
-       // resp.sendRedirect("configuration");
         doGet(req, resp);
     }
 
@@ -85,9 +84,6 @@ public class ConfigurationServlet extends HttpServlet {
 
             LOG.info("Configuration updated: {}", existingConfiguration);
         }
-
-        // Return all persisted objects
-       // findAll(req, resp);
 
     }
 }

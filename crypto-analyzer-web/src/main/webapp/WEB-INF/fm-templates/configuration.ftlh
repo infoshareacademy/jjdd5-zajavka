@@ -26,8 +26,7 @@ Amount number after sign:  ${afterSign}<br>
 <form action="configuration" method="post">
     <input type="hidden" name="action" value="update">
     <input type="hidden" name="nameConfig" value="afterSign">
-    <input type="radio" name="value" value="1" checked> 1<br>
-    <input type="radio" name="value" value="2"> 2<br>
+    <input type="radio" name="value" value="2" checked> 2<br>
     <input type="radio" name="value" value="3"> 3<br>
     <input type="radio" name="value" value="4"> 4<br>
     <input type="radio" name="value" value="5"> 5<br>
