@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
     <head>
         <#include "head1.ftlh"/>
             <meta name="google-signin-scope" content="profile email">
@@ -25,19 +25,10 @@
                     <div class="card-deck">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Log by site</h5>
-                                <a href="loggingSite" class="btn btn-info card-link">Logging</a><br><br>
-                                <a href="addUserSite" class="card-link add-user-link">Register</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-deck">
-                        <div class="card">
-                            <div class="card-body">
                                 <h5 class="card-title">Log by Google</h5>
-                                <a class="btn btn-lg g-signin2 lead" data-onsuccess="onSignIn">Logging</a>
+                                <a class="btn btn-lg g-signin2 lead" data-onsuccess="onSignIn"></a>
                                 <br><br>
-                                <a href="https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Fwww.google.pl%2F&hl=en&flowName=GlifWebSignIn&flowEntry=SignUp" class="card-link add-user-link">Register</a>
+                                <a href="https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Fwww.google.pl%2F&hl=en&flowName=GlifWebSignIn&flowEntry=SignUp" class="card-link add-user-link">Załóż konto</a>
                             </div>
                         </div>
                     </div>

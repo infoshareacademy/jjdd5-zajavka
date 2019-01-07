@@ -30,12 +30,10 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setContentType("text/html;charset=UTF-8");
-
         final PrintWriter writer = resp.getWriter();
 
             Map<String, Object> model = new HashMap<>();
-            HttpSession session = req.getSession(false);
+            HttpSession session = req.getSession();
             session.invalidate();
 
             Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
