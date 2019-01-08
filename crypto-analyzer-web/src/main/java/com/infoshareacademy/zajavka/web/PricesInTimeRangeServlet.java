@@ -54,7 +54,6 @@ public class PricesInTimeRangeServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         Map<String, Object> model = new HashMap<>();
-        PrintWriter out = resp.getWriter();
         HttpSession session = req.getSession();
 
         String currency = (String) session.getAttribute("currency");

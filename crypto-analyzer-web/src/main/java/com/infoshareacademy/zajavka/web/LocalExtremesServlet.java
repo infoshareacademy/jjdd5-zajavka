@@ -50,7 +50,6 @@ public class LocalExtremesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Map<String, Object> model = new HashMap<>();
-        PrintWriter out = resp.getWriter();
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
