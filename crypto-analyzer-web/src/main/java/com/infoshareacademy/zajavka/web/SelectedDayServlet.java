@@ -76,10 +76,5 @@ public class SelectedDayServlet extends HttpServlet {
                 LOG.error("Error while processing the template: " + f);
             }
         }
-
-
-
-
-
     }
 }
