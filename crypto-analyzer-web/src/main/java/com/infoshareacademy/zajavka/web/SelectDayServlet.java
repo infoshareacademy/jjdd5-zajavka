@@ -33,6 +33,8 @@ public class SelectDayServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDay";
     private static final String TEMPLATE_NAME_SELECTED = "selectedDay";
+    private static final String WRONG_TEMPLATE_NAME = "somethingWrong";
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -54,29 +56,27 @@ public class SelectDayServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_SELECTED);
+        Template template2 = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_SELECTED);
         Map<String, Object> model = new HashMap<>();
         PrintWriter out = resp.getWriter();
+
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
 
         String param1 = req.getParameter("date");
 
-        if (currency == null || currency.isEmpty()) {
-            out.println("no currency");
-        } else {
-            DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
+        DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
 
-            model.put("price", dd);
+        model.put("price", dd);
 
 
-            try {
-                template.process(model, resp.getWriter());
-            } catch (TemplateException e) {
-                LOG.error("Error while processing the template: " + e);
-            }
-
+        try {
+            template2.process(model, resp.getWriter());
+        } catch (TemplateException e) {
+            LOG.error("Error while processing the template: " + e);
         }
+
+
     }
 }
