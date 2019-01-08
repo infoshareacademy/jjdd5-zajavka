@@ -8,7 +8,7 @@
 
     <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
-<#if DailyDatas??>
+<#if prices??>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -17,11 +17,11 @@
         </tr>
         </thead>
         <tbody>
-        <#list DailyDatas as DailyData>
+        <#list prices as entry>
         <tr>
-            <td>${DailyData.date}</td>
+            <td>${entry.date}</td>
             <td >
-            ${DailyData.strPriceUSD}
+            ${entry.price}
             </td>
         </tr>
         </#list>

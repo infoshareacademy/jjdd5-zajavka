@@ -24,12 +24,14 @@
         type: 'line',
         data: {
             labels: [
-            <#list ChartData.datesStr as oneData>
-    "${oneData}"<#sep>, </#sep>
+            <#list prices as entry>
+                "${entry.date}",
     </#list>
     ],
     datasets: [{
-        data: [${ChartData.pricesStr}],
+        data: [<#list prices as entry>
+                "${entry.price}",
+        </#list>],
         lineTension: 0,
         backgroundColor: 'transparent',
         borderColor: '#007bff',

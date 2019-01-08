@@ -89,6 +89,12 @@
                             Info
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <#if configuration??>active</#if>" href="configuration">
+                            <span data-feather="settings"></span>
+                            Configuration
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
