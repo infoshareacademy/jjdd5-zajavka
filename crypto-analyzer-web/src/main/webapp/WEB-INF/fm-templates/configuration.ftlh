@@ -23,6 +23,7 @@ Amount number after sign:  ${afterSign}<br>
     <input type="radio" name="value" value="yyyy:MM:dd"> yyyy:MM:dd<br><br>
     <input type="submit">
 </form>
+            <br>
 <form action="configuration" method="post">
     <input type="hidden" name="action" value="update">
     <input type="hidden" name="nameConfig" value="afterSign">

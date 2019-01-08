@@ -68,7 +68,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
 
             chosenCurrency="Actual currency: " + currency;
             LOG.error(dailyDataDao.getDataChartForCurrency(currency).toString());
-            model.put("ChartData", dailyDataDao.getDataChartForCurrency(currency));
+           // model.put("ChartData", dailyDataDao.getDataChartForCurrency(currency));
         }
 
         model.put("chosenCurrency", chosenCurrency);
