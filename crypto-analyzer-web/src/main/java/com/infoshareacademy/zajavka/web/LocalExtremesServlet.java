@@ -28,7 +28,7 @@ public class LocalExtremesServlet extends HttpServlet {
     private TemplateProvider templateProvider;
 
     @Inject
-    DailyDataDao dailyDataDao;
+    private DailyDataDao dailyDataDao;
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDayLocal";
@@ -56,7 +56,6 @@ public class LocalExtremesServlet extends HttpServlet {
 
 
         Map<String, Object> model = new HashMap<>();
-        PrintWriter out = resp.getWriter();
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");

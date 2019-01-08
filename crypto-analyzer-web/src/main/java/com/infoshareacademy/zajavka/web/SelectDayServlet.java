@@ -28,13 +28,11 @@ public class SelectDayServlet extends HttpServlet {
     private TemplateProvider templateProvider;
 
     @Inject
-    DailyDataDao dailyDataDao;
+    private DailyDataDao dailyDataDao;
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDay";
     private static final String TEMPLATE_NAME_SELECTED = "selectedDay";
-    private static final String WRONG_TEMPLATE_NAME = "somethingWrong";
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
