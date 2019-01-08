@@ -3,7 +3,7 @@
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link <#if login??>active</#if>" href="login">
-                            <span data-feather="download"></span>
+                            <span data-feather="log-in"></span>
                             Login <span class="sr-only">(current)</span>
                         </a>
                     </li>
