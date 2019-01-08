@@ -55,11 +55,11 @@ public class GlobalExtremesServlet extends HttpServlet {
         Integer afterSign = configurationService.numberAfterSign();
 
 
-        String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign).toString();
+        String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
         LocalDate globalMinDate = dailyDataDao.getGlobalMin(currency).getDate();
         String formattedGlobalMinDate = formatter.format(globalMinDate);
 
-        String globalMaxPrice = dailyDataDao.getGlobalMax(currency).getPriceUSD().setScale(afterSign).toString();
+        String globalMaxPrice = dailyDataDao.getGlobalMax(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
         LocalDate globalMaxDate = dailyDataDao.getGlobalMax(currency).getDate();
         String formattedGlobalMaxDate = formatter.format(globalMaxDate);
 
@@ -67,8 +67,8 @@ public class GlobalExtremesServlet extends HttpServlet {
         model.put("globalMinDate", formattedGlobalMinDate);
 
 
-        model.put("globalMaxPrice",globalMaxPrice);
-        model.put("globalMaxDate",formattedGlobalMaxDate);
+        model.put("globalMaxPrice", globalMaxPrice);
+        model.put("globalMaxDate", formattedGlobalMaxDate);
 
         try {
             template.process(model, resp.getWriter());
