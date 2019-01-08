@@ -16,7 +16,7 @@
 <#list prices as onePrice>
 <tr>
     <td>${onePrice.date}</td>
-    <td>${onePrice.strPriceUSD}</td>
+    <td>$ ${onePrice.strPriceUSD}</td>
 </tr>
 </#list>
                 </tbody>

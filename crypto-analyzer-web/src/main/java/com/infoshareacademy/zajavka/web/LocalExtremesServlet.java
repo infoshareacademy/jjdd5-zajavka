@@ -1,6 +1,5 @@
 package com.infoshareacademy.zajavka.web;
 
-
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
@@ -26,22 +25,35 @@ import java.util.Map;
 public class LocalExtremesServlet extends HttpServlet {
 
     @Inject
-    DailyDataDao dailyDataDao;
-
-    @Inject
     private TemplateProvider templateProvider;
 
+    @Inject
+    DailyDataDao dailyDataDao;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
-    private static final String TEMPLATE_NAME = "localExtremes";
+    private static final String TEMPLATE_NAME = "selectDayLocal";
+    private static final String TEMPLATE_NAME_RESULT = "localExtremes";
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+
+        Map<String, Object> model = new HashMap<>();
+
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+
+        try {
+            template.process(model, resp.getWriter());
+        } catch (TemplateException e) {
+            LOG.error("Error while processing the template: " + e);
+        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 
         Map<String, Object> model = new HashMap<>();
         PrintWriter out = resp.getWriter();
@@ -53,21 +65,16 @@ public class LocalExtremesServlet extends HttpServlet {
         LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
 
 
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_RESULT);
 
 
-
-        DailyData localMax = dailyDataDao.getLocalMax(currency,startDate,endDate);
-        DailyData localMin = dailyDataDao.getLocalMin(currency,startDate,endDate);
-
-
-       /* out.println("dupa" + localMax.getPriceUSD().toString());
-        out.println("dupa" + localMin.getPriceUSD().toString());*/
+        DailyData localMax = dailyDataDao.getLocalMax(currency, startDate, endDate);
+        DailyData localMin = dailyDataDao.getLocalMin(currency, startDate, endDate);
 
         model.put("localMax", localMax);
         model.put("localMin", localMin);
-        model.put("startDate",startDate);
-        model.put("endDate",endDate);
+        model.put("startDate", startDate);
+        model.put("endDate", endDate);
 
 
         try {
@@ -75,7 +82,5 @@ public class LocalExtremesServlet extends HttpServlet {
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
-
-
     }
 }

@@ -19,7 +19,7 @@
                 <tr>
                     <td>${DailyData.date}</td>
                     <td >
-                        ${DailyData.strPriceUSD}
+                       $ ${DailyData.strPriceUSD}
                     </td>
                 </tr>
                 </tbody>
