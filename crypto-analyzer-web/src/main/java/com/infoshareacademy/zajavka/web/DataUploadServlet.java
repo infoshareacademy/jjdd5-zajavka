@@ -1,11 +1,8 @@
 package com.infoshareacademy.zajavka.web;
 
-import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
-import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
 import com.infoshareacademy.zajavka.data.Configuration;
-import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
 import com.infoshareacademy.zajavka.service.UnzipService;
@@ -43,14 +40,11 @@ public class DataUploadServlet extends HttpServlet {
     private UnzipService unzipService;
     @Inject
     private ReadFilesToBase readFilesToBase;
-    @Inject
-    private DailyDataDao dailyDataDao;
+
 
     @Inject
     private ConfigurationDao configurationDao;
 
-    @Inject
-    private CurrencyNameDao currencyNameDao;
 
     @Override
     public void init() throws ServletException {
@@ -61,12 +55,6 @@ public class DataUploadServlet extends HttpServlet {
         configurationDao.save(c1);
         configurationDao.save(c2);
 
-        CurrencyName n1 = new CurrencyName("btc", "Bitcoin", true);
-       /* CurrencyName n2 = new CurrencyName("afdgh", "Ala");
-        CurrencyName n3 = new CurrencyName("jtfc", "Kota");
-        currencyNameDao.save(n3);
-        currencyNameDao.save(n2);*/
-        currencyNameDao.save(n1);
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -82,6 +70,7 @@ public class DataUploadServlet extends HttpServlet {
             LOG.error("Error while processing the template: " + e);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -105,7 +94,6 @@ public class DataUploadServlet extends HttpServlet {
             String extractedPath = UnzipService.EXTRACTED_DATA_PATH;
             unzipService.unzip(uploadedFile, extractedPath);
             resp.getWriter().println();
-//            "Extracted to " + extractedPath
         }
 
         try {

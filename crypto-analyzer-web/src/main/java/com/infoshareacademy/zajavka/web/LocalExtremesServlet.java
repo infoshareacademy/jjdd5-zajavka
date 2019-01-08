@@ -58,38 +58,29 @@ public class LocalExtremesServlet extends HttpServlet {
         LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
         LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
 
-
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         DateTimeFormatter formatter = configurationService.dateFormatter();
         Integer afterSign = configurationService.numberAfterSign();
 
-
-        DailyData localMax = dailyDataDao.getLocalMax(currency,startDate,endDate);
+        DailyData localMax = dailyDataDao.getLocalMax(currency, startDate, endDate);
 
         String localMaxPrice = localMax.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-       // String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
         LocalDate localMaxDate = localMax.getDate();
         String formattedLocalMaxDate = formatter.format(localMaxDate);
 
-
-        DailyData localMin = dailyDataDao.getLocalMin(currency,startDate,endDate);
-
+        DailyData localMin = dailyDataDao.getLocalMin(currency, startDate, endDate);
 
         String localMinPrice = localMin.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-        // String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
         LocalDate localMinDate = localMin.getDate();
         String formattedLocalMinDate = formatter.format(localMinDate);
-
-       /* out.println("dupa" + localMax.getPriceUSD().toString());
-        out.println("dupa" + localMin.getPriceUSD().toString());*/
 
         model.put("localMaxPrice", localMaxPrice);
         model.put("formattedLocalMaxDate", formattedLocalMaxDate);
         model.put("localMinPrice", localMinPrice);
         model.put("formattedLocalMinDate", formattedLocalMinDate);
-        model.put("startDate",formatter.format(startDate));
-        model.put("endDate",formatter.format(endDate));
+        model.put("startDate", formatter.format(startDate));
+        model.put("endDate", formatter.format(endDate));
 
 
         try {

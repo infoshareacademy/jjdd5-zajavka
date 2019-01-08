@@ -66,8 +66,6 @@ public class PricesInTimeRangeServlet extends HttpServlet {
         LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
         LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
 
-       // List<DailyData> prices = dailyDataDao.getPricesInTimeRange(currency,startDate,endDate);
-
         List<PriceDTO> prices = dailyDataDao.getPricesInTimeRange(currency,startDate,endDate).stream()
                 .map(o -> {
                     BigDecimal formattedPrice =o.getPriceUSD().setScale(afterSign,BigDecimal.ROUND_HALF_DOWN);
@@ -75,9 +73,6 @@ public class PricesInTimeRangeServlet extends HttpServlet {
                     return new PriceDTO(formattedPrice.toString(), date);
                 })
                 .collect(toList());
-
-
-       // model.put("ChartData", dailyDataDao.getDataChartForTimeRange(currency,startDate,endDate));
 
         model.put("prices", prices);
 

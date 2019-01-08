@@ -14,7 +14,7 @@ public class ConfigurationDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public String save(Configuration c){
+    public String save(Configuration c) {
         entityManager.persist(c);
         return c.getName();
     }
@@ -23,13 +23,13 @@ public class ConfigurationDao {
         return entityManager.find(Configuration.class, name);
     }
 
-    public Configuration update (Configuration c){
+    public Configuration update(Configuration c) {
         return entityManager.merge(c);
     }
 
-    public void delete(String name){
+    public void delete(String name) {
         final Configuration c = entityManager.find(Configuration.class, name);
-        if(c != null){
+        if (c != null) {
             entityManager.remove(c);
         }
     }
@@ -44,7 +44,7 @@ public class ConfigurationDao {
         return (String) query.getSingleResult();
     }
 
-    public List<Configuration> findAll(){
+    public List<Configuration> findAll() {
         final Query query = entityManager.createQuery("SELECT c FROM Configuration c");
 
         return query.getResultList();

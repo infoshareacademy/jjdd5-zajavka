@@ -14,15 +14,15 @@ public class ConfigurationService {
     private ConfigurationDao configurationDao;
 
 
-    public DateTimeFormatter dateFormatter(){
+    public DateTimeFormatter dateFormatter() {
         String formatter = configurationDao.findValue("dateFormat");
         return DateTimeFormatter.ofPattern(formatter);
     }
 
     public Integer numberAfterSign() {
-         Configuration afterSignNumber = configurationDao.findById("afterSign");
-         String afterString = afterSignNumber.getValue();
-         return Integer.valueOf(afterString);
+        Configuration afterSignNumber = configurationDao.findById("afterSign");
+        String afterString = afterSignNumber.getValue();
+        return Integer.valueOf(afterString);
     }
 
 

@@ -3,7 +3,6 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
-import com.infoshareacademy.zajavka.service.ConfigurationService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;

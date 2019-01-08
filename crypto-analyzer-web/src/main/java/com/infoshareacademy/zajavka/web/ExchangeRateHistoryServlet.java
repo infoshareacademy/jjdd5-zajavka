@@ -48,15 +48,15 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
         String chosenCurrency;
         Map<String, Object> model = new HashMap<>();
         String currency = (String) session.getAttribute("currency");
-        if (currency == null || currency.isEmpty()){
-            chosenCurrency="No chosen currency";
+        if (currency == null || currency.isEmpty()) {
+            chosenCurrency = "No chosen currency";
         } else {
             DateTimeFormatter formatter = configurationService.dateFormatter();
             Integer afterSign = configurationService.numberAfterSign();
 
             List<PriceDTO> prices = dailyDataDao.getAllDailyDatasForCurrency(currency).stream()
                     .map(o -> {
-                        BigDecimal formattedPrice =o.getPriceUSD().setScale(afterSign,BigDecimal.ROUND_HALF_DOWN);
+                        BigDecimal formattedPrice = o.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN);
                         String date = o.getDate().format(formatter);
                         return new PriceDTO(formattedPrice.toString(), date);
                     })
@@ -65,10 +65,8 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
             model.put("prices", prices);
 
 
-
-            chosenCurrency="Actual currency: " + currency;
+            chosenCurrency = "Actual currency: " + currency;
             LOG.error(dailyDataDao.getDataChartForCurrency(currency).toString());
-           // model.put("ChartData", dailyDataDao.getDataChartForCurrency(currency));
         }
 
         model.put("chosenCurrency", chosenCurrency);

@@ -70,7 +70,7 @@ public class SelectedDayServlet extends HttpServlet {
                 LocalDate dailyDataDate = dd.getDate();
 
                 BigDecimal priceUsd = dd.getPriceUSD();
-                String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(),BigDecimal.ROUND_HALF_DOWN).toString();
+                String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(), BigDecimal.ROUND_HALF_DOWN).toString();
 
                 model.put("dailyDataDate", formatter.format(dailyDataDate));
                 model.put("formattedDailyDataPrice", formattedDailyDataPrice);
@@ -81,8 +81,7 @@ public class SelectedDayServlet extends HttpServlet {
             } catch (TemplateException e) {
                 LOG.error("Error while processing the template: " + e);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Template template2 = templateProvider.getTemplate(getServletContext(), WRONG_TEMPLATE_NAME);
             try {
                 template.process(model, resp.getWriter());
@@ -90,9 +89,6 @@ public class SelectedDayServlet extends HttpServlet {
                 LOG.error("Error while processing the template: " + f);
             }
         }
-
-
-
 
 
     }

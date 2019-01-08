@@ -65,7 +65,7 @@ public class LoadFileServlet extends HttpServlet {
         }
     }
 
-    private void processTemplate(Map<String, Object>  model, HttpServletResponse resp) throws IOException {
+    private void processTemplate(Map<String, Object> model, HttpServletResponse resp) throws IOException {
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
         try {
             template.process(model, resp.getWriter());
