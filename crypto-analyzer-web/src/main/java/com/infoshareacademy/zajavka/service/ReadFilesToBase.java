@@ -30,7 +30,7 @@ public class ReadFilesToBase {
     private static final String SEPARATOR = ",";
     private static final int INDEX_DATE = 0;
     private static final int INDEX_PRICE_USD = 5;
-    private static final int DAILY_DATA_LENGTH = 17;
+    private static final int DAILY_DATA_LENGTH = 16;
     private static final Logger LOG = LoggerFactory.getLogger(ReadFilesToBase.class);
 
     @Inject

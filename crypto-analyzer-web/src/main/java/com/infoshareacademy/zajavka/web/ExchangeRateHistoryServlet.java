@@ -56,7 +56,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
 
             List<PriceDTO> prices = dailyDataDao.getAllDailyDatasForCurrency(currency).stream()
                     .map(o -> {
-                        BigDecimal formattedPrice =o.getPriceUSD().setScale(afterSign);
+                        BigDecimal formattedPrice =o.getPriceUSD().setScale(afterSign,BigDecimal.ROUND_HALF_DOWN);
                         String date = o.getDate().format(formatter);
                         return new PriceDTO(formattedPrice.toString(), date);
                     })

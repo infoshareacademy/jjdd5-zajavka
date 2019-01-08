@@ -53,7 +53,7 @@ public class CurrentValueServlet extends HttpServlet {
             LocalDate dailyDataDate = dailyDataDao.getMostActualDataForCurrency(currency).getDate();
 
             BigDecimal priceUsd = dailyDataDao.getMostActualDataForCurrency(currency).getPriceUSD();
-            String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign()).toString();
+            String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(),BigDecimal.ROUND_HALF_DOWN).toString();
 
             model.put("DailyDataDate", formatter.format(dailyDataDate));
             model.put("DailyDataPrice", formattedDailyDataPrice);
