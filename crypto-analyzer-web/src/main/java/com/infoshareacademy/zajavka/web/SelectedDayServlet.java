@@ -39,7 +39,6 @@ public class SelectedDayServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectedDay";
-    private static final String WRONG_TEMPLATE_NAME = "somethingWrong";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -82,7 +81,6 @@ public class SelectedDayServlet extends HttpServlet {
                 LOG.error("Error while processing the template: " + e);
             }
         } catch (Exception e) {
-            Template template2 = templateProvider.getTemplate(getServletContext(), WRONG_TEMPLATE_NAME);
             try {
                 template.process(model, resp.getWriter());
             } catch (TemplateException f) {

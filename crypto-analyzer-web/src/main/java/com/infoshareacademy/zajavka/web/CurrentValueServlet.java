@@ -1,8 +1,6 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
-import com.infoshareacademy.zajavka.data.DailyData;
-import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
 import freemarker.template.Template;

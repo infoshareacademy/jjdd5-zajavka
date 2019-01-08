@@ -23,7 +23,7 @@ import java.util.Map;
 @Transactional
 public class ConfigurationServlet extends HttpServlet {
 
-    private Logger LOG = LoggerFactory.getLogger(ConfigurationServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigurationServlet.class);
 
     private static final String TEMPLATE_NAME = "configuration";
 

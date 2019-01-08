@@ -54,8 +54,7 @@ public class LoadFileServlet extends HttpServlet {
 
         try {
             Map<String, Object> model = new HashMap<>();
-            //currencyService.loadCurrencies("/home/danielmodrzejewski/Filereader/jjdd5-zajavka/data");
-            currencyService.loadCurrencies("/home/bartosz/IdeaProjects/jjdd5-zajavka/data");
+            currencyService.loadCurrencies("/home/danielmodrzejewski/Filereader/jjdd5-zajavka/data");
             model.put("Currency", currencyService.getCurrencies());
 
             processTemplate(model, resp);
