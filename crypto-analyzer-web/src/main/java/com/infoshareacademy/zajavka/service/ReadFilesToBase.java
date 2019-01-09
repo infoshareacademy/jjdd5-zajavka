@@ -1,6 +1,5 @@
 package com.infoshareacademy.zajavka.service;
 
-
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.Currency;

@@ -7,7 +7,7 @@
 
             <div class="p-3 mb-2 bg-info text-white">${chosenCurrency}</div>
 
-<#if DailyData??>
+<#if DailyDataDate??>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -17,14 +17,11 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>${DailyData.date}</td>
-                    <td >
-                       $ ${DailyData.strPriceUSD}
-                    </td>
+                    <td>${DailyDataDate}</td>
+                    <td>${DailyDataPrice}</td>
                 </tr>
                 </tbody>
             </table>
-
 </#if>
 
 <#include "footer.ftlh"/>

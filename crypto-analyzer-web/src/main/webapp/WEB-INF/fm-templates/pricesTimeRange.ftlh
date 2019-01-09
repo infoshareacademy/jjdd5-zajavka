@@ -13,10 +13,10 @@
                 </tr>
                 </thead>
                 <tbody>
-<#list prices as onePrice>
+<#list prices as entry>
 <tr>
-    <td>${onePrice.date}</td>
-    <td>$ ${onePrice.strPriceUSD}</td>
+    <td>${entry.date}</td>
+    <td>${entry.price}</td>
 </tr>
 </#list>
                 </tbody>

@@ -37,7 +37,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        showSide(session,templateProvider, resp);
+        showSide(session, templateProvider, resp);
     }
 
     @Override
@@ -45,20 +45,21 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = req.getParameter("currency");
-        if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))){
+        if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
             session.setAttribute("currency", currency);
         }
 
-        showSide(session,templateProvider, resp);
+        showSide(session, templateProvider, resp);
 
     }
+
     private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
-        if (currency == null || currency.isEmpty()){
-            chosenCurrency="No chosen currency";
+        if (currency == null || currency.isEmpty()) {
+            chosenCurrency = "No chosen currency";
         } else {
-            chosenCurrency="Actual currency: " + currency;
+            chosenCurrency = "Actual currency: " + currency;
         }
 
 

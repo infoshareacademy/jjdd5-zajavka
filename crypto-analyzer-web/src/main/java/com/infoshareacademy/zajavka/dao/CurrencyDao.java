@@ -5,7 +5,6 @@ import com.infoshareacademy.zajavka.data.Currency;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.time.LocalDate;
 import java.util.List;
 
 public class CurrencyDao {
