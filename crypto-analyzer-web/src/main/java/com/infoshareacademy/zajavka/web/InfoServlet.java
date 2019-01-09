@@ -1,6 +1,7 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -33,6 +34,8 @@ public class InfoServlet extends HttpServlet {
         model.put("member2", "Daniel Modrzejewski");
         model.put("member3", "Przemek Grabski");
         model.put("member4", "Waldek Wódczak");
+
+        LoginService.addUserNameToSesionIfLogin(req, model);
 
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");

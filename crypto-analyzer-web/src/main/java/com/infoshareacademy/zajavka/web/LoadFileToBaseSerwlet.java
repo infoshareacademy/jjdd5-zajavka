@@ -1,8 +1,8 @@
 package com.infoshareacademy.zajavka.web;
 
-import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -15,8 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,13 +34,12 @@ public class LoadFileToBaseSerwlet extends HttpServlet {
     @Inject
     private ReadFilesToBase readFilesToBase;
 
-    @Inject
-    private DailyDataDao dailyDataDao;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Map<String, Object> model = new HashMap<>();
+
+        LoginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             List<String> names = readFilesToBase.getFileNames();

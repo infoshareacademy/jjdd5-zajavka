@@ -24,14 +24,19 @@
         type: 'line',
         data: {
             labels: [
-<#if ChartData??>
-            <#list ChartData.datesStr as oneData>
-    "${oneData}"<#sep>, </#sep>
+<#if prices??>
+            <#list prices as entry>
+                "${entry.date}",
     </#list>
 </#if>
     ],
     datasets: [{
-        data: [<#if ChartData??>${ChartData.pricesStr}</#if>],
+        data: [
+    <#if prices??>
+        <#list prices as entry>
+                "${entry.price}",
+        </#list>],
+    </#if>
         lineTension: 0,
         backgroundColor: 'transparent',
         borderColor: '#007bff',

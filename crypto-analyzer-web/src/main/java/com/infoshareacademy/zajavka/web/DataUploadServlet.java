@@ -1,8 +1,10 @@
 package com.infoshareacademy.zajavka.web;
 
-import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
+import com.infoshareacademy.zajavka.dao.ConfigurationDao;
+import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
 import com.infoshareacademy.zajavka.service.UnzipService;
 import com.infoshareacademy.zajavka.service.UploadService;
@@ -39,10 +41,23 @@ public class DataUploadServlet extends HttpServlet {
     private UnzipService unzipService;
     @Inject
     private ReadFilesToBase readFilesToBase;
+
+
     @Inject
-    private DailyDataDao dailyDataDao;
+    private ConfigurationDao configurationDao;
+
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+
+        Configuration c1 = new Configuration("dateFormat", "dd-MM-yyyy");
+        Configuration c2 = new Configuration("afterSign", "2");
+        configurationDao.save(c1);
+        configurationDao.save(c2);
+
+    }
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -50,17 +65,22 @@ public class DataUploadServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+        LoginService.addUserNameToSesionIfLogin(req, model);
+
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
         Map<String, Object> model = new HashMap<>();
+
+        LoginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             List<String> names = readFilesToBase.getFileNames();
@@ -79,7 +99,6 @@ public class DataUploadServlet extends HttpServlet {
             String extractedPath = UnzipService.EXTRACTED_DATA_PATH;
             unzipService.unzip(uploadedFile, extractedPath);
             resp.getWriter().println();
-//            "Extracted to " + extractedPath
         }
 
         try {
