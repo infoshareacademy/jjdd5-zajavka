@@ -28,7 +28,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
 @WebServlet("/time-range")
-public class PricesInTimeRangeServlet extends HttpServlet {
+public class TimeRangeServlet extends HttpServlet {
 
     @Inject
     DailyDataDao dailyDataDao;
@@ -40,17 +40,34 @@ public class PricesInTimeRangeServlet extends HttpServlet {
     private ConfigurationService configurationService;
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
-    private static final String TEMPLATE_NAME = "pricesTimeRange";
+    private static final String TEMPLATE_NAME = "selectTimeRange";
+    private static final String TEMPLATE_NAME_RESULT = "pricesTimeRange";
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+
+        String startDate = req.getParameter("startDate");
+        String endDate = req.getParameter("endDate");
+
+        Map<String, Object> model = new HashMap<>();
+
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+        model.put("endDate", endDate);
+        model.put("startDate", startDate);
+
+        try {
+            template.process(model, resp.getWriter());
+        } catch (TemplateException e) {
+            LOG.error("Error while processing the template: " + e);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_RESULT);
 
         Map<String, Object> model = new HashMap<>();
         HttpSession session = req.getSession();
@@ -78,7 +95,5 @@ public class PricesInTimeRangeServlet extends HttpServlet {
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
-
-
     }
 }

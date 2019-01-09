@@ -60,7 +60,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <#if selected_time_range_prices??>active</#if>" href="select-time-range">
+                        <a class="nav-link <#if selected_time_range_prices??>active</#if>" href="time-range">
                             <span data-feather="trending-up"></span>
                             Selected time range prices
                         </a>
@@ -78,7 +78,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <#if local_extremes??>active</#if>" href="select-day-local">
+                        <a class="nav-link <#if local_extremes??>active</#if>" href="local-extremes">
                             <span data-feather="minimize-2"></span>
                             Local extremes
                         </a>
