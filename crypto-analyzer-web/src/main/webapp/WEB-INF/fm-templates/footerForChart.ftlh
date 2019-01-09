@@ -24,12 +24,12 @@
         type: 'line',
         data: {
             labels: [
-            <#list prices as entry>
+            <#list grafPrices as entry>
                 "${entry.date}",
     </#list>
     ],
     datasets: [{
-        data: [<#list prices as entry>
+        data: [<#list grafPrices as entry>
                 "${entry.price}",
         </#list>],
         lineTension: 0,
