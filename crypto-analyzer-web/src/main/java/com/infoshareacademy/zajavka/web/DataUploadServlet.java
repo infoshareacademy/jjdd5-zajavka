@@ -1,8 +1,6 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
-import com.infoshareacademy.zajavka.dao.ConfigurationDao;
-import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
 import com.infoshareacademy.zajavka.service.UnzipService;
@@ -40,7 +38,7 @@ public class DataUploadServlet extends HttpServlet {
     private UnzipService unzipService;
     @Inject
     private ReadFilesToBase readFilesToBase;
-    
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
