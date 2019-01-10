@@ -1,18 +1,28 @@
 package com.infoshareacademy.zajavka.dao;
 
 import com.infoshareacademy.zajavka.data.Chart;
+import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.DailyData;
+import com.infoshareacademy.zajavka.service.UploadService;
+import org.hibernate.query.QueryProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 public class DailyDataDao {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DailyDataDao.class);
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -28,6 +38,13 @@ public class DailyDataDao {
 
     public DailyData findByDate(LocalDate date) {
         return entityManager.find(DailyData.class, date);
+    }
+
+    public List<DailyData> findByCurrency(String currency) {
+        Query query = entityManager
+                .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :name ORDER BY s.date DESC");
+        query.setParameter("name", currency);
+        return query.getResultList();
     }
 
     public List<DailyData> findAll() {
@@ -59,11 +76,11 @@ public class DailyDataDao {
     }
 
     public DailyData getPriceForSelectedDay(LocalDate date, String currencyName){
-        final Query query = entityManager
-                .createQuery("SELECT s FROM DailyData s WHERE s.date = :date AND s.currency.name = :currency");
-        query.setParameter("date", date);
-        query.setParameter("currency", currencyName);
-        return (DailyData) query.getSingleResult();
+            final Query query = entityManager
+                    .createQuery("SELECT s FROM DailyData s WHERE s.date = :date AND s.currency.name = :currency");
+            query.setParameter("date", date);
+            query.setParameter("currency", currencyName);
+            return (DailyData) query.getSingleResult();
     }
 
     public DailyData getGlobalMin(String currencyName){
@@ -107,7 +124,6 @@ public class DailyDataDao {
         return query.getResultList();
     }
 
-
     public List<DailyData> getAllDailyDatasForCurrency(String currencyName) {
         final Query query = entityManager
                 .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :currency ORDER BY s.date DESC");
@@ -149,4 +165,41 @@ public class DailyDataDao {
         }
         return retStr;
     }
+
+    public List<LocalDate> getListDatesWithPrices(String currency){
+        List<DailyData> list = findByCurrency(currency);
+        return list.stream()
+                .sorted(Comparator.comparing(DailyData::getDate))
+                .filter(d ->d.getPriceUSD().compareTo(BigDecimal.ZERO) > 0)
+                .map(DailyData::getDate)
+                .collect(Collectors.toList());
+    }
+
+    public LocalDate getFirstDayWithPrice(List<LocalDate> list){
+        return list.get(0);
+    }
+
+    public LocalDate getLastDayWithPrice(List<LocalDate> list){
+        return list.get(list.size() - 1);
+    }
+
+    public boolean isDateCorrect(String date, String currencyName){
+        LocalDate parsedDate = LocalDate.parse(date);
+
+        try {
+            final Query query = entityManager
+                    .createQuery("SELECT s FROM DailyData s WHERE s.date = :date AND s.currency.name = :currency");
+            query.setParameter("date", date);
+            query.setParameter("currency", currencyName);
+            return true;
+        }
+        catch (NoResultException e){
+            LOG.warn("Date has not been found in the data base" + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean isDateWithPrice(String date, List<LocalDate> list){ return ((date != null) && (list.contains(LocalDate.parse(date))));
+    }
+
 }

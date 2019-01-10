@@ -9,6 +9,7 @@ import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Local;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +17,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.StyledEditorKit;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet("/select-day")
@@ -69,26 +72,43 @@ public class SelectDayServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
-
         String param1 = req.getParameter("date");
 
-        DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
 
-        LocalDate dailyDataDate = dd.getDate();
 
-        BigDecimal priceUsd = dd.getPriceUSD();
-        String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(), BigDecimal.ROUND_HALF_DOWN).toString();
+        if(dailyDataDao.isDateCorrect(param1,currency)) {
 
-        model.put("dailyDataDate", formatter.format(dailyDataDate));
-        model.put("formattedDailyDataPrice", formattedDailyDataPrice);
+
+            DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
+
+            LocalDate dailyDataDate = dd.getDate();
+
+            BigDecimal priceUsd = dd.getPriceUSD();
+            String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(), BigDecimal.ROUND_HALF_DOWN).toString();
+
+            model.put("dailyDataDate", formatter.format(dailyDataDate));
+            model.put("formattedDailyDataPrice", formattedDailyDataPrice);
+        }
+        else {
+            List<LocalDate> correctTimeRange = dailyDataDao.getListDatesWithPrices(currency);
+            LocalDate firstDay = dailyDataDao.getFirstDayWithPrice(correctTimeRange);
+            LocalDate lastDay = dailyDataDao.getLastDayWithPrice(correctTimeRange);
+
+            model.put("firstDay", firstDay);
+            model.put("lastDay", lastDay);
+
+        }
+
+        Boolean isDateWithPrice = dailyDataDao.isDateWithPrice(param1, correctTimeRange);
+
+        model.put("isDateOk", isDateWithPrice);
 
 
         try {
-            template2.process(model, resp.getWriter());
-        } catch (TemplateException e) {
-            LOG.error("Error while processing the template: " + e);
-        }
-
+                template2.process(model, resp.getWriter());
+            } catch (TemplateException e) {
+                LOG.error("Error while processing the template: " + e);
+            }
 
     }
 }
