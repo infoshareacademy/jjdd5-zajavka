@@ -25,6 +25,9 @@ public class InfoServlet extends HttpServlet {
     @Inject
     TemplateProvider templateProvider;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws SecurityException, IOException {
@@ -35,7 +38,7 @@ public class InfoServlet extends HttpServlet {
         model.put("member3", "Przemek Grabski");
         model.put("member4", "Waldek Wódczak");
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");

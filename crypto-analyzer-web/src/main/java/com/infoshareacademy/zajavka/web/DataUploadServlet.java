@@ -39,6 +39,8 @@ public class DataUploadServlet extends HttpServlet {
     private UnzipService unzipService;
     @Inject
     private ReadFilesToBase readFilesToBase;
+    @Inject
+    private LoginService loginService;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -47,7 +49,7 @@ public class DataUploadServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             template.process(model, resp.getWriter());

@@ -41,6 +41,8 @@ public class LoginServlet extends HttpServlet {
     private TemplateProvider templateProvider;
     @Inject
     private UserDao userDao;
+    @Inject
+    private IdTokenVerifierAndParser idTokenVerifierAndParser;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -70,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 
             String idToken = req.getParameter("id_token");
 
-            GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
+            GoogleIdToken.Payload payLoad = idTokenVerifierAndParser.getPayload(idToken);
             String nameGoogle = (String) payLoad.get("name");
             String emailGoogle = payLoad.getEmail();
 

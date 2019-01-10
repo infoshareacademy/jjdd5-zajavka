@@ -38,6 +38,10 @@ public class ConfigurationServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
+
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -47,7 +51,7 @@ public class ConfigurationServlet extends HttpServlet {
         config.put("dateFormat", configurationService.dateFormat());
         config.put("afterSign", configurationService.numberAfterSign());
 
-        LoginService.addUserNameToSesionIfLogin(req, config);
+        loginService.addUserNameToSesionIfLogin(req, config);
 
         try {
             template.process(config, resp.getWriter());

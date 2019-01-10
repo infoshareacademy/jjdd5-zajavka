@@ -36,6 +36,9 @@ public class GlobalExtremesServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
+    @Inject
+    private LoginService loginService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "globalExtremes";
 
@@ -45,7 +48,7 @@ public class GlobalExtremesServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
 
-        model = LoginService.addUserNameToSesionIfLogin(req, model);
+        model = loginService.addUserNameToSesionIfLogin(req, model);
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");

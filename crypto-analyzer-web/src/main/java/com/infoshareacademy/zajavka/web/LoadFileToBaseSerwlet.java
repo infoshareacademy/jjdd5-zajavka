@@ -34,12 +34,15 @@ public class LoadFileToBaseSerwlet extends HttpServlet {
     @Inject
     private ReadFilesToBase readFilesToBase;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Map<String, Object> model = new HashMap<>();
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             List<String> names = readFilesToBase.getFileNames();

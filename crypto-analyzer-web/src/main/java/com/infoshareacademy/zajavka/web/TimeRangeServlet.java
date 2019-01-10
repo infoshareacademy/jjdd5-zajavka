@@ -40,6 +40,9 @@ public class TimeRangeServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectTimeRange";
     private static final String TEMPLATE_NAME_RESULT = "pricesTimeRange";
@@ -50,7 +53,7 @@ public class TimeRangeServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
 
-        model = LoginService.addUserNameToSesionIfLogin(req, model);
+        model = loginService.addUserNameToSesionIfLogin(req, model);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 

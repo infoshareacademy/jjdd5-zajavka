@@ -43,6 +43,9 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -50,7 +53,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
         String chosenCurrency;
         Map<String, Object> model = new HashMap<>();
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         String currency = (String) session.getAttribute("currency");
         if (currency == null || currency.isEmpty()) {

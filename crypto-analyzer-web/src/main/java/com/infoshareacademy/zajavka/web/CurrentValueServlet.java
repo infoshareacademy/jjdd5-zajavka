@@ -38,6 +38,9 @@ public class CurrentValueServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DateTimeFormatter formatter = configurationService.dateFormatter();
@@ -62,7 +65,7 @@ public class CurrentValueServlet extends HttpServlet {
 
         model.put("chosenCurrency", chosenCurrency);
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 

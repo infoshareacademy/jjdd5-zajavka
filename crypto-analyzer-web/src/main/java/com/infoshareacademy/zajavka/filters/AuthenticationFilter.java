@@ -1,5 +1,8 @@
 package com.infoshareacademy.zajavka.filters;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -8,8 +11,10 @@ import java.io.IOException;
 
 @WebFilter(
         urlPatterns = {"/rateHistory", "/select-time-range"}
-        )
+)
 public class AuthenticationFilter implements Filter {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -23,7 +28,8 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("userName") == null) {
-            RequestDispatcher requestDispatcher =req.getRequestDispatcher("/login");
+            LOG.info("Redirect to /login, reason: not logged" );
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/login");
             requestDispatcher.forward(req, resp);
         }
 

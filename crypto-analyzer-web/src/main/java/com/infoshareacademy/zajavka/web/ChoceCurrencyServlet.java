@@ -32,6 +32,9 @@ public class ChoceCurrencyServlet extends HttpServlet {
     @Inject
     private CurrencyDao currencyDao;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -65,7 +68,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         model.put("Names", currencyDao.getNames());
         model.put("chosenCurrency", chosenCurrency);

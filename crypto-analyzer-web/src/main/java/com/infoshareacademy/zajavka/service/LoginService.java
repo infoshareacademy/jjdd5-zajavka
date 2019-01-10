@@ -1,13 +1,12 @@
 package com.infoshareacademy.zajavka.service;
 
+import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
+@Stateless
 public class LoginService {
-
-    private LoginService() {
-    }
 
     private static final String SESSION_ATTRIBUTE_NAME = "userName";
 

@@ -37,6 +37,9 @@ public class SelectDayServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDay";
     private static final String TEMPLATE_NAME_SELECTED = "selectedDay";
@@ -47,7 +50,7 @@ public class SelectDayServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
