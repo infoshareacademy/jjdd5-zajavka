@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
+import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @WebServlet(urlPatterns = "/currency-name")
 @Transactional
@@ -30,8 +32,6 @@ public class CurrencyNameServlet extends HttpServlet {
     private CurrencyNameDao currencyNameDao;
     @Inject
     private TemplateProvider templateProvider;
-    @Inject
-    private ConfigurationDao configurationDao;
 
     @Override
     public void init() {
@@ -67,10 +67,16 @@ public class CurrencyNameServlet extends HttpServlet {
         final String currencyName = req.getParameter("currencyName");
         CurrencyName newCurrency = new CurrencyName(fileName, currencyName);
 
-        LOG.info("Add new file name = {} and new currency name = {}", fileName, currencyName);
+        CurrencyName byId = currencyNameDao.findById(fileName);
 
-        currencyNameDao.save(newCurrency);
+        if(byId == null) {
+            LOG.info("Add new file name = {} and new currency name = {}", fileName, currencyName);
 
-        doGet(req, resp);
+            currencyNameDao.save(newCurrency);
+            doGet(req, resp);
+        }else{
+            resp.sendRedirect(req.getContextPath() + "/currency-name-problem");
+        }
+
     }
 }

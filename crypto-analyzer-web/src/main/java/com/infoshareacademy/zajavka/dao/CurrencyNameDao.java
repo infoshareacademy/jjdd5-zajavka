@@ -32,8 +32,8 @@ public class CurrencyNameDao {
         }
     }
 
-    public Currency findById(String name) {
-        return entityManager.find(Currency.class, name);
+    public CurrencyName findById(String name) {
+        return entityManager.find(CurrencyName.class, name);
     }
 
     public List<CurrencyName> findAll() {
