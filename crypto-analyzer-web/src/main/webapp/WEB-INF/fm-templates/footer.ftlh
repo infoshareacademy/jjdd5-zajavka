@@ -16,5 +16,6 @@
 <script>
     feather.replace()
 </script>
+<#include "googleLogoutScript.ftlh"/>
 </body>
 </html>

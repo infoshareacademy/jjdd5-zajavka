@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl-PL">
     <head>
         <#include "head1.ftlh"/>
             <meta name="google-signin-scope" content="profile email">

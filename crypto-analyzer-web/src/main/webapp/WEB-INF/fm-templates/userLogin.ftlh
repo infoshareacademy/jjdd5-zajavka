@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl-PL">
     <head>
         <#include "head1.ftlh"/>
         <#include "googleLogoutHead.ftlh"/>
