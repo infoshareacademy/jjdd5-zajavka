@@ -10,7 +10,7 @@ public class LoginService {
 
     private static final String SESSION_ATTRIBUTE_NAME = "userName";
 
-    public static Map<String, Object> addUserNameToSesionIfLogin(HttpServletRequest req, Map<String, Object> modelIn){
+    public Map<String, Object> addUserNameToSesionIfLogin(HttpServletRequest req, Map<String, Object> modelIn){
 
         Map<String, Object> model = modelIn;
 
