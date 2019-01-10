@@ -62,6 +62,15 @@ public class CurrencyNameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
+        final String fileName = req.getParameter("fileName");
+        final String currencyName = req.getParameter("currencyName");
+        CurrencyName newCurrency = new CurrencyName(fileName, currencyName);
+
+        LOG.info("Add new file name = {} and new currency name = {}", fileName, currencyName);
+
+        currencyNameDao.save(newCurrency);
+
+        doGet(req, resp);
     }
 }
