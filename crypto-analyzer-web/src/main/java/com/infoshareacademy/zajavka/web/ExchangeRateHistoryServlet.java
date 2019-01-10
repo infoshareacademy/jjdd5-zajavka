@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -67,6 +68,12 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
                     .collect(toList());
 
             model.put("prices", prices);
+
+            model.put("grafPrices", prices.stream().sorted((p1, p2) -> {
+                LocalDate d1 = LocalDate.parse(p1.getDate(), formatter);
+                LocalDate d2 = LocalDate.parse(p2.getDate(), formatter);
+                return d1.compareTo(d2);
+            }).collect(toList()));
 
 
             chosenCurrency = "Actual currency: " + currency;
