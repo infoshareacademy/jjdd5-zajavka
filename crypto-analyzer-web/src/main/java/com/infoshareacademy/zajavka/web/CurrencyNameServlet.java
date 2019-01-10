@@ -63,7 +63,6 @@ public class CurrencyNameServlet extends HttpServlet {
         final String fileName = req.getParameter("fileName");
         final String currencyName = req.getParameter("currencyName");
         CurrencyName newCurrency = new CurrencyName(fileName, currencyName);
-
         CurrencyName byId = currencyNameDao.findById(fileName);
 
         if (byId == null) {
