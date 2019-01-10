@@ -64,7 +64,7 @@ public class DataUploadServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
 
-        LoginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             List<String> names = readFilesToBase.getFileNames();
