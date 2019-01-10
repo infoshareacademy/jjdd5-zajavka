@@ -62,7 +62,6 @@ public class DailyData {
         this.priceUSD = priceUSD;
     }
 
-
     public Currency getCurrency() {
         return currency;
     }

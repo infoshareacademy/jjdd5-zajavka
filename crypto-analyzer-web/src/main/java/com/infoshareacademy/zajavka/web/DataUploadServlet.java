@@ -1,6 +1,5 @@
 package com.infoshareacademy.zajavka.web;
 
-import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
@@ -39,10 +38,7 @@ public class DataUploadServlet extends HttpServlet {
     private UnzipService unzipService;
     @Inject
     private ReadFilesToBase readFilesToBase;
-    @Inject
-    private DailyDataDao dailyDataDao;
 
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -56,6 +52,7 @@ public class DataUploadServlet extends HttpServlet {
             LOG.error("Error while processing the template: " + e);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -79,7 +76,6 @@ public class DataUploadServlet extends HttpServlet {
             String extractedPath = UnzipService.EXTRACTED_DATA_PATH;
             unzipService.unzip(uploadedFile, extractedPath);
             resp.getWriter().println();
-//            "Extracted to " + extractedPath
         }
 
         try {

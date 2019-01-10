@@ -2,8 +2,10 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.Report;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class ChoceCurrencyServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ChoceCurrencyServlet.class);
-    private static final String TEMPLATE_NAME = "choseCurrency";
+    private static final String TEMPLATE_NAME = "chooseCurrency";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -31,13 +33,16 @@ public class ChoceCurrencyServlet extends HttpServlet {
     @Inject
     private CurrencyDao currencyDao;
 
+    @Inject
+    private Report report;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 
         HttpSession session = req.getSession();
 
-        showSide(session,templateProvider, resp);
+        showSide(session, templateProvider, resp);
     }
 
     @Override
@@ -45,20 +50,25 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = req.getParameter("currency");
-        if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))){
+        if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
             session.setAttribute("currency", currency);
         }
+        if (Strings.isNotEmpty(currency)) {
+            report.getCurrency(currency);
+            // todo send statistic
+        }
 
-        showSide(session,templateProvider, resp);
+        showSide(session, templateProvider, resp);
 
     }
+
     private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
-        if (currency == null || currency.isEmpty()){
-            chosenCurrency="No chosen currency";
+        if (currency == null || currency.isEmpty()) {
+            chosenCurrency = "No chosen currency";
         } else {
-            chosenCurrency="Actual currency: " + currency;
+            chosenCurrency = "Actual currency: " + currency;
         }
 
 

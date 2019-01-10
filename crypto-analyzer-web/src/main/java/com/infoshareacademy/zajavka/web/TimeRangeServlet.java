@@ -1,7 +1,8 @@
 package com.infoshareacademy.zajavka.web;
 
+
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
-import com.infoshareacademy.zajavka.data.DailyData;
+import com.infoshareacademy.zajavka.data.PriceDTO;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
 import freemarker.template.Template;
@@ -17,81 +18,83 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@WebServlet("/local-extremes")
-public class LocalExtremesServlet extends HttpServlet {
+import static java.util.stream.Collectors.toList;
+
+@WebServlet("/time-range")
+public class TimeRangeServlet extends HttpServlet {
+
+    @Inject
+    DailyDataDao dailyDataDao;
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Inject
-    private DailyDataDao dailyDataDao;
-
-    @Inject
     private ConfigurationService configurationService;
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
-    private static final String TEMPLATE_NAME = "selectDayLocal";
-    private static final String TEMPLATE_NAME_RESULT = "localExtremes";
+    private static final String TEMPLATE_NAME = "selectTimeRange";
+    private static final String TEMPLATE_NAME_RESULT = "pricesTimeRange";
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String startDate = req.getParameter("startDate");
+        String endDate = req.getParameter("endDate");
+
         Map<String, Object> model = new HashMap<>();
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+        model.put("endDate", endDate);
+        model.put("startDate", startDate);
 
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Map<String, Object> model = new HashMap<>();
-        PrintWriter out = resp.getWriter();
-
-        HttpSession session = req.getSession();
-        String currency = (String) session.getAttribute("currency");
-
-        LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
-        LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
-
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_RESULT);
+
+        Map<String, Object> model = new HashMap<>();
+        HttpSession session = req.getSession();
+
+        String currency = (String) session.getAttribute("currency");
 
         DateTimeFormatter formatter = configurationService.dateFormatter();
         Integer afterSign = configurationService.numberAfterSign();
 
-        DailyData localMax = dailyDataDao.getLocalMax(currency, startDate, endDate);
+        LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
+        LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
 
-        String localMaxPrice = localMax.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-        LocalDate localMaxDate = localMax.getDate();
-        String formattedLocalMaxDate = formatter.format(localMaxDate);
+        List<PriceDTO> prices = dailyDataDao.getPricesInTimeRange(currency, startDate, endDate).stream()
+                .map(o -> {
+                    BigDecimal formattedPrice = o.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN);
+                    String date = o.getDate().format(formatter);
+                    return new PriceDTO(formattedPrice.toString(), date);
+                })
+                .collect(toList());
 
-        DailyData localMin = dailyDataDao.getLocalMin(currency, startDate, endDate);
+        model.put("prices", prices);
 
-        String localMinPrice = localMin.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-        LocalDate localMinDate = localMin.getDate();
-        String formattedLocalMinDate = formatter.format(localMinDate);
-
-        model.put("localMaxPrice", localMaxPrice);
-        model.put("formattedLocalMaxDate", formattedLocalMaxDate);
-        model.put("localMinPrice", localMinPrice);
-        model.put("formattedLocalMinDate", formattedLocalMinDate);
-        model.put("startDate", formatter.format(startDate));
-        model.put("endDate", formatter.format(endDate));
+        model.put("grafPrices", prices.stream().sorted((p1, p2) -> {
+            LocalDate d1 = LocalDate.parse(p1.getDate(), formatter);
+            LocalDate d2 = LocalDate.parse(p2.getDate(), formatter);
+            return d1.compareTo(d2);
+        }).collect(toList()));
 
 
         try {
@@ -99,7 +102,5 @@ public class LocalExtremesServlet extends HttpServlet {
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
-
-
     }
 }
