@@ -112,7 +112,7 @@ public class LoginServlet extends HttpServlet {
             model.put("sessionName", sessionName);
             model.put("sessionEmail", sessionEmail);
 
-            if (user.getUserRole() == ADMIN) {
+            if (user != null && user.getUserRole() == ADMIN) {
                 template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_ADMIN);
             } else {
                 template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_OK);

@@ -5,10 +5,16 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class IdTokenVerifierAndParser {
     private static final String GOOGLE_CLIENT_ID = "738989560971-cbgka85jgvbd3mju5r9i9i4r6uj3blnm.apps.googleusercontent.com";
 
-    public static GoogleIdToken.Payload getPayload (String tokenString) throws Exception {
+    private IdTokenVerifierAndParser() {
+    }
+
+    public static GoogleIdToken.Payload getPayload (String tokenString) throws IOException, GeneralSecurityException {
 
         JacksonFactory jacksonFactory = new JacksonFactory();
         GoogleIdTokenVerifier googleIdTokenVerifier =
