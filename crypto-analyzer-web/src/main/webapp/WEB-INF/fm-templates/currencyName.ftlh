@@ -36,7 +36,7 @@
                    </tbody>
                </table>
                <input type="submit">
-           </form>
+               </form>
                </div>
            </#if>
     </div>
