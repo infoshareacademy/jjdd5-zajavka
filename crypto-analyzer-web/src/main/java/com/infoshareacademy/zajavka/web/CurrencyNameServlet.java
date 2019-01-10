@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
+import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "/currency-name")
@@ -30,30 +32,34 @@ public class CurrencyNameServlet extends HttpServlet {
     private TemplateProvider templateProvider;
     @Inject
     private ConfigurationDao configurationDao;
+
+    @Override
+    public void init() {
+        CurrencyName c1 = new CurrencyName("doge.csv", "Dodge");
+        CurrencyName c2 = new CurrencyName("btc.csv", "Bitcoin");
+        currencyNameDao.save(c1);
+        currencyNameDao.save(c2);
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
         Map<String, Object> model = new HashMap<>();
-        Map<String,String> currencyList = currencyNameDao.findAllMap();
-        model.put("currencyList", currencyList.entrySet());
-//        model.put("aaa", configurationService.);
-        /*
-        final List<CurrencyName> result = currencyNameDao.findAll();
-        LOG.info("Found {} objects", result.size());
-        for (CurrencyName c : result) {
-            resp.getWriter().write(c.toString() + "\n");*/
-        String aa = configurationDao.findValue("dateFormat");
-        model.put("ada", aa);
-        //dfsafd
-       /*
-        config.put("dateFormat", configurationDao.findValue("dateFormat"));
-        config.put("afterSign", configurationDao.findValue("afterSign"));*/
+
+        List<CurrencyName> currencyList = currencyNameDao.findAll();
+
+        model.put("currencyNameList", currencyList);
+
+        LOG.info("Found {} objects", currencyList.size());
+
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPost(req, resp);
