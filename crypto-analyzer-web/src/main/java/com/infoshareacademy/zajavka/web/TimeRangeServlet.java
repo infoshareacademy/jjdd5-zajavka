@@ -80,15 +80,22 @@ public class TimeRangeServlet extends HttpServlet {
         LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
         LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
 
-        List<PriceDTO> prices = dailyDataDao.getPricesInTimeRange(currency,startDate,endDate).stream()
+        List<PriceDTO> prices = dailyDataDao.getPricesInTimeRange(currency, startDate, endDate).stream()
                 .map(o -> {
-                    BigDecimal formattedPrice =o.getPriceUSD().setScale(afterSign,BigDecimal.ROUND_HALF_DOWN);
+                    BigDecimal formattedPrice = o.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN);
                     String date = o.getDate().format(formatter);
                     return new PriceDTO(formattedPrice.toString(), date);
                 })
                 .collect(toList());
 
         model.put("prices", prices);
+
+        model.put("grafPrices", prices.stream().sorted((p1, p2) -> {
+            LocalDate d1 = LocalDate.parse(p1.getDate(), formatter);
+            LocalDate d2 = LocalDate.parse(p2.getDate(), formatter);
+            return d1.compareTo(d2);
+        }).collect(toList()));
+
 
         try {
             template.process(model, resp.getWriter());
