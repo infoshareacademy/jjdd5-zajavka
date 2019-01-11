@@ -5,6 +5,7 @@ import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.PriceDTO;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -39,6 +40,9 @@ public class TimeRangeServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectTimeRange";
     private static final String TEMPLATE_NAME_RESULT = "pricesTimeRange";
@@ -47,15 +51,11 @@ public class TimeRangeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String startDate = req.getParameter("startDate");
-        String endDate = req.getParameter("endDate");
-
         Map<String, Object> model = new HashMap<>();
 
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+        model = loginService.addUserNameToSesionIfLogin(req, model);
 
-        model.put("endDate", endDate);
-        model.put("startDate", startDate);
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         try {
             template.process(model, resp.getWriter());

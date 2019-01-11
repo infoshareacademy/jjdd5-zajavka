@@ -5,6 +5,7 @@ import com.infoshareacademy.zajavka.data.PriceDTO;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -42,12 +43,18 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         String chosenCurrency;
         Map<String, Object> model = new HashMap<>();
+
+        loginService.addUserNameToSesionIfLogin(req, model);
+
         String currency = (String) session.getAttribute("currency");
         if (currency == null || currency.isEmpty()) {
             chosenCurrency = "No chosen currency";

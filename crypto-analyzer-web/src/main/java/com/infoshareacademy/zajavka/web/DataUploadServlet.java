@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
 import com.infoshareacademy.zajavka.service.UnzipService;
 import com.infoshareacademy.zajavka.service.UploadService;
@@ -38,6 +39,8 @@ public class DataUploadServlet extends HttpServlet {
     private UnzipService unzipService;
     @Inject
     private ReadFilesToBase readFilesToBase;
+    @Inject
+    private LoginService loginService;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -45,6 +48,8 @@ public class DataUploadServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             template.process(model, resp.getWriter());
@@ -58,6 +63,8 @@ public class DataUploadServlet extends HttpServlet {
             throws ServletException, IOException {
 
         Map<String, Object> model = new HashMap<>();
+
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             List<String> names = readFilesToBase.getFileNames();
