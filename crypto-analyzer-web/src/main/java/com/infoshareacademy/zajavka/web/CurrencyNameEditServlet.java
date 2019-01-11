@@ -1,6 +1,7 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
+import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -32,16 +33,18 @@ public class CurrencyNameEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-     String value1 = req.getParameter("valueName");
+     String editCurrencyName = req.getParameter("name");
+        CurrencyName currencyName = currencyNameDao.findById(editCurrencyName);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        Map<String, Object> config = new HashMap<>();
-        config.put("value", value1);
+        Map<String, Object> getCurrencyName = new HashMap<>();
+        getCurrencyName.put("editCurrencyName1", currencyName);
+
 
 
         try {
-            template.process(config, resp.getWriter());
+            template.process(getCurrencyName, resp.getWriter());
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e.getMessage());
             e.printStackTrace();

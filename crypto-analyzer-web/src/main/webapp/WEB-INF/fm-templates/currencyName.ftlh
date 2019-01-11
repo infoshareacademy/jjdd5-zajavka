@@ -38,7 +38,7 @@
                 <tr>
                     <td>${currencyList.nameFile}</td>
                     <td>${currencyList.nameCurrency}</td>
-                    <td><form method="get" name="valueName" value=${currencyList.nameFile}><a href="/currency-name-edit">Edit</a></form><form method="delete"><a href="/currency-name-edit" >Delete</a></form></td>
+                    <td><a href="/currency-name-edit?name=${currencyList.nameFile}"> Edit </a> <a href="/currency-name-edit?name1=${currencyList.nameFile}" > Delete </a></td>
             </#list>
             </tbody>
     </#if>
