@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -166,14 +167,6 @@ public class DailyDataDao {
         return retStr;
     }
 
-    public List<LocalDate> getListDatesWithPrices(String currency){
-        List<DailyData> list = findByCurrency(currency);
-        return list.stream()
-                .sorted(Comparator.comparing(DailyData::getDate))
-                .filter(d ->d.getPriceUSD().compareTo(BigDecimal.ZERO) > 0)
-                .map(DailyData::getDate)
-                .collect(Collectors.toList());
-    }
 
     public LocalDate getFirstDayWithPrice(List<LocalDate> list){
         return list.get(0);
@@ -183,23 +176,20 @@ public class DailyDataDao {
         return list.get(list.size() - 1);
     }
 
-    public boolean isDateCorrect(String date, String currencyName){
+    public List<DailyData> getDateWithPrice(String date, String currencyName) {
+
         LocalDate parsedDate = LocalDate.parse(date);
 
         try {
             final Query query = entityManager
-                    .createQuery("SELECT s FROM DailyData s WHERE s.date = :date AND s.currency.name = :currency");
+                    .createQuery("SELECT s FROM DailyData s WHERE s.date = :date AND s.currency.name = :currency AND s.priceUSD > 0");
             query.setParameter("date", date);
             query.setParameter("currency", currencyName);
-            return true;
-        }
-        catch (NoResultException e){
+            return query.getResultList();
+        } catch (NoResultException e) {
             LOG.warn("Date has not been found in the data base" + e.getMessage());
-            return false;
+            List<DailyData> list = new ArrayList<>();
+            return list;
         }
     }
-
-    public boolean isDateWithPrice(String date, List<LocalDate> list){ return ((date != null) && (list.contains(LocalDate.parse(date))));
-    }
-
 }

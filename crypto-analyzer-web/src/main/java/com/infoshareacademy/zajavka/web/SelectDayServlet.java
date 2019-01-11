@@ -99,11 +99,6 @@ public class SelectDayServlet extends HttpServlet {
 
         }
 
-        Boolean isDateWithPrice = dailyDataDao.isDateWithPrice(param1, correctTimeRange);
-
-        model.put("isDateOk", isDateWithPrice);
-
-
         try {
                 template2.process(model, resp.getWriter());
             } catch (TemplateException e) {
