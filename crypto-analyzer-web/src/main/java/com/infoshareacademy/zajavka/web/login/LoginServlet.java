@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         final PrintWriter writer = resp.getWriter();
         HttpSession session = req.getSession(true);
-        User user = new User();
+        User user ;
 
         try {
             LOG.info("Login user with google api");
@@ -79,28 +79,16 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(SESSION_ATTRIBUTE_NAME, nameGoogle);
             session.setAttribute(SESSION_ATTRIBUTE_EMAIL, emailGoogle);
 
+
+            user=userDao.findEmail(emailGoogle);
+            if (user == null) {
+                user.setUserEmail(emailGoogle);
+                user.setUserName(nameGoogle);
+                userDao.save(user);
+            }
+
         } catch (Exception e) {
             LOG.warn("Failed to login user in google api");
-            LOG.info("Trying to log in using our user account");
-
-            String email = req.getParameter("email");
-            String password = req.getParameter("password");
-
-            List<User> userList = userDao.findAll()
-                    .stream()
-                    .filter(u -> u.getUserEmail().equals(email))
-                    .collect(Collectors.toList());
-
-            if (!userList.isEmpty()) {
-
-                user = userList.get(0);
-
-                if (user != null && user.getUserPassword().equals(password)) {
-
-                    session.setAttribute(SESSION_ATTRIBUTE_NAME, user.getUserName());
-                    session.setAttribute(SESSION_ATTRIBUTE_EMAIL, user.getUserEmail());
-                }
-            }
         }
 
         String sessionName = (String) session.getAttribute(SESSION_ATTRIBUTE_NAME);
@@ -114,11 +102,8 @@ public class LoginServlet extends HttpServlet {
             model.put("sessionName", sessionName);
             model.put("sessionEmail", sessionEmail);
 
-            if (user != null && user.getUserRole() == ADMIN) {
-                template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_ADMIN);
-            } else {
-                template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_OK);
-            }
+            template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_OK);
+
         } else {
             template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_FAILED);
             LOG.warn("Failed to. Incorrect login or password");
