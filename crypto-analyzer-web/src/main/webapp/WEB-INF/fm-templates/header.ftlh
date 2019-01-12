@@ -95,6 +95,12 @@
                             Configuration
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <#if currencyName??>active</#if>" href="currency-name">
+                            <span data-feather="settings"></span>
+                            Currency Name
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

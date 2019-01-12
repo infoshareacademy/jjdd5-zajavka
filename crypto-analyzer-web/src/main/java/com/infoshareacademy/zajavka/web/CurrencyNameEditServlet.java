@@ -14,11 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "/currency-name-edit")
+@Transactional
 public class CurrencyNameEditServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(CurrencyNameEditServlet.class);
@@ -50,5 +52,29 @@ public class CurrencyNameEditServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String fileName = req.getParameter("fileName");
+        final String currencyName = req.getParameter("currencyName");
+        CurrencyName newCurrency = new CurrencyName(fileName, currencyName);
+
+        currencyNameDao.update(newCurrency);
+
+        //Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
+
+       /* Map<String, Object> getCurrencyName = new HashMap<>();
+        getCurrencyName.put("editCurrencyName1", currencyName1);
+
+
+        try {
+            template.process(getCurrencyName, resp.getWriter());
+        } catch (TemplateException e) {
+            LOG.error("Error while processing the template: " + e.getMessage());
+            e.printStackTrace();
+        }*/
+
+        resp.sendRedirect("/currency-name");
     }
 }

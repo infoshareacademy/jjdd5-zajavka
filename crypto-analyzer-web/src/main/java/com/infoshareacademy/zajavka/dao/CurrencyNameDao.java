@@ -21,7 +21,7 @@ public class CurrencyNameDao {
         return s.getNameFile();
     }
 
-    public Currency update(Currency s) {
+    public CurrencyName update(CurrencyName s) {
         return entityManager.merge(s);
     }
 
