@@ -25,6 +25,7 @@ import java.util.Map;
 public class CurrencyNameServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(CurrencyNameServlet.class);
     private static final String TEMPLATE_NAME = "currencyName";
+    private static final String TEMPLATE_NAME_SECOND = "currencyNameExist";
     @Inject
     private CurrencyNameDao currencyNameDao;
     @Inject
@@ -71,7 +72,23 @@ public class CurrencyNameServlet extends HttpServlet {
             currencyNameDao.save(newCurrency);
             doGet(req, resp);
         } else {
-            resp.sendRedirect(req.getContextPath() + "/currency-name-problem");
+
+            Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_SECOND);
+
+            Map<String, Object> model = new HashMap<>();
+
+            List<CurrencyName> currencyList = currencyNameDao.findAll();
+
+            model.put("currencyNameList", currencyList);
+
+            LOG.info("Found {} objects", currencyList.size());
+
+            try {
+                template.process(model, resp.getWriter());
+            } catch (TemplateException e) {
+                LOG.error("Error while processing the template: " + e);
+            }
+
         }
 
     }
