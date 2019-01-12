@@ -60,13 +60,14 @@ public class ChoceCurrencyServlet extends HttpServlet {
     private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp, HttpServletRequest req) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
+        Map<String, Object> model = new HashMap<>();
         if (currency == null || currency.isEmpty()) {
             chosenCurrency = "not selected";
         } else {
             chosenCurrency = currency;
+            model.put("isCurrencySelected",true);
         }
 
-        Map<String, Object> model = new HashMap<>();
 
         loginService.addUserNameToSesionIfLogin(req, model);
 
