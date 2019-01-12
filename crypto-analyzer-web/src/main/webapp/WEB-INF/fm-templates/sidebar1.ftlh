@@ -8,12 +8,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <#if load_files??>active</#if>" href="data-upload">
-                            <span data-feather="download"></span>
-                            Load files <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link <#if chose_currency??>active</#if>" href="choose">
                             <span data-feather="check-square"></span>
                             Choose currency
@@ -32,7 +26,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <#if selected_time_range_prices??>active</#if>" href="select-time-range">
+                        <a class="nav-link <#if selected_time_range_prices??>active</#if>" href="time-range">
                             <span data-feather="trending-up"></span>
                             Selected time range prices
                         </a>
@@ -50,7 +44,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <#if local_extremes??>active</#if>" href="select-day-local">
+                        <a class="nav-link <#if local_extremes??>active</#if>" href="local-extremes">
                             <span data-feather="minimize-2"></span>
                             Local extremes
                         </a>
@@ -61,6 +55,20 @@
                             Info
                         </a>
                     </li>
+                    <#if sessionRole??>
+                        <li class="nav-item">
+                            <a class="nav-link <#if load_files??>active</#if>" href="data-upload">
+                                <span data-feather="download"></span>
+                                Load files <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <#if configuration??>active</#if>" href="configuration">
+                                <span data-feather="settings"></span>
+                                Configuration
+                            </a>
+                        </li>
+                    </#if>
                 </ul>
             </div>
         </nav>

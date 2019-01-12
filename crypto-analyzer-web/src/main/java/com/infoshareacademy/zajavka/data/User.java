@@ -4,15 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_ID")
-    private int userId;
-
-    @Column(name = "USER_EMAIL")
+    @Column(name = "USER_EMAIL" , length = 132)
     @NotNull
     private String userEmail;
 
@@ -20,20 +16,15 @@ public class User {
     private String userName;
 
     @Column(name = "USER_ROLE")
-    private int userRole;
+    private Integer userRole;
 
     public User() {
     }
 
-    public User(String userEmail, String userPassword, String userName, String userSurname, int userRole) {
+    public User(@NotNull String userEmail, String userName, Integer userRole) {
         this.userEmail = userEmail;
         this.userName = userName;
         this.userRole = userRole;
-    }
-
-
-    public int getUserId() {
-        return userId;
     }
 
     public String getUserEmail() {
@@ -52,11 +43,20 @@ public class User {
         this.userName = userName;
     }
 
-    public int getUserRole() {
+    public Integer getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(int userRole) {
+    public void setUserRole(Integer userRole) {
         this.userRole = userRole;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userEmail='" + userEmail + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userRole=" + userRole +
+                '}';
     }
 }

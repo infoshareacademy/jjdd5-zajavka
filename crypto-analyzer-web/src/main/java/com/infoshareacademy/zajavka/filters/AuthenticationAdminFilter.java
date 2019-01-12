@@ -1,8 +1,10 @@
 package com.infoshareacademy.zajavka.filters;
 
+import com.infoshareacademy.zajavka.dao.UserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -10,11 +12,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(
-        urlPatterns = {"/rateHistory", "/select-time-range"}
+        urlPatterns = {"/configuration", "/data-upload"}
 )
-public class AuthenticationFilter implements Filter {
+public class AuthenticationAdminFilter implements Filter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationAdminFilter.class);
+    private static final Integer ADMIN = 1;
+
+    @Inject
+    private UserDao userDao;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -27,8 +33,8 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("userName") == null) {
-            LOG.info("Redirect to /login, reason: not logged" );
+        if (session.getAttribute("userEmail") == null || userDao.findByEmail(session.getAttribute("userEmail").toString())==null || userDao.findByEmail(session.getAttribute("userEmail").toString()).getUserRole().intValue() != ADMIN) {
+            LOG.warn("Not authorized try get acces to Admin function" );
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/login");
             requestDispatcher.forward(req, resp);
         }

@@ -32,7 +32,6 @@ public class LoginServlet extends HttpServlet {
     private static final String TEMPLATE_NAME_LOGIN = "login";
     private static final String TEMPLATE_NAME_LOGIN_OK = "userLogin";
     private static final String TEMPLATE_NAME_LOGIN_FAILED = "user-login-failed";
-    private static final String TEMPLATE_NAME_LOGIN_ADMIN = "admin-login";
     private static final String SESSION_ATTRIBUTE_NAME = "userName";
     private static final String SESSION_ATTRIBUTE_EMAIL = "userEmail";
     private static final Integer ADMIN = 1;
@@ -65,7 +64,7 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         final PrintWriter writer = resp.getWriter();
         HttpSession session = req.getSession(true);
-        User user ;
+        User user;
 
         try {
             LOG.info("Login user with google api");
@@ -80,11 +79,17 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(SESSION_ATTRIBUTE_EMAIL, emailGoogle);
 
 
-            user=userDao.findEmail(emailGoogle);
+            LOG.info("bef user=userDao.findEmail(emailGoogle)");
+            user=userDao.findByEmail(emailGoogle);
+            LOG.info("aft user=userDao.findEmail(emailGoogle)" + user);
             if (user == null) {
-                user.setUserEmail(emailGoogle);
-                user.setUserName(nameGoogle);
+                LOG.info("aft user == null");
+                user = new User (emailGoogle,nameGoogle,0);
+
+                LOG.info("bef userDao.save(user)");
                 userDao.save(user);
+                LOG.info("aft userDao.save(user)");
+
             }
 
         } catch (Exception e) {
