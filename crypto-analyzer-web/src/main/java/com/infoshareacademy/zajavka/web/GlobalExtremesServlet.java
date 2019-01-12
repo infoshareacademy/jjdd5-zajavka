@@ -4,6 +4,7 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
 import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -39,6 +40,9 @@ public class GlobalExtremesServlet extends HttpServlet {
     @Inject
     private LoginService loginService;
 
+    @Inject
+    private CurrencyService currencyService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "globalExtremes";
 
@@ -58,22 +62,25 @@ public class GlobalExtremesServlet extends HttpServlet {
         DateTimeFormatter formatter = configurationService.dateFormatter();
         Integer afterSign = configurationService.numberAfterSign();
 
-
-        String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-        LocalDate globalMinDate = dailyDataDao.getGlobalMin(currency).getDate();
-        String formattedGlobalMinDate = formatter.format(globalMinDate);
-
-        String globalMaxPrice = dailyDataDao.getGlobalMax(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-        LocalDate globalMaxDate = dailyDataDao.getGlobalMax(currency).getDate();
-        String formattedGlobalMaxDate = formatter.format(globalMaxDate);
-
-        model.put("globalMinPrice", globalMinPrice);
-        model.put("globalMinDate", formattedGlobalMinDate);
+        currencyService.setActiveCurrency(req, model);
 
 
-        model.put("globalMaxPrice", globalMaxPrice);
-        model.put("globalMaxDate", formattedGlobalMaxDate);
+        if(!currencyService.isCurrencyNotSelected(currency)) {
+            String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
+            LocalDate globalMinDate = dailyDataDao.getGlobalMin(currency).getDate();
+            String formattedGlobalMinDate = formatter.format(globalMinDate);
 
+            String globalMaxPrice = dailyDataDao.getGlobalMax(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
+            LocalDate globalMaxDate = dailyDataDao.getGlobalMax(currency).getDate();
+            String formattedGlobalMaxDate = formatter.format(globalMaxDate);
+
+            model.put("globalMinPrice", globalMinPrice);
+            model.put("globalMinDate", formattedGlobalMinDate);
+
+
+            model.put("globalMaxPrice", globalMaxPrice);
+            model.put("globalMaxDate", formattedGlobalMaxDate);
+        }
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {

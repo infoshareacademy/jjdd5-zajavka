@@ -2,7 +2,8 @@
 
 <#include "header.ftlh"/>
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 text-center">
+    <div class="alert alert-info" role="alert" >Current currency: ${chosenCurrency}</div>
         <form ACTION="time-range" METHOD="POST" class="needs-validation"
               novalidate="">
             <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -22,8 +23,10 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
-
+                    <#if isCurrencyActive>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                    </#if>
+                    <#include "alerts.ftlh"/>
                 </div>
             </div>
         </form>

@@ -4,6 +4,7 @@ import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
 import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -40,6 +41,9 @@ public class SelectDayServlet extends HttpServlet {
     @Inject
     private LoginService loginService;
 
+    @Inject
+    private CurrencyService currencyService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDay";
     private static final String TEMPLATE_NAME_SELECTED = "selectedDay";
@@ -51,9 +55,9 @@ public class SelectDayServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
 
         loginService.addUserNameToSesionIfLogin(req, model);
-
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+        currencyService.setActiveCurrency(req, model);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
