@@ -23,9 +23,9 @@
         </div>
         <div class="card-body">
             <h1 class="card-title pricing-card-title">
-                <small class="text-muted">from</small>${DailyDataDate}</h1>
+                <small class="text-muted"></small>${DailyDataDate}</h1>
             <h1 class="card-title pricing-card-title">
-                <small class="text-muted">to</small>${DailyDataPrice}</h1>
+                <small class="text-muted"></small>${DailyDataPrice}</h1>
         </div>
     </div>
 </div>

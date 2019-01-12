@@ -1,7 +1,7 @@
 <#assign local_extremes="active">
 
 <#include "header.ftlh"/>
-
+<#if isDateCorrect>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="alert alert-info text-center" role="alert" >Current currency: ${chosenCurrency}</div>
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -50,4 +50,7 @@
     </div>
     </div>
 </main>
+<#else>
+    <#include "selectDayLocal.ftlh"/>
+</#if>
 <#include "footer.ftlh"/>
