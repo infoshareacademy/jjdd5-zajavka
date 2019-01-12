@@ -61,9 +61,9 @@ public class ChoceCurrencyServlet extends HttpServlet {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
         if (currency == null || currency.isEmpty()) {
-            chosenCurrency = "No chosen currency";
+            chosenCurrency = "not selected";
         } else {
-            chosenCurrency = "Actual currency: " + currency;
+            chosenCurrency = currency;
         }
 
         Map<String, Object> model = new HashMap<>();

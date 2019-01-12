@@ -3,6 +3,8 @@
 <#include "header.ftlh"/>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="alert alert-info text-center" role="alert" >Current currency: ${chosenCurrency}</div>
+
         <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
             <div class="col-md-5 p-lg-5 mx-auto my-5">
                 <h1 class="display-4 font-weight-normal">Select date</h1>
@@ -15,8 +17,10 @@
                         <input type="date" name="date" class="form-control" placeholder="" value="" required="">
                     </div>
                 </div>
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
-
+                    <#if isCurrencyActive>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                    </#if>
+                    <#include "alerts.ftlh"/>
                 </form>
             </div>
         </div>
