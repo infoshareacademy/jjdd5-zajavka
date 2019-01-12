@@ -7,6 +7,8 @@ services:
       - MYSQL_DATABASE=zajavka
       - MYSQL_USER=zajavka
       - MYSQL_PASSWORD=pass123
+      volumes:
+      - ./data/databcp.sql:/docker-entrypoint-initdb.d/databcp.sql
     ports:
       - 4262:3306
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
