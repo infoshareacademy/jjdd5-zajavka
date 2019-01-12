@@ -3,7 +3,8 @@
     <h1>Edit currency name</h1>
 
     <div>
-        <form name="editCurrencyName" onsubmit="return checkIsEmpty()" action="/currency-name" method="post">
+        <form name="editCurrencyName" onsubmit="return checkIsEmpty()" action="/currency-name-edit" method="post" value="${editCurrencyName1.nameFile}">
+            <input type="hidden" name="fileName" value="${editCurrencyName1.nameFile}">
             </table>
             <table class="table table-striped">
                 <thead>

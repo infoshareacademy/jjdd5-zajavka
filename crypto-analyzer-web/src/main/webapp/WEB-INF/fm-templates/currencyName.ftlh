@@ -38,7 +38,7 @@
                 <tr>
                     <td>${currencyList.nameFile}</td>
                     <td>${currencyList.nameCurrency}</td>
-                    <td><a href="/currency-name-edit?name=${currencyList.nameFile}"> Edit </a> <a href="/currency-name-edit?name1=${currencyList.nameFile}" > Delete </a></td>
+                    <td><a href="/currency-name-edit?name=${currencyList.nameFile}"> Edit </a> <a href="/currency-name-delete?name=${currencyList.nameFile}" > Delete </a></td>
             </#list>
             </tbody>
     </#if>
