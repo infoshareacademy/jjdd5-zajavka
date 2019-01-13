@@ -64,6 +64,7 @@ public class LocalExtremesServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         currencyService.setActiveCurrency(req, model);
+        model.put("isDateCorrect", true);
 
         try {
             template.process(model, resp.getWriter());
