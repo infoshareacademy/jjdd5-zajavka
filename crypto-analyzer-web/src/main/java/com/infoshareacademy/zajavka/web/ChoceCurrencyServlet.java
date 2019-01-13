@@ -49,15 +49,10 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = req.getParameter("currencyFullName");
-     //   String currencyFullName = req.getParameter("currencyFullName");
-
-     /*  currencyNameService.CurrencyList().containsKey(currencyFullName);
-       currencyNameService.CurrencyList()*/
 
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
             session.setAttribute("currencyFullName",currencyNameService.CurrencyList().get(currency));
             session.setAttribute("currency", currency);
-           // session.setAttribute("currencyFullName", currencyFullName);
         }
 
         showSide(session, templateProvider, resp);
@@ -81,7 +76,6 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         model.put("newListCurrency", currencyNameService.CurrencyList());
 
-       // model.put("Names", currencyDao.getNames());
         model.put("chosenCurrency", chosenCurrency);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);

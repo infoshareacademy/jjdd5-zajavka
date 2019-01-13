@@ -18,8 +18,6 @@ public class CurrencyNameDelete extends HttpServlet {
     @Inject
     private CurrencyNameDao currencyNameDao;
 
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String deleteCurrencyName = req.getParameter("name");

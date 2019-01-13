@@ -31,8 +31,6 @@ public class CurrencyNameServlet extends HttpServlet {
     private CurrencyNameDao currencyNameDao;
     @Inject
     private TemplateProvider templateProvider;
-    @Inject
-    private CurrencyNameService currencyNameService;
 
     @Override
     public void init() {
@@ -53,8 +51,6 @@ public class CurrencyNameServlet extends HttpServlet {
         model.put("currencyNameList", currencyList);
 
         LOG.info("Found {} objects", currencyList.size());
-
-        model.put("newListCurrency", currencyNameService.CurrencyList());
 
         try {
             template.process(model, resp.getWriter());
