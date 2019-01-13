@@ -78,6 +78,9 @@ public class SelectDayServlet extends HttpServlet {
 
         Template template2 = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_SELECTED);
         Map<String, Object> model = new HashMap<>();
+
+        loginService.addUserNameToSesionIfLogin(req, model);
+
         PrintWriter out = resp.getWriter();
 
         DateTimeFormatter formatter = configurationService.dateFormatter();

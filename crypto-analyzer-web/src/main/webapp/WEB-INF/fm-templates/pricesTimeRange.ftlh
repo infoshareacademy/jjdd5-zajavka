@@ -1,4 +1,4 @@
-<#assign selected_time_rege_prices="active">
+<#assign selected_time_range_prices="active">
 
 <#include "header.ftlh"/>
 <#if isDateCorrect>
@@ -18,7 +18,7 @@
                 <#list prices as entry>
                     <tr>
                         <td>${entry.date}</td>
-                        <td>${entry.price}</td>
+                        <td>$${entry.price}</td>
                     </tr>
                 </#list>
                 </tbody>

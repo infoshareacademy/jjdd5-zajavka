@@ -80,6 +80,9 @@ public class LocalExtremesServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_RESULT);
 
         Map<String, Object> model = new HashMap<>();
+
+        loginService.addUserNameToSesionIfLogin(req, model);
+
         PrintWriter out = resp.getWriter();
 
         HttpSession session = req.getSession();

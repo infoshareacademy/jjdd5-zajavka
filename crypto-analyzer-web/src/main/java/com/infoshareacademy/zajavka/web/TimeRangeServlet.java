@@ -85,6 +85,8 @@ public class TimeRangeServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
         HttpSession session = req.getSession();
 
+        loginService.addUserNameToSesionIfLogin(req, model);
+
         String currency = (String) session.getAttribute("currency");
 
         currencyService.setActiveCurrency(req, model);
