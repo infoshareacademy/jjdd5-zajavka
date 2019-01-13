@@ -7,8 +7,8 @@
     <data-source>
         <name>java:ds/zajavkads</name>
         <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-        <!--<url>jdbc:mysql://0.0.0.0:6603/zajavka?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url> &lt;!&ndash;LOCAL USE&ndash;&gt;-->
-        <url>jdbc:mysql://db:3306/zajavka?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw </url> <!-- DOCKERs config -->
+        <url>jdbc:mysql://0.0.0.0:6603/zajavka?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url> <!--LOCAL USE-->
+        <!--<url>jdbc:mysql://db:3306/zajavka?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw </url> &lt;!&ndash; DOCKERs config &ndash;&gt;-->
         <user>root</user>
         <password>pass123</password>
     </data-source>

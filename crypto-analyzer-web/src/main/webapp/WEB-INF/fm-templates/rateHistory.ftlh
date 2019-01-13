@@ -18,7 +18,7 @@
                 <tr>
                     <td>${entry.date}</td>
                     <td>
-                        ${entry.price}
+                        $${entry.price}
                     </td>
                 </tr>
             </#list>

@@ -8,7 +8,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <#if chose_currency??>active</#if>" href="choose">
+                        <a class="nav-link <#if choose_currency??>active</#if>" href="choose">
                             <span data-feather="check-square"></span>
                             Select currency
                         </a>
