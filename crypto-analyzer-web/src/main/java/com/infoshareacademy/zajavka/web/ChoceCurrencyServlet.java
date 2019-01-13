@@ -38,9 +38,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-
         HttpSession session = req.getSession();
-
 
         showSide(session,templateProvider, resp, req);
     }
@@ -53,10 +51,9 @@ public class ChoceCurrencyServlet extends HttpServlet {
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
             session.setAttribute("currency", currency);
         }
-
         showSide(session,templateProvider, resp, req);
-
     }
+
     private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp, HttpServletRequest req) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
@@ -81,5 +78,4 @@ public class ChoceCurrencyServlet extends HttpServlet {
             LOG.error("Error while processing the template: " + e);
         }
     }
-
 }
