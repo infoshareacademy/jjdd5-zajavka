@@ -1,9 +1,11 @@
 package com.infoshareacademy.zajavka.service;
 
 import com.infoshareacademy.zajavka.dao.UserDao;
+import com.infoshareacademy.zajavka.data.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,12 @@ public class LoginService {
     private static final String SESSION_ATTRIBUTE_NAME = "userName";
     private static final String SESSION_ATTRIBUTE_EMAIL = "userEmail";
     private static final Integer ADMIN = 1;
+
+    @PostConstruct
+    public void inserUser() {
+        User admin1 = new User("danio1118m@gmail.com", "Daniel Modrzejewski",ADMIN);
+        userDao.save(admin1);
+    }
 
     public Map<String, Object> addUserNameToSesionIfLogin(HttpServletRequest req, Map<String, Object> modelIn){
 
