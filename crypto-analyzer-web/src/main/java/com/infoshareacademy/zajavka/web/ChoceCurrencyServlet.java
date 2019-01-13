@@ -48,15 +48,16 @@ public class ChoceCurrencyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-        String currency = req.getParameter("currency");
-        String currencyFullName = req.getParameter("currencyFullName");
+        String currency = req.getParameter("currencyFullName");
+     //   String currencyFullName = req.getParameter("currencyFullName");
 
      /*  currencyNameService.CurrencyList().containsKey(currencyFullName);
        currencyNameService.CurrencyList()*/
 
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
+            session.setAttribute("currencyFullName",currencyNameService.CurrencyList().get(currency));
             session.setAttribute("currency", currency);
-            session.setAttribute("currencyFullName", currencyFullName);
+           // session.setAttribute("currencyFullName", currencyFullName);
         }
 
         showSide(session, templateProvider, resp);
@@ -66,10 +67,12 @@ public class ChoceCurrencyServlet extends HttpServlet {
     private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
+
         if (currency == null || currency.isEmpty()) {
             chosenCurrency = "No chosen currency";
         } else {
-            chosenCurrency = "Actual currency: " + currency;
+            chosenCurrency = "Actual currency: " + currencyFullName;
         }
 
 
@@ -78,7 +81,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         model.put("newListCurrency", currencyNameService.CurrencyList());
 
-      //  model.put("Names", currencyDao.getNames());
+       // model.put("Names", currencyDao.getNames());
         model.put("chosenCurrency", chosenCurrency);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
