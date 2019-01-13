@@ -4,7 +4,7 @@
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" xmlns="http://java.sun.com/jsf/facelets">
 
-        <div class="alert alert-info text-center" role="alert" >Current currency: ${chosenCurrency}</div>
+    <div class="alert alert-info text-center" role="alert">Current currency: ${chosenCurrency}</div>
     <form ACTION="local-extremes" METHOD="POST" class="needs-validation" novalidate="">
         <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
             <div class="col-md-5 p-lg-5 mx-auto my-5">
