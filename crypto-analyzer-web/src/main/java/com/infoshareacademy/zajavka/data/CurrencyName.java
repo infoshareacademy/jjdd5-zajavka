@@ -19,12 +19,17 @@ public class CurrencyName {
     @NotNull
     private String nameCurrency;
 
+    @Column(name = "PROMOTE")
+    @NotNull
+    private String promote;
+
     public CurrencyName() {
     }
 
-    public CurrencyName(@NotNull String nameFile, @NotNull String nameCurrency) {
+    public CurrencyName(@NotNull String nameFile, @NotNull String nameCurrency, @NotNull String promote) {
         this.nameFile = nameFile;
         this.nameCurrency = nameCurrency;
+        this.promote = promote;
     }
 
     public String getNameFile() {
@@ -41,5 +46,13 @@ public class CurrencyName {
 
     public void setNameCurrency(String nameCurrency) {
         this.nameCurrency = nameCurrency;
+    }
+
+    public String getPromote() {
+        return promote;
+    }
+
+    public void setPromote(String promote) {
+        this.promote = promote;
     }
 }

@@ -57,7 +57,8 @@ public class CurrencyNameEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String fileName = req.getParameter("fileName");
         final String currencyName = req.getParameter("currencyName");
-        CurrencyName newCurrency = new CurrencyName(fileName, currencyName);
+        final String promotion = req.getParameter("promotion");
+        CurrencyName newCurrency = new CurrencyName(fileName, currencyName, promotion);
 
         currencyNameDao.update(newCurrency);
 

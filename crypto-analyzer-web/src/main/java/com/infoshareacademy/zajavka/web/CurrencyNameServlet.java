@@ -34,8 +34,8 @@ public class CurrencyNameServlet extends HttpServlet {
 
     @Override
     public void init() {
-        CurrencyName c1 = new CurrencyName("doge.csv", "Dodge");
-        CurrencyName c2 = new CurrencyName("btc.csv", "Bitcoin");
+        CurrencyName c1 = new CurrencyName("doge.csv", "Dodge", "Yes");
+        CurrencyName c2 = new CurrencyName("btc.csv", "Bitcoin", "No");
         currencyNameDao.save(c1);
         currencyNameDao.save(c2);
     }
@@ -64,7 +64,8 @@ public class CurrencyNameServlet extends HttpServlet {
 
         final String fileName = req.getParameter("fileName");
         final String currencyName = req.getParameter("currencyName");
-        CurrencyName newCurrency = new CurrencyName(fileName, currencyName);
+        final String promotion = req.getParameter("promotion");
+        CurrencyName newCurrency = new CurrencyName(fileName, currencyName, promotion);
         CurrencyName byId = currencyNameDao.findById(fileName);
 
         if (byId == null) {

@@ -13,6 +13,7 @@
                 <tr>
                     <th scope="col">Insert file name</th>
                     <th scope="col">Insert currency name</th>
+                    <th scope="col">Is promotion</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -20,6 +21,9 @@
                 <tr>
                     <td><input type="text" name="fileName"></td>
                     <td><input type="text" name="currencyName"></td>
+                    <td>
+                        <input type="radio" name="promotion" value="Yes" >Yes<br>
+                        <input type="radio" name="promotion" value="No" checked>No<br></td>
                     <td><input type="submit"></td>
                 </tr>
                 </tbody>
@@ -34,6 +38,7 @@
             <tr>
                 <th scope="col">File name</th>
                 <th scope="col">Currency name</th>
+                <th scope="col">Is promoted</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -42,6 +47,7 @@
             <tr>
                 <td>${currencyList.nameFile}</td>
                 <td>${currencyList.nameCurrency}</td>
+                <td>${currencyList.promote}</td>
                 <td><a href="/currency-name-edit?name=${currencyList.nameFile}"> Edit </a> <a
                             href="/currency-name-delete?name=${currencyList.nameFile}"> Delete </a></td>
                 </#list>

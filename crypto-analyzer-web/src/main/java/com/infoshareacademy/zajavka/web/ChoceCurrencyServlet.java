@@ -51,7 +51,8 @@ public class ChoceCurrencyServlet extends HttpServlet {
         String currency = req.getParameter("currencyFullName");
 
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
-            session.setAttribute("currencyFullName",currencyNameService.CurrencyList().get(currency));
+            session.setAttribute("currencyFullNameStandard",currencyNameService.CurrencyListStandard().get(currency));
+            session.setAttribute("currencyFullNamePromote",currencyNameService.CurrencyListPromote().get(currency));
             session.setAttribute("currency", currency);
         }
 
@@ -74,7 +75,8 @@ public class ChoceCurrencyServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
 
 
-        model.put("newListCurrency", currencyNameService.CurrencyList());
+        model.put("newListCurrencyStandard", currencyNameService.CurrencyListStandard());
+        model.put("newListCurrencyPromote", currencyNameService.CurrencyListPromote());
 
         model.put("chosenCurrency", chosenCurrency);
 
