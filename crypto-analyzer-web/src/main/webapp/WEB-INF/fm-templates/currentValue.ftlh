@@ -22,11 +22,16 @@
                 <h4 class="my-0 font-weight-normal">Price in: </h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">
-                    <small class="text-muted"></small>${DailyDataDate}</h1>
-                <h1 class="card-title pricing-card-title">
-                    <small class="text-muted"></small>${DailyDataPrice}</h1>
+                <h1 class="card-title pricing-card-title">$${DailyDataPrice}
+                    <small class="text-muted">/ ${DailyDataDate}</small>
+                </h1>
             </div>
+            <#--<div class="card-body">-->
+                <#--<h1 class="card-title pricing-card-title">-->
+                    <#--<small class="text-muted"></small>${DailyDataDate}</h1>-->
+                <#--<h1 class="card-title pricing-card-title">-->
+                    <#--<small class="text-muted"></small>${DailyDataPrice}</h1>-->
+            <#--</div>-->
         </div>
     </div>
 

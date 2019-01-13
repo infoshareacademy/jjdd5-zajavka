@@ -20,12 +20,12 @@
 
                 <div class="jumbotron jumbotron-opacity jumbotron-login">
                     <h1 class="display-4">Loging</h1>
-                    <p class="lead">Log to use full options.</p>
+                    <p class="lead">Log in to use all options.</p>
                     <hr class="my-4">
                     <div class="card-deck">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Log by Google</h5>
+                                <h5 class="card-title">Log in with Google</h5>
                                 <a class="btn btn-lg g-signin2 lead" data-onsuccess="onSignIn"></a>
                                 <br><br>
                                 <a href="https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Fwww.google.pl%2F&hl=en&flowName=GlifWebSignIn&flowEntry=SignUp" class="card-link add-user-link">Register</a>
