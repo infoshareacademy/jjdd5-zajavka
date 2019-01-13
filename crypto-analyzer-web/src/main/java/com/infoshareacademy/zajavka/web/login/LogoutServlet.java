@@ -1,6 +1,7 @@
 package com.infoshareacademy.zajavka.web.login;
 
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -24,6 +25,8 @@ public class LogoutServlet extends HttpServlet {
 
     @Inject
     private TemplateProvider templateProvider;
+    @Inject
+    private LoginService loginService;
 
     @Override
     protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws  IOException {
@@ -31,6 +34,8 @@ public class LogoutServlet extends HttpServlet {
             Map<String, Object> model = new HashMap<>();
             HttpSession session = req.getSession(true);
             session.invalidate();
+
+            loginService.addUserNameToSesionIfLogin(req, model);
 
             Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
