@@ -5,6 +5,7 @@ import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.PriceDTO;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
 import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -43,6 +44,9 @@ public class TimeRangeServlet extends HttpServlet {
     @Inject
     private LoginService loginService;
 
+    @Inject
+    private CurrencyService currencyService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectTimeRange";
     private static final String TEMPLATE_NAME_RESULT = "pricesTimeRange";
@@ -57,6 +61,8 @@ public class TimeRangeServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+
+        currencyService.setActiveCurrency(req, model);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {

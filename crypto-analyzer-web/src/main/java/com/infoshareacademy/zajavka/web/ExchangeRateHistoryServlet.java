@@ -57,7 +57,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
 
         String currency = (String) session.getAttribute("currency");
         if (currency == null || currency.isEmpty()) {
-            chosenCurrency = "No chosen currency";
+            chosenCurrency = "not selected";
         } else {
             DateTimeFormatter formatter = configurationService.dateFormatter();
             Integer afterSign = configurationService.numberAfterSign();
@@ -79,7 +79,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
             }).collect(toList()));
 
 
-            chosenCurrency = "Actual currency: " + currency;
+            chosenCurrency = currency;
             LOG.error(dailyDataDao.getDataChartForCurrency(currency).toString());
         }
 

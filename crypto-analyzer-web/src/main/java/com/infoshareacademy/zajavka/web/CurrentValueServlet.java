@@ -3,6 +3,7 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
 import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -41,6 +42,9 @@ public class CurrentValueServlet extends HttpServlet {
     @Inject
     private LoginService loginService;
 
+    @Inject
+    private CurrencyService currencyService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DateTimeFormatter formatter = configurationService.dateFormatter();
@@ -50,23 +54,21 @@ public class CurrentValueServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
         String currency = (String) session.getAttribute("currency");
 
-        if (currency == null || currency.isEmpty()) {
-            chosenCurrency = "No chosen currency";
-        } else {
+        currencyService.setActiveCurrency(req, model);
+
+        if(!currencyService.isCurrencyNotSelected(currency)) {
             LocalDate dailyDataDate = dailyDataDao.getMostActualDataForCurrency(currency).getDate();
 
             BigDecimal priceUsd = dailyDataDao.getMostActualDataForCurrency(currency).getPriceUSD();
-            String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(),BigDecimal.ROUND_HALF_DOWN).toString();
+            String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(), BigDecimal.ROUND_HALF_DOWN).toString();
 
             model.put("DailyDataDate", formatter.format(dailyDataDate));
             model.put("DailyDataPrice", formattedDailyDataPrice);
-            chosenCurrency = "Actual currency: " + currency;
+            chosenCurrency =  currency;
+
+
+            loginService.addUserNameToSesionIfLogin(req, model);
         }
-
-        model.put("chosenCurrency", chosenCurrency);
-
-        loginService.addUserNameToSesionIfLogin(req, model);
-
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         try {
