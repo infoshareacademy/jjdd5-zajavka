@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import com.infoshareacademy.zajavka.service.CurrencyNameService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -35,13 +36,15 @@ public class ChoceCurrencyServlet extends HttpServlet {
     @Inject
     private CurrencyNameService currencyNameService;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-
         HttpSession session = req.getSession();
 
-        showSide(session, templateProvider, resp);
+        showSide(session,templateProvider, resp, req);
     }
 
     @Override
@@ -54,25 +57,24 @@ public class ChoceCurrencyServlet extends HttpServlet {
             session.setAttribute("currencyFullName", currencyNameService.CurrencyList().get(currency));
             session.setAttribute("currency", currency);
         }
-
-        showSide(session, templateProvider, resp);
-
+        showSide(session,templateProvider, resp, req);
     }
 
-    private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp) throws IOException {
+    private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp, HttpServletRequest req) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
+        Map<String, Object> model = new HashMap<>();
         String currencyFullName = (String) session.getAttribute("currencyFullName");
 
         if (currency == null || currency.isEmpty()) {
-            chosenCurrency = "No chosen currency";
+            chosenCurrency = "not selected";
         } else {
-            chosenCurrency = "Actual currency: " + currencyFullName;
+            chosenCurrency = currencyFullName;
+            model.put("isCurrencySelected",true);
         }
 
 
-        Map<String, Object> model = new HashMap<>();
-
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         model.put("newListCurrencyStandard", currencyNameService.CurrencyListStandard());
         model.put("newListCurrencyPromote", currencyNameService.CurrencyListPromote());
@@ -87,5 +89,4 @@ public class ChoceCurrencyServlet extends HttpServlet {
             LOG.error("Error while processing the template: " + e);
         }
     }
-
 }

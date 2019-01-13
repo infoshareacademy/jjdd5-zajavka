@@ -1,11 +1,3 @@
-<!doctype html>
-<html lang="pl-PL">
-<head>
-        <#include "head1.ftlh"/>
-        <#include "googleLogoutHead.ftlh"/>
-</head>
-
-<body onload="onLoad()">
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" style="color: white" >CryptoAnalyzer</a>
     <#if sessionName??>
@@ -14,11 +6,8 @@
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
             <a class="nav-link" href="javascript:signOut();">Sign out</a>
+            <#include "googleLogoutScript.ftlh"/>
         </li>
     </ul>
-    </#if>
+</#if>
 </nav>
-
-<div class="container-fluid">
-    <div class="row">
-        <#include "sidebar1.ftlh"/>

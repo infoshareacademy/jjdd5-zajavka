@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.data.ListDirectoryException;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import com.infoshareacademy.zajavka.service.ReadFilesToBase;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -33,10 +34,15 @@ public class LoadFileToBaseSerwlet extends HttpServlet {
     @Inject
     private ReadFilesToBase readFilesToBase;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Map<String, Object> model = new HashMap<>();
+
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         try {
             List<String> names = readFilesToBase.getFileNames();

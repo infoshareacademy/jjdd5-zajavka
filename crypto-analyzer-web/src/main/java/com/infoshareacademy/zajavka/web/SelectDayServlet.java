@@ -4,6 +4,9 @@ import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
+import com.infoshareacademy.zajavka.service.DailyDataService;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -22,6 +25,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet("/select-day")
@@ -36,6 +40,15 @@ public class SelectDayServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
+    @Inject
+    private CurrencyService currencyService;
+
+    @Inject
+    private DailyDataService dailyDataService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDay";
     private static final String TEMPLATE_NAME_SELECTED = "selectedDay";
@@ -46,8 +59,10 @@ public class SelectDayServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
 
+        loginService.addUserNameToSesionIfLogin(req, model);
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+        currencyService.setActiveCurrency(req, model);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
@@ -73,16 +88,29 @@ public class SelectDayServlet extends HttpServlet {
 
         String param1 = req.getParameter("date");
 
-        DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
+        currencyService.setActiveCurrency(req, model);
 
-        LocalDate dailyDataDate = dd.getDate();
+        List<LocalDate> dateList = dailyDataService.getListDatesWithPrices(currency);
 
-        BigDecimal priceUsd = dd.getPriceUSD();
-        String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(), BigDecimal.ROUND_HALF_DOWN).toString();
+        boolean isInputDateInList = dailyDataService.checkIfListContainPrice(param1, dateList);
 
-        model.put("dailyDataDate", formatter.format(dailyDataDate));
-        model.put("formattedDailyDataPrice", formattedDailyDataPrice);
+        if (isInputDateInList) {
+            DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
 
+            LocalDate dailyDataDate = dd.getDate();
+
+            BigDecimal priceUsd = dd.getPriceUSD();
+            String formattedDailyDataPrice = priceUsd.setScale(configurationService.numberAfterSign(), BigDecimal.ROUND_HALF_DOWN).toString();
+
+            model.put("dailyDataDate", formatter.format(dailyDataDate));
+            model.put("formattedDailyDataPrice", formattedDailyDataPrice);
+            model.put("isDateCorrect", isInputDateInList);
+        }
+        LocalDate firstDay = dailyDataService.getFirstDayWithPrice(dateList);
+        LocalDate lastDay = dailyDataService.getLastDayWithPrice(dateList);
+        model.put("isDateCorrect", isInputDateInList);
+        model.put("firstDay", firstDay);
+        model.put("lastDay", lastDay);
 
         try {
             template2.process(model, resp.getWriter());

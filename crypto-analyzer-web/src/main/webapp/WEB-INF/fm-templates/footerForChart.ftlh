@@ -24,14 +24,19 @@
         type: 'line',
         data: {
             labels: [
+<#if prices??>
             <#list grafPrices as entry>
                 "${entry.date}",
     </#list>
+</#if>
     ],
     datasets: [{
-        data: [<#list grafPrices as entry>
+        data: [
+    <#if prices??>
+        <#list grafPrices as entry>
                 "${entry.price}",
-        </#list>],
+        </#list>
+    </#if>],
         lineTension: 0,
         backgroundColor: 'transparent',
         borderColor: '#007bff',
@@ -53,5 +58,6 @@
     }
     });
 </script>
+<#include "googleLogoutScript.ftlh"/>
 </body>
 </html>

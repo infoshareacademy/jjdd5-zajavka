@@ -17,4 +17,8 @@
         <welcome-file>/info</welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <location>/wrong</location>
+    </error-page>
+
 </web-app>

@@ -5,6 +5,7 @@ import com.infoshareacademy.zajavka.data.PriceDTO;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -42,16 +43,22 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         String chosenCurrency;
         Map<String, Object> model = new HashMap<>();
+
+        loginService.addUserNameToSesionIfLogin(req, model);
+
         String currency = (String) session.getAttribute("currency");
         String currencyFullName = (String) session.getAttribute("currencyFullName");
         if (currency == null || currency.isEmpty()) {
-            chosenCurrency = "No chosen currency";
+            chosenCurrency = "not selected";
         } else {
             DateTimeFormatter formatter = configurationService.dateFormatter();
             Integer afterSign = configurationService.numberAfterSign();
@@ -73,7 +80,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
             }).collect(toList()));
 
 
-            chosenCurrency = "Actual currency: " + currencyFullName;
+            chosenCurrency = currencyFullName;
             LOG.error(dailyDataDao.getDataChartForCurrency(currency).toString());
         }
 

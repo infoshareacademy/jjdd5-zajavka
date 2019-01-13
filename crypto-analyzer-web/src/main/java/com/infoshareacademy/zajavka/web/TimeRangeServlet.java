@@ -5,6 +5,9 @@ import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.data.PriceDTO;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
+import com.infoshareacademy.zajavka.service.DailyDataService;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -39,6 +42,17 @@ public class TimeRangeServlet extends HttpServlet {
     @Inject
     private ConfigurationService configurationService;
 
+    @Inject
+    private LoginService loginService;
+
+    @Inject
+    private CurrencyService currencyService;
+
+
+    @Inject
+    DailyDataService dailyDataService;
+
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectTimeRange";
     private static final String TEMPLATE_NAME_RESULT = "pricesTimeRange";
@@ -47,16 +61,14 @@ public class TimeRangeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String startDate = req.getParameter("startDate");
-        String endDate = req.getParameter("endDate");
-
         Map<String, Object> model = new HashMap<>();
+
+        model = loginService.addUserNameToSesionIfLogin(req, model);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        model.put("endDate", endDate);
-        model.put("startDate", startDate);
 
+        currencyService.setActiveCurrency(req, model);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
@@ -75,28 +87,46 @@ public class TimeRangeServlet extends HttpServlet {
         String currency = (String) session.getAttribute("currency");
         String currencyFullName = (String) session.getAttribute("currencyFullName");
 
-        DateTimeFormatter formatter = configurationService.dateFormatter();
-        Integer afterSign = configurationService.numberAfterSign();
+        currencyService.setActiveCurrency(req, model);
 
-        LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
-        LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
+        List<LocalDate> dateList = dailyDataService.getListDatesWithPrices(currency);
 
-        List<PriceDTO> prices = dailyDataDao.getPricesInTimeRange(currency, startDate, endDate).stream()
-                .map(o -> {
-                    BigDecimal formattedPrice = o.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN);
-                    String date = o.getDate().format(formatter);
-                    return new PriceDTO(formattedPrice.toString(), date);
-                })
-                .collect(toList());
+        String start = req.getParameter("startDate");
+        String end = req.getParameter("endDate");
+        boolean areDatesInTheList = dailyDataService.checkInputsForTimeRange(start, end, dateList);
 
-        model.put("prices", prices);
+        if (areDatesInTheList) {
 
-        model.put("grafPrices", prices.stream().sorted((p1, p2) -> {
-            LocalDate d1 = LocalDate.parse(p1.getDate(), formatter);
-            LocalDate d2 = LocalDate.parse(p2.getDate(), formatter);
-            return d1.compareTo(d2);
-        }).collect(toList()));
+            DateTimeFormatter formatter = configurationService.dateFormatter();
+            Integer afterSign = configurationService.numberAfterSign();
 
+            LocalDate startDate = LocalDate.parse(start);
+            LocalDate endDate = LocalDate.parse(end);
+
+            List<PriceDTO> prices = dailyDataDao.getPricesInTimeRange(currency, startDate, endDate).stream()
+                    .map(o -> {
+                        BigDecimal formattedPrice = o.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN);
+                        String date = o.getDate().format(formatter);
+                        return new PriceDTO(formattedPrice.toString(), date);
+                    })
+                    .collect(toList());
+
+            model.put("prices", prices);
+
+            model.put("grafPrices", prices.stream().sorted((p1, p2) -> {
+                LocalDate d1 = LocalDate.parse(p1.getDate(), formatter);
+                LocalDate d2 = LocalDate.parse(p2.getDate(), formatter);
+                return d1.compareTo(d2);
+            }).collect(toList()));
+
+        }
+        LocalDate firstDay = dailyDataService.getFirstDayWithPrice(dateList);
+        LocalDate lastDay = dailyDataService.getLastDayWithPrice(dateList);
+        model.put("isDateCorrect", areDatesInTheList);
+        model.put("firstDay", firstDay);
+        model.put("lastDay", lastDay);
+
+        //TODO refactor duplicates !
 
         try {
             template.process(model, resp.getWriter());
