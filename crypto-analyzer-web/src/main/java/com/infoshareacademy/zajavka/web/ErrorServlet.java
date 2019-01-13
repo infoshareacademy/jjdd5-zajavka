@@ -37,7 +37,7 @@ public class ErrorServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        LOG.error("Error: " +  resp.getStatus() + " occured.");
+        LOG.error("Error: " + resp.getStatus() + " occured.");
 
         Throwable exception = (Throwable) req.getAttribute("javax.servlet.error.exception");
         if (exception != null) {

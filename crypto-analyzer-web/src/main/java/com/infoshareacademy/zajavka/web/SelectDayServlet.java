@@ -88,9 +88,9 @@ public class SelectDayServlet extends HttpServlet {
 
         currencyService.setActiveCurrency(req, model);
 
-        List <LocalDate> dateList = dailyDataService.getListDatesWithPrices(currency);
+        List<LocalDate> dateList = dailyDataService.getListDatesWithPrices(currency);
 
-        boolean isInputDateInList = dailyDataService.checkIfListContainPrice(param1,dateList);
+        boolean isInputDateInList = dailyDataService.checkIfListContainPrice(param1, dateList);
 
         if (isInputDateInList) {
             DailyData dd = dailyDataDao.getPriceForSelectedDay(LocalDate.parse(param1), currency);
@@ -102,11 +102,11 @@ public class SelectDayServlet extends HttpServlet {
 
             model.put("dailyDataDate", formatter.format(dailyDataDate));
             model.put("formattedDailyDataPrice", formattedDailyDataPrice);
-            model.put("isDateCorrect",isInputDateInList);
+            model.put("isDateCorrect", isInputDateInList);
         }
         LocalDate firstDay = dailyDataService.getFirstDayWithPrice(dateList);
         LocalDate lastDay = dailyDataService.getLastDayWithPrice(dateList);
-        model.put("isDateCorrect",isInputDateInList);
+        model.put("isDateCorrect", isInputDateInList);
         model.put("firstDay", firstDay);
         model.put("lastDay", lastDay);
 

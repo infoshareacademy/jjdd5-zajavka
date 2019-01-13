@@ -92,7 +92,7 @@ public class LocalExtremesServlet extends HttpServlet {
         String end = req.getParameter("endDate");
         boolean areDatesInTheList = dailyDataService.checkInputsForTimeRange(start, end, dateList);
 
-        if(areDatesInTheList) {
+        if (areDatesInTheList) {
 
             LocalDate startDate = LocalDate.parse(start);
             LocalDate endDate = LocalDate.parse(end);
@@ -121,7 +121,7 @@ public class LocalExtremesServlet extends HttpServlet {
         }
         LocalDate firstDay = dailyDataService.getFirstDayWithPrice(dateList);
         LocalDate lastDay = dailyDataService.getLastDayWithPrice(dateList);
-        model.put("isDateCorrect",areDatesInTheList);
+        model.put("isDateCorrect", areDatesInTheList);
         model.put("firstDay", firstDay);
         model.put("lastDay", lastDay);
 

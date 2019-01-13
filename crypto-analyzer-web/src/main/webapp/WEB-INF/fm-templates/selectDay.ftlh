@@ -18,9 +18,9 @@
                     </div>
                 </div>
                 <#if isCurrencyActive>
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
                 </#if>
-                    <#include "alerts.ftlh">
+                <#include "alerts.ftlh">
 
             </form>
         </div>

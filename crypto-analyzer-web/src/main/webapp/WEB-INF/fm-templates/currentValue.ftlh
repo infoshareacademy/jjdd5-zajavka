@@ -3,7 +3,7 @@
 <#include "header.ftlh"/>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-<div class="alert alert-info text-center" role="alert" >Current currency: ${chosenCurrency}</div>
+<div class="alert alert-info text-center" role="alert">Current currency: ${chosenCurrency}</div>
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
 <div class="col-md-5 p-lg-5 mx-auto my-5">
 
@@ -16,20 +16,20 @@
 
 <#if DailyDataDate??>
 <div class="col-md-5 p-lg-5 mx-auto my-5">
-<div class="card-deck mb-3 text-center">
-    <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-            <h4 class="my-0 font-weight-normal">Price in: </h4>
-        </div>
-        <div class="card-body">
-            <h1 class="card-title pricing-card-title">
-                <small class="text-muted"></small>${DailyDataDate}</h1>
-            <h1 class="card-title pricing-card-title">
-                <small class="text-muted"></small>${DailyDataPrice}</h1>
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Price in: </h4>
+            </div>
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">
+                    <small class="text-muted"></small>${DailyDataDate}</h1>
+                <h1 class="card-title pricing-card-title">
+                    <small class="text-muted"></small>${DailyDataPrice}</h1>
+            </div>
         </div>
     </div>
-</div>
 
-</#if>
+    </#if>
 
 <#include "footer.ftlh"/>
