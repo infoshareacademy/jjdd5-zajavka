@@ -2,7 +2,7 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
-import com.infoshareacademy.zajavka.service.Report;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.logging.log4j.util.Strings;
@@ -34,7 +34,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
     private CurrencyDao currencyDao;
 
     @Inject
-    private Report report;
+    private LoginService loginService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -42,7 +42,8 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        showSide(session, templateProvider, resp);
+
+        showSide(session,templateProvider, resp, req);
     }
 
     @Override
@@ -53,16 +54,12 @@ public class ChoceCurrencyServlet extends HttpServlet {
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
             session.setAttribute("currency", currency);
         }
-        if (Strings.isNotEmpty(currency)) {
-            report.getCurrency(currency);
-            // todo send statistic
-        }
 
-        showSide(session, templateProvider, resp);
+
+        showSide(session,templateProvider, resp, req);
 
     }
-
-    private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp) throws IOException {
+    private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp, HttpServletRequest req) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
         if (currency == null || currency.isEmpty()) {
@@ -74,6 +71,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
 
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         model.put("Names", currencyDao.getNames());
         model.put("chosenCurrency", chosenCurrency);

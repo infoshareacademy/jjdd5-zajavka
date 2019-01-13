@@ -4,6 +4,7 @@ import com.infoshareacademy.zajavka.dao.ConfigurationDao;
 import com.infoshareacademy.zajavka.data.Configuration;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -37,6 +38,10 @@ public class ConfigurationServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
+
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -45,6 +50,8 @@ public class ConfigurationServlet extends HttpServlet {
         Map<String, Object> config = new HashMap<>();
         config.put("dateFormat", configurationService.dateFormat());
         config.put("afterSign", configurationService.numberAfterSign());
+
+        loginService.addUserNameToSesionIfLogin(req, config);
 
         try {
             template.process(config, resp.getWriter());
