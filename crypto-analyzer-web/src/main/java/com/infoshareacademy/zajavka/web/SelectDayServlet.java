@@ -88,6 +88,7 @@ public class SelectDayServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
+
         String param1 = req.getParameter("date");
 
         currencyService.setActiveCurrency(req, model);

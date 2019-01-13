@@ -56,6 +56,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
         loginService.addUserNameToSesionIfLogin(req, model);
 
         String currency = (String) session.getAttribute("currency");
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
         if (currency == null || currency.isEmpty()) {
             chosenCurrency = "not selected";
         } else {
@@ -79,7 +80,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
             }).collect(toList()));
 
 
-            chosenCurrency = currency;
+            chosenCurrency = currencyFullName;
             LOG.error(dailyDataDao.getDataChartForCurrency(currency).toString());
         }
 

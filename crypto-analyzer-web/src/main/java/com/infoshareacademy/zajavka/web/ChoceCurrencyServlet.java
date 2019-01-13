@@ -3,6 +3,7 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.LoginService;
+import com.infoshareacademy.zajavka.service.CurrencyNameService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class ChoceCurrencyServlet extends HttpServlet {
     private CurrencyDao currencyDao;
 
     @Inject
+    private CurrencyNameService currencyNameService;
+
+    @Inject
     private LoginService loginService;
 
     @Override
@@ -40,35 +44,41 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        showSide(session,templateProvider, resp, req);
+        showSide(session, templateProvider, resp, req);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-        String currency = req.getParameter("currency");
+        String currency = req.getParameter("currencyFullName");
+
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
+            session.setAttribute("currencyFullName", currencyNameService.CurrencyList().get(currency));
             session.setAttribute("currency", currency);
         }
-        showSide(session,templateProvider, resp, req);
+        showSide(session, templateProvider, resp, req);
     }
 
     private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp, HttpServletRequest req) throws IOException {
         String chosenCurrency;
         String currency = (String) session.getAttribute("currency");
         Map<String, Object> model = new HashMap<>();
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
+
         if (currency == null || currency.isEmpty()) {
             chosenCurrency = "not selected";
         } else {
-            chosenCurrency = currency;
-            model.put("isCurrencySelected",true);
+            chosenCurrency = currencyFullName;
+            model.put("isCurrencySelected", true);
         }
 
 
         loginService.addUserNameToSesionIfLogin(req, model);
 
-        model.put("Names", currencyDao.getNames());
+        model.put("newListCurrencyStandard", currencyNameService.CurrencyListStandard());
+        model.put("newListCurrencyPromote", currencyNameService.CurrencyListPromote());
+
         model.put("chosenCurrency", chosenCurrency);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);

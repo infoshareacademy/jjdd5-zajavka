@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(
-        urlPatterns = {"/configuration", "/data-upload"}
+        urlPatterns = {"/configuration", "/data-upload", "/currency-name", "/currency-name-edit", "/currency-name-delete"}
 )
 public class AuthenticationAdminFilter implements Filter {
 

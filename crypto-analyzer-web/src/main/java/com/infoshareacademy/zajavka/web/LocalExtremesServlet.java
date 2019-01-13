@@ -87,6 +87,7 @@ public class LocalExtremesServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
 
         currencyService.setActiveCurrency(req, model);
 

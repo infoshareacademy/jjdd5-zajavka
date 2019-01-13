@@ -2,10 +2,11 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">List currency name</h1>
+            <h1 class="display-4 font-weight-normal">Currency you want add is exist</h1>
         </div>
     </div>
 
+    <h1>List currency name</h1>
     <div>
         <form name="insertCurrency" onsubmit="return checkIsEmpty()" action="/currency-name" method="post">
             </table>
@@ -22,7 +23,8 @@
                 <tr>
                     <td><input type="text" name="fileName"></td>
                     <td><input type="text" name="currencyName"></td>
-                    <td><input type="radio" name="promotion" value="Yes">Yes<br>
+                    <td>
+                        <input type="radio" name="promotion" value="Yes">Yes<br>
                         <input type="radio" name="promotion" value="No" checked>No<br></td>
                     <td><input type="submit"></td>
                 </tr>
@@ -56,6 +58,7 @@
     </div>
 
 </main>
+
 <script>
     function checkIsEmpty() {
         var x = document.forms["insertCurrency"]["fileName"].value;
