@@ -49,6 +49,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
         String chosenCurrency;
         Map<String, Object> model = new HashMap<>();
         String currency = (String) session.getAttribute("currency");
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
         if (currency == null || currency.isEmpty()) {
             chosenCurrency = "No chosen currency";
         } else {
@@ -72,7 +73,7 @@ public class ExchangeRateHistoryServlet extends HttpServlet {
             }).collect(toList()));
 
 
-            chosenCurrency = "Actual currency: " + currency;
+            chosenCurrency = "Actual currency: " + currencyFullName;
             LOG.error(dailyDataDao.getDataChartForCurrency(currency).toString());
         }
 

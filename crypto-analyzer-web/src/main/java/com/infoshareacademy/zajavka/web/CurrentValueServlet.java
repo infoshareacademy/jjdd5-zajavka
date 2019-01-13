@@ -45,6 +45,7 @@ public class CurrentValueServlet extends HttpServlet {
         String chosenCurrency;
         Map<String, Object> model = new HashMap<>();
         String currency = (String) session.getAttribute("currency");
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
         if (currency == null || currency.isEmpty()) {
             chosenCurrency = "No chosen currency";
         } else {
@@ -55,7 +56,7 @@ public class CurrentValueServlet extends HttpServlet {
 
             model.put("DailyDataDate", formatter.format(dailyDataDate));
             model.put("DailyDataPrice", formattedDailyDataPrice);
-            chosenCurrency = "Actual currency: " + currency;
+            chosenCurrency = "Actual currency: " + currencyFullName;
         }
 
         model.put("chosenCurrency", chosenCurrency);

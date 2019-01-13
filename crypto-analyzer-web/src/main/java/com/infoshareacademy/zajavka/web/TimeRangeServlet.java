@@ -73,6 +73,7 @@ public class TimeRangeServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         String currency = (String) session.getAttribute("currency");
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
 
         DateTimeFormatter formatter = configurationService.dateFormatter();
         Integer afterSign = configurationService.numberAfterSign();
