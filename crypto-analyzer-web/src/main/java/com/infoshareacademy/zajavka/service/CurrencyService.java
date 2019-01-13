@@ -32,15 +32,16 @@ public class CurrencyService {
     public void setActiveCurrency(HttpServletRequest req, Map<String, Object> model) {
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
+        String currencyFullName = (String) session.getAttribute("currencyFullName");
 
         if (currency == null || currency.isEmpty()) {
             currency = "not selected.";
             model.put("chosenCurrency", currency);
-            model.put("isCurrencyActive",false);
+            model.put("isCurrencyActive", false);
 
         } else {
-            model.put("isCurrencyActive",true);
-            model.put("chosenCurrency", currency);
+            model.put("isCurrencyActive", true);
+            model.put("chosenCurrency", currencyFullName);
         }
     }
 

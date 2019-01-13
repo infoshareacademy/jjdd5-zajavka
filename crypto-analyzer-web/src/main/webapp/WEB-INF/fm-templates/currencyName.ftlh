@@ -1,6 +1,11 @@
 <#include "header.ftlh"/>
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" xmlns="http://java.sun.com/jsf/html">
-    <h1>List currency name</h1>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <h1 class="display-4 font-weight-normal">List currency name</h1>
+        </div>
+    </div>
+
     <div>
         <form name="insertCurrency" onsubmit="return checkIsEmpty()" action="/currency-name" method="post">
             </table>
@@ -17,8 +22,8 @@
                 <tr>
                     <td><input type="text" name="fileName"></td>
                     <td><input type="text" name="currencyName"></td>
-                    <td><input type="radio" name="promotion" value="Yes" >Yes<br>
-                    <input type="radio" name="promotion" value="No" checked>No<br></td>
+                    <td><input type="radio" name="promotion" value="Yes">Yes<br>
+                        <input type="radio" name="promotion" value="No" checked>No<br></td>
                     <td><input type="submit"></td>
                 </tr>
                 </tbody>
@@ -39,14 +44,15 @@
             </thead>
             <tbody>
             <#list currencyNameList as currencyList>
-                <tr>
-                    <td>${currencyList.nameFile}</td>
-                    <td>${currencyList.nameCurrency}</td>
-                    <td>${currencyList.promote}</td>
-                    <td><a href="/currency-name-edit?name=${currencyList.nameFile}"> Edit </a> <a href="/currency-name-delete?name=${currencyList.nameFile}" > Delete </a></td>
-            </#list>
+            <tr>
+                <td>${currencyList.nameFile}</td>
+                <td>${currencyList.nameCurrency}</td>
+                <td>${currencyList.promote}</td>
+                <td><a href="/currency-name-edit?name=${currencyList.nameFile}"> Edit </a> <a
+                            href="/currency-name-delete?name=${currencyList.nameFile}"> Delete </a></td>
+                </#list>
             </tbody>
-    </#if>
+            </#if>
     </div>
 
 </main>
