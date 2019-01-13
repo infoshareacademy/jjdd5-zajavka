@@ -3,6 +3,7 @@
         <strong>Please select date.</strong>
     </div>
 </#if>
+
 <#if !isCurrencyActive>
     <div class="alert alert-info" role="alert">
         <strong>First select the currency</strong>
