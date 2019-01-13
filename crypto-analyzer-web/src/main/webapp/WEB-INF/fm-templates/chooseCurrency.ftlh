@@ -10,12 +10,17 @@
             <form method="post">
 
                 <select name="currency" class="custom-select custom-select-lg mb-3">
-                    <option selected>Choose currency</option>
+                    <option selected>Select currency</option>
                     <#list Names as oneName>
                         <option value="${oneName}">${oneName}</option>
                     </#list>
                 </select>
-                <button type="submit" class="btn btn-secondary btn-lg">Confirm chose</button>
+                <#if isCurrencySelected??>
+                    <div class="alert alert-success" role="alert">
+                        Currency selected <strong>successfully !</strong>
+                    </div>
+                </#if>
+                <button type="submit" class="btn btn-secondary btn-lg">Confirm choice</button>
             </form>
         </div>
     </div>

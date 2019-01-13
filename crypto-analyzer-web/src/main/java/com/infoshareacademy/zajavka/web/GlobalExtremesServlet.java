@@ -65,7 +65,7 @@ public class GlobalExtremesServlet extends HttpServlet {
         currencyService.setActiveCurrency(req, model);
 
 
-        if(!currencyService.isCurrencyNotSelected(currency)) {
+        if (!currencyService.isCurrencyNotSelected(currency)) {
             String globalMinPrice = dailyDataDao.getGlobalMin(currency).getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
             LocalDate globalMinDate = dailyDataDao.getGlobalMin(currency).getDate();
             String formattedGlobalMinDate = formatter.format(globalMinDate);

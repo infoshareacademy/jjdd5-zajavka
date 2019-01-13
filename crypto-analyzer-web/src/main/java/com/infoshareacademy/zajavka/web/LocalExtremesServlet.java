@@ -5,6 +5,7 @@ import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
 import com.infoshareacademy.zajavka.service.CurrencyService;
+import com.infoshareacademy.zajavka.service.DailyDataService;
 import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -24,6 +25,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet("/local-extremes")
@@ -43,6 +45,9 @@ public class LocalExtremesServlet extends HttpServlet {
 
     @Inject
     private CurrencyService currencyService;
+
+    @Inject
+    DailyDataService dailyDataService;
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDayLocal";
@@ -81,32 +86,47 @@ public class LocalExtremesServlet extends HttpServlet {
 
         currencyService.setActiveCurrency(req, model);
 
-        LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
-        LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
+        List<LocalDate> dateList = dailyDataService.getListDatesWithPrices(currency);
+
+        String start = req.getParameter("startDate");
+        String end = req.getParameter("endDate");
+        boolean areDatesInTheList = dailyDataService.checkInputsForTimeRange(start, end, dateList);
+
+        if (areDatesInTheList) {
+
+            LocalDate startDate = LocalDate.parse(start);
+            LocalDate endDate = LocalDate.parse(end);
+
+            DateTimeFormatter formatter = configurationService.dateFormatter();
+            Integer afterSign = configurationService.numberAfterSign();
+
+            DailyData localMax = dailyDataDao.getLocalMax(currency, startDate, endDate);
+
+            String localMaxPrice = localMax.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
+            LocalDate localMaxDate = localMax.getDate();
+            String formattedLocalMaxDate = formatter.format(localMaxDate);
+
+            DailyData localMin = dailyDataDao.getLocalMin(currency, startDate, endDate);
+
+            String localMinPrice = localMin.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
+            LocalDate localMinDate = localMin.getDate();
+            String formattedLocalMinDate = formatter.format(localMinDate);
+
+            model.put("localMaxPrice", localMaxPrice);
+            model.put("formattedLocalMaxDate", formattedLocalMaxDate);
+            model.put("localMinPrice", localMinPrice);
+            model.put("formattedLocalMinDate", formattedLocalMinDate);
+            model.put("startDate", formatter.format(startDate));
+            model.put("endDate", formatter.format(endDate));
+        }
+        LocalDate firstDay = dailyDataService.getFirstDayWithPrice(dateList);
+        LocalDate lastDay = dailyDataService.getLastDayWithPrice(dateList);
+        model.put("isDateCorrect", areDatesInTheList);
+        model.put("firstDay", firstDay);
+        model.put("lastDay", lastDay);
 
 
-        DateTimeFormatter formatter = configurationService.dateFormatter();
-        Integer afterSign = configurationService.numberAfterSign();
-
-        DailyData localMax = dailyDataDao.getLocalMax(currency, startDate, endDate);
-
-        String localMaxPrice = localMax.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-        LocalDate localMaxDate = localMax.getDate();
-        String formattedLocalMaxDate = formatter.format(localMaxDate);
-
-        DailyData localMin = dailyDataDao.getLocalMin(currency, startDate, endDate);
-
-        String localMinPrice = localMin.getPriceUSD().setScale(afterSign, BigDecimal.ROUND_HALF_DOWN).toString();
-        LocalDate localMinDate = localMin.getDate();
-        String formattedLocalMinDate = formatter.format(localMinDate);
-
-        model.put("localMaxPrice", localMaxPrice);
-        model.put("formattedLocalMaxDate", formattedLocalMaxDate);
-        model.put("localMinPrice", localMinPrice);
-        model.put("formattedLocalMinDate", formattedLocalMinDate);
-        model.put("startDate", formatter.format(startDate));
-        model.put("endDate", formatter.format(endDate));
-
+        //TODO refactor duplicates !
 
         try {
             template.process(model, resp.getWriter());

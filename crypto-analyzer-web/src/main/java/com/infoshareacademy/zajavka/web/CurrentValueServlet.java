@@ -56,7 +56,7 @@ public class CurrentValueServlet extends HttpServlet {
 
         currencyService.setActiveCurrency(req, model);
 
-        if(!currencyService.isCurrencyNotSelected(currency)) {
+        if (!currencyService.isCurrencyNotSelected(currency)) {
             LocalDate dailyDataDate = dailyDataDao.getMostActualDataForCurrency(currency).getDate();
 
             BigDecimal priceUsd = dailyDataDao.getMostActualDataForCurrency(currency).getPriceUSD();
@@ -64,7 +64,7 @@ public class CurrentValueServlet extends HttpServlet {
 
             model.put("DailyDataDate", formatter.format(dailyDataDate));
             model.put("DailyDataPrice", formattedDailyDataPrice);
-            chosenCurrency =  currency;
+            chosenCurrency = currency;
 
 
             loginService.addUserNameToSesionIfLogin(req, model);
