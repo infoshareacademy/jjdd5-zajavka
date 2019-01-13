@@ -1,6 +1,5 @@
 package com.infoshareacademy.zajavka.dao;
 
-
 import com.infoshareacademy.zajavka.data.User;
 
 import javax.ejb.Stateless;
@@ -15,9 +14,9 @@ public class UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public int save(User u) {
+    public String save(User u) {
         entityManager.persist(u);
-        return u.getUserId();
+        return u.getUserEmail();
     }
 
     public User update(User u) {
@@ -31,12 +30,8 @@ public class UserDao {
         }
     }
 
-    public User findEmail(String userEmail){
+    public User findByEmail(String userEmail){
         return entityManager.find(User.class, userEmail);
-    }
-
-    public User findById(Long id) {
-        return entityManager.find(User.class, id);
     }
 
 

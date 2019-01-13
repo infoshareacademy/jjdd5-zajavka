@@ -3,8 +3,8 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
-import com.infoshareacademy.zajavka.service.CurrencyService;
 import com.infoshareacademy.zajavka.service.LoginService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -50,7 +50,6 @@ public class CurrentValueServlet extends HttpServlet {
         DateTimeFormatter formatter = configurationService.dateFormatter();
 
         HttpSession session = req.getSession();
-        String chosenCurrency;
         Map<String, Object> model = new HashMap<>();
         String currency = (String) session.getAttribute("currency");
 
@@ -64,10 +63,8 @@ public class CurrentValueServlet extends HttpServlet {
 
             model.put("DailyDataDate", formatter.format(dailyDataDate));
             model.put("DailyDataPrice", formattedDailyDataPrice);
-            chosenCurrency = currency;
 
-
-            loginService.addUserNameToSesionIfLogin(req, model);
+        loginService.addUserNameToSesionIfLogin(req, model);
         }
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 

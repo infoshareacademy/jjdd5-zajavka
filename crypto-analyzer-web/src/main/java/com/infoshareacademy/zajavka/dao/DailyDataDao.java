@@ -82,7 +82,7 @@ public class DailyDataDao {
 
     public DailyData getLocalMax(String currencyName, LocalDate startDate, LocalDate endDate){
         final Query query = entityManager
-                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.priceUSD DESC ");
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date >= :startDate AND s.date <= :endDate ORDER BY s.priceUSD DESC ");
         query.setParameter("currency", currencyName);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
@@ -91,7 +91,7 @@ public class DailyDataDao {
 
     public DailyData getLocalMin(String currencyName, LocalDate startDate, LocalDate endDate){
         final Query query = entityManager
-                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.priceUSD ASC ");
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date >= :startDate AND s.date <= :endDate ORDER BY s.priceUSD ASC ");
         query.setParameter("currency", currencyName);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
@@ -100,7 +100,7 @@ public class DailyDataDao {
 
     public List<DailyData> getPricesInTimeRange(String currencyName, LocalDate startDate, LocalDate endDate){
         final Query query = entityManager
-                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.date DESC ");
+                .createQuery("SELECT s FROM DailyData s WHERE  s.currency.name = :currency AND s.date >= :startDate AND s.date <= :endDate ORDER BY s.date DESC ");
         query.setParameter("currency", currencyName);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
@@ -112,13 +112,14 @@ public class DailyDataDao {
         final Query query = entityManager
                 .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :currency ORDER BY s.date DESC");
         query.setParameter("currency", currencyName);
-        return query.setMaxResults(100).getResultList();
+//        return query.setMaxResults(100).getResultList();
+        return query.getResultList();
     }
 
     public Chart getDataChartForTimeRange(String currencyName, LocalDate startDate, LocalDate endDate) {
         Chart retChart = new Chart();
         final Query query = entityManager
-                .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :currency AND s.date > :startDate AND s.date < :endDate ORDER BY s.date DESC");
+                .createQuery("SELECT s FROM DailyData s WHERE s.currency.name = :currency AND s.date >= :startDate AND s.date <= :endDate ORDER BY s.date DESC");
         query.setParameter("currency", currencyName);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);

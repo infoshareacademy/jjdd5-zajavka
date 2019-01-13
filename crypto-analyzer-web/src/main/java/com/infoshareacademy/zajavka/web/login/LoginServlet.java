@@ -20,10 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -32,7 +29,6 @@ public class LoginServlet extends HttpServlet {
     private static final String TEMPLATE_NAME_LOGIN = "login";
     private static final String TEMPLATE_NAME_LOGIN_OK = "userLogin";
     private static final String TEMPLATE_NAME_LOGIN_FAILED = "user-login-failed";
-    private static final String TEMPLATE_NAME_LOGIN_ADMIN = "admin-login";
     private static final String SESSION_ATTRIBUTE_NAME = "userName";
     private static final String SESSION_ATTRIBUTE_EMAIL = "userEmail";
     private static final Integer ADMIN = 1;
@@ -65,7 +61,7 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         final PrintWriter writer = resp.getWriter();
         HttpSession session = req.getSession(true);
-        User user = new User();
+        User user;
 
         try {
             LOG.info("Login user with google api");
@@ -79,28 +75,22 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute(SESSION_ATTRIBUTE_NAME, nameGoogle);
             session.setAttribute(SESSION_ATTRIBUTE_EMAIL, emailGoogle);
 
+
+            LOG.info("bef user=userDao.findEmail(emailGoogle)");
+            user=userDao.findByEmail(emailGoogle);
+            LOG.info("aft user=userDao.findEmail(emailGoogle)" + user);
+            if (user == null) {
+                LOG.info("aft user == null");
+                user = new User (emailGoogle,nameGoogle,0);
+
+                LOG.info("bef userDao.save(user)");
+                userDao.save(user);
+                LOG.info("aft userDao.save(user)");
+
+            }
+
         } catch (Exception e) {
             LOG.warn("Failed to login user in google api");
-            LOG.info("Trying to log in using our user account");
-
-            String email = req.getParameter("email");
-            String password = req.getParameter("password");
-
-            List<User> userList = userDao.findAll()
-                    .stream()
-                    .filter(u -> u.getUserEmail().equals(email))
-                    .collect(Collectors.toList());
-
-            if (!userList.isEmpty()) {
-
-                user = userList.get(0);
-
-                if (user != null && user.getUserPassword().equals(password)) {
-
-                    session.setAttribute(SESSION_ATTRIBUTE_NAME, user.getUserName());
-                    session.setAttribute(SESSION_ATTRIBUTE_EMAIL, user.getUserEmail());
-                }
-            }
         }
 
         String sessionName = (String) session.getAttribute(SESSION_ATTRIBUTE_NAME);
@@ -114,11 +104,8 @@ public class LoginServlet extends HttpServlet {
             model.put("sessionName", sessionName);
             model.put("sessionEmail", sessionEmail);
 
-            if (user != null && user.getUserRole() == ADMIN) {
-                template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_ADMIN);
-            } else {
-                template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_OK);
-            }
+            template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_OK);
+
         } else {
             template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_LOGIN_FAILED);
             LOG.warn("Failed to. Incorrect login or password");
