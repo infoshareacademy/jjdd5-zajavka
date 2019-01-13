@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.CurrencyNameService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -31,6 +32,9 @@ public class ChoceCurrencyServlet extends HttpServlet {
     @Inject
     private CurrencyDao currencyDao;
 
+    @Inject
+    private CurrencyNameService currencyNameService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -45,8 +49,14 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = req.getParameter("currency");
+        String currencyFullName = req.getParameter("currencyFullName");
+
+     /*  currencyNameService.CurrencyList().containsKey(currencyFullName);
+       currencyNameService.CurrencyList()*/
+
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
             session.setAttribute("currency", currency);
+            session.setAttribute("currencyFullName", currencyFullName);
         }
 
         showSide(session, templateProvider, resp);
@@ -66,7 +76,9 @@ public class ChoceCurrencyServlet extends HttpServlet {
         Map<String, Object> model = new HashMap<>();
 
 
-        model.put("Names", currencyDao.getNames());
+        model.put("newListCurrency", currencyNameService.CurrencyList());
+
+      //  model.put("Names", currencyDao.getNames());
         model.put("chosenCurrency", chosenCurrency);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);

@@ -48,7 +48,7 @@
 
     <div>
         <#if newListCurrency??>
-        <#list newListCurrency? keys as key>
+        <#list newListCurrency?keys as key>
         <tr>
             <td>${key},  ${newListCurrency[key]}</td>
             </#list>
