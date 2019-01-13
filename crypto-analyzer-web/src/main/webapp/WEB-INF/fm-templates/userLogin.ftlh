@@ -18,7 +18,7 @@
 
                 <div class="jumbotron jumbotron-opacity jumbotron-login">
                     <h1 class="display-4"></h1>
-                    <p class="lead">You are logged as:</p>
+                    <p class="lead">You are logged in as: </p>
                     <hr class="my-4">
                     <div class="card-deck">
                         <div class="card">

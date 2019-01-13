@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+SET NAMES utf8mb4;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `CONFIGURATIONS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET character_set_client = utf8mb4 ;
 CREATE TABLE `CONFIGURATIONS` (
   `NAME` varchar(60) NOT NULL,
   `VALUE` varchar(255) NOT NULL,
@@ -45,7 +45,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `CURRENCIES`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET character_set_client = utf8mb4 ;
 CREATE TABLE `CURRENCIES` (
   `NAME` varchar(32) NOT NULL,
   PRIMARY KEY (`NAME`)
@@ -68,7 +68,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `DAILY_DATES`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET character_set_client = utf8mb4;
 CREATE TABLE `DAILY_DATES` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `DATE` date NOT NULL,
@@ -117,7 +117,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `USERS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET character_set_client = utf8mb4 ;
 CREATE TABLE `USERS` (
   `USER_EMAIL` varchar(132) NOT NULL,
   `USER_NAME` varchar(255) DEFAULT NULL,

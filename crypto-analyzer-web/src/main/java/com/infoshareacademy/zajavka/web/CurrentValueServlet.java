@@ -3,8 +3,8 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.DailyDataDao;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
-import com.infoshareacademy.zajavka.service.LoginService;
 import com.infoshareacademy.zajavka.service.CurrencyService;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -55,6 +55,8 @@ public class CurrentValueServlet extends HttpServlet {
 
         currencyService.setActiveCurrency(req, model);
 
+        loginService.addUserNameToSesionIfLogin(req, model);
+
         if (!currencyService.isCurrencyNotSelected(currency)) {
             LocalDate dailyDataDate = dailyDataDao.getMostActualDataForCurrency(currency).getDate();
 
@@ -64,7 +66,6 @@ public class CurrentValueServlet extends HttpServlet {
             model.put("DailyDataDate", formatter.format(dailyDataDate));
             model.put("DailyDataPrice", formattedDailyDataPrice);
 
-        loginService.addUserNameToSesionIfLogin(req, model);
         }
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
