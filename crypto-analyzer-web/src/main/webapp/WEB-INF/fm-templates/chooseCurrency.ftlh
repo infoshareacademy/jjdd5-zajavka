@@ -12,8 +12,8 @@
                 <select name="currencyFullName" class="custom-select custom-select-lg mb-3">
                     <option selected>Select currency</option>
                     <#list newListCurrencyPromote?keys as key>
-                        <option style="background: green; font-weight: 900"
-                                value="${key}">${newListCurrencyPromote[key]}</option>
+                        <option style="background: rgba(106,211,52,0.53); font-weight: 900"
+                                value="${key}">&bull; ${newListCurrencyPromote[key]}</option>
                     </#list>
                     <#list newListCurrencyStandard?keys as key>
                         <option value="${key}">${newListCurrencyStandard[key]}</option>
