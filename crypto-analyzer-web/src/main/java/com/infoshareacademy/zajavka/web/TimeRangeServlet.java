@@ -69,6 +69,7 @@ public class TimeRangeServlet extends HttpServlet {
 
 
         currencyService.setActiveCurrency(req, model);
+        model.put("isDateCorrect", true);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
@@ -83,6 +84,8 @@ public class TimeRangeServlet extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
         HttpSession session = req.getSession();
+
+        loginService.addUserNameToSesionIfLogin(req, model);
 
         String currency = (String) session.getAttribute("currency");
         String currencyFullName = (String) session.getAttribute("currencyFullName");
