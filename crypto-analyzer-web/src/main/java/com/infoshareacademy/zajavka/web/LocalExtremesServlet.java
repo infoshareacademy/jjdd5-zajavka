@@ -5,6 +5,7 @@ import com.infoshareacademy.zajavka.data.DailyData;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
 import com.infoshareacademy.zajavka.service.ConfigurationService;
 import com.infoshareacademy.zajavka.service.LoginService;
+import com.infoshareacademy.zajavka.service.CurrencyService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -40,6 +41,9 @@ public class LocalExtremesServlet extends HttpServlet {
     @Inject
     private LoginService loginService;
 
+    @Inject
+    private CurrencyService currencyService;
+
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDayLocal";
     private static final String TEMPLATE_NAME_RESULT = "localExtremes";
@@ -54,6 +58,7 @@ public class LocalExtremesServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
+        currencyService.setActiveCurrency(req, model);
 
         try {
             template.process(model, resp.getWriter());
@@ -66,16 +71,19 @@ public class LocalExtremesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_RESULT);
+
         Map<String, Object> model = new HashMap<>();
         PrintWriter out = resp.getWriter();
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
 
+        currencyService.setActiveCurrency(req, model);
+
         LocalDate startDate = LocalDate.parse(req.getParameter("startDate"));
         LocalDate endDate = LocalDate.parse(req.getParameter("endDate"));
 
-        Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_RESULT);
 
         DateTimeFormatter formatter = configurationService.dateFormatter();
         Integer afterSign = configurationService.numberAfterSign();

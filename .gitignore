@@ -1,4 +1,7 @@
+
 .idea/
 *.iml
 target/
 crypto-analyzer.log
+crypto-analyzer-web/src/main/webapp/WEB-INF/web.xml
+

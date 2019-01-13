@@ -20,10 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
