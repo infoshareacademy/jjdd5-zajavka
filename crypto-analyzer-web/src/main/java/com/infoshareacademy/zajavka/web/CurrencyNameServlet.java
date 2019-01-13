@@ -3,6 +3,7 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
 import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.CurrencyNameService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -30,6 +31,8 @@ public class CurrencyNameServlet extends HttpServlet {
     private CurrencyNameDao currencyNameDao;
     @Inject
     private TemplateProvider templateProvider;
+    @Inject
+    private CurrencyNameService currencyNameService;
 
     @Override
     public void init() {
@@ -50,6 +53,8 @@ public class CurrencyNameServlet extends HttpServlet {
         model.put("currencyNameList", currencyList);
 
         LOG.info("Found {} objects", currencyList.size());
+
+        model.put("newListCurrency", currencyNameService.CurrencyList());
 
         try {
             template.process(model, resp.getWriter());

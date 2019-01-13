@@ -44,6 +44,20 @@
     </#if>
     </div>
 
+
+
+    <div>
+        <#if newListCurrency??>
+        <#list newListCurrency? keys as key>
+        <tr>
+            <td>${key},  ${newListCurrency[key]}</td>
+            </#list>
+        </#if>
+    </div>
+
+
+
+
 </main>
 <script>
     function checkIsEmpty() {

@@ -47,4 +47,9 @@ public class CurrencyNameDao {
         return currency.stream().collect(Collectors.toMap(CurrencyName::getNameFile, CurrencyName::getNameCurrency));
     }
 
+    /*public List<String> findFileName(String s){
+        final Query query = entityManager.createQuery("SELECT s.nameFile FROM CurrencyName s WHERE s.");
+        return query.getResultList();
+    }*/
+
 }
