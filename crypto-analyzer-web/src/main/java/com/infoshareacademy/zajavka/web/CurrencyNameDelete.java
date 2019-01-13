@@ -1,6 +1,7 @@
 package com.infoshareacademy.zajavka.web;
 
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
+import com.infoshareacademy.zajavka.service.LoginService;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -17,6 +18,9 @@ public class CurrencyNameDelete extends HttpServlet {
 
     @Inject
     private CurrencyNameDao currencyNameDao;
+
+    @Inject
+    private LoginService loginService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

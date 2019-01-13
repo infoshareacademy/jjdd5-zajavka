@@ -3,6 +3,7 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
 import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -32,6 +33,9 @@ public class CurrencyNameEditServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
+    @Inject
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -43,6 +47,7 @@ public class CurrencyNameEditServlet extends HttpServlet {
         Map<String, Object> getCurrencyName = new HashMap<>();
         getCurrencyName.put("editCurrencyName1", currencyName);
 
+        loginService.addUserNameToSesionIfLogin(req, getCurrencyName);
 
         try {
             template.process(getCurrencyName, resp.getWriter());
