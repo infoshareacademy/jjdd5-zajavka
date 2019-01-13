@@ -51,8 +51,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
         String currency = req.getParameter("currencyFullName");
 
         if (currencyDao.getNames().stream().anyMatch(i -> i.equals(currency))) {
-            session.setAttribute("currencyFullNameStandard",currencyNameService.CurrencyListStandard().get(currency));
-            session.setAttribute("currencyFullNamePromote",currencyNameService.CurrencyListPromote().get(currency));
+            session.setAttribute("currencyFullName", currencyNameService.CurrencyList().get(currency));
             session.setAttribute("currency", currency);
         }
 
