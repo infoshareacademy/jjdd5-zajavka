@@ -56,7 +56,6 @@ public class GlobalExtremesServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String currency = (String) session.getAttribute("currency");
-        String currencyFullName = (String) session.getAttribute("currencyFullName");
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 

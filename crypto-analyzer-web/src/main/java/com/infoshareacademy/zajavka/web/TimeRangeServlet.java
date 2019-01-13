@@ -88,7 +88,6 @@ public class TimeRangeServlet extends HttpServlet {
         loginService.addUserNameToSesionIfLogin(req, model);
 
         String currency = (String) session.getAttribute("currency");
-        String currencyFullName = (String) session.getAttribute("currencyFullName");
 
         currencyService.setActiveCurrency(req, model);
 

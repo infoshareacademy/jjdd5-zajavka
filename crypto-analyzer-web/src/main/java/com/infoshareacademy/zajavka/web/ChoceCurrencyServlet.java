@@ -44,7 +44,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        showSide(session,templateProvider, resp, req);
+        showSide(session, templateProvider, resp, req);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
             session.setAttribute("currencyFullName", currencyNameService.CurrencyList().get(currency));
             session.setAttribute("currency", currency);
         }
-        showSide(session,templateProvider, resp, req);
+        showSide(session, templateProvider, resp, req);
     }
 
     private void showSide(HttpSession session, TemplateProvider templateProvider, HttpServletResponse resp, HttpServletRequest req) throws IOException {
@@ -70,7 +70,7 @@ public class ChoceCurrencyServlet extends HttpServlet {
             chosenCurrency = "not selected";
         } else {
             chosenCurrency = currencyFullName;
-            model.put("isCurrencySelected",true);
+            model.put("isCurrencySelected", true);
         }
 
 

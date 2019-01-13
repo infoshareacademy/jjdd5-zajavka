@@ -3,7 +3,6 @@ package com.infoshareacademy.zajavka.web;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
 import com.infoshareacademy.zajavka.data.CurrencyName;
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
-import com.infoshareacademy.zajavka.service.CurrencyNameService;
 import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

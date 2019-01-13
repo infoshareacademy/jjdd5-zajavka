@@ -1,6 +1,5 @@
 package com.infoshareacademy.zajavka.dao;
 
-import com.infoshareacademy.zajavka.data.Currency;
 import com.infoshareacademy.zajavka.data.CurrencyName;
 
 import javax.ejb.Stateless;

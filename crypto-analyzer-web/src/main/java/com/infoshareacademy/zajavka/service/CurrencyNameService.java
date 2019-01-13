@@ -3,11 +3,6 @@ package com.infoshareacademy.zajavka.service;
 
 import com.infoshareacademy.zajavka.dao.CurrencyDao;
 import com.infoshareacademy.zajavka.dao.CurrencyNameDao;
-import com.infoshareacademy.zajavka.data.Currency;
-import com.infoshareacademy.zajavka.data.CurrencyName;
-
-import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.*;
@@ -73,7 +68,6 @@ public class CurrencyNameService {
                 } else if ((firstValue.equals(currencyNameDao.findById(firstValue).getNameFile())) && (currencyNameDao.findById(firstValue).getPromote().equals("Yes"))) {
                     CurrencyList.put(firstValue, currencyNameDao.findById(firstValue).getNameCurrency());
                 } else {
-
                 }
             }
             return CurrencyList;
