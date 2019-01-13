@@ -69,6 +69,7 @@ public class TimeRangeServlet extends HttpServlet {
 
 
         currencyService.setActiveCurrency(req, model);
+        model.put("isDateCorrect", true);
         try {
             template.process(model, resp.getWriter());
         } catch (TemplateException e) {
