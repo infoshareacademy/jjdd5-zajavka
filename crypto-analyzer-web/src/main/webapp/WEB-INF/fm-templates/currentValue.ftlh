@@ -29,23 +29,7 @@
         </div>
     </div>
 </div>
-<#--
 
-
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Data</th>
-            <th scope="col">Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>${DailyDataDate}</td>
-            <td>${DailyDataPrice}</td>
-        </tr>
-        </tbody>
-    </table>-->
 </#if>
 
 <#include "footer.ftlh"/>

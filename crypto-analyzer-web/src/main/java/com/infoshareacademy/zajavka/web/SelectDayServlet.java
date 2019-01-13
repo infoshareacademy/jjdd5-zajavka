@@ -47,7 +47,7 @@ public class SelectDayServlet extends HttpServlet {
     private CurrencyService currencyService;
 
     @Inject
-    DailyDataService dailyDataService;
+    private DailyDataService dailyDataService;
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectDayServlet.class);
     private static final String TEMPLATE_NAME = "selectDay";
