@@ -16,13 +16,13 @@ public class ConfigurationService {
     @Inject
     private ConfigurationDao configurationDao;
 
-    @PostConstruct
+  /*  @PostConstruct
     public void insertConfiguration() {
         Configuration c1 = new Configuration("dateFormat", "dd-MM-yyyy");
         Configuration c2 = new Configuration("afterSign", "2");
         configurationDao.save(c1);
         configurationDao.save(c2);
-    }
+    }*/
 
     public DateTimeFormatter dateFormatter() {
         String formatter = configurationDao.findValue("dateFormat");

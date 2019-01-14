@@ -34,13 +34,13 @@ public class CurrencyNameServlet extends HttpServlet {
     @Inject
     private LoginService loginService;
 
-    @Override
+/*    @Override
     public void init() {
         CurrencyName c1 = new CurrencyName("doge.csv", "Dodge", "Yes");
         CurrencyName c2 = new CurrencyName("btc.csv", "Bitcoin", "No");
         currencyNameDao.save(c1);
         currencyNameDao.save(c2);
-    }
+    }*/
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

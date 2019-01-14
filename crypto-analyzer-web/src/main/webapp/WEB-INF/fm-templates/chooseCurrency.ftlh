@@ -16,7 +16,7 @@
                                 value="${key}">&bull; ${newListCurrencyPromote[key]}</option>
                     </#list>
                     <#list newListCurrencyStandard?keys as key>
-                        <option value="${key}">${newListCurrencyStandard[key]}</option>
+                        <option value="${key}">- ${newListCurrencyStandard[key]}</option>
                     </#list>
                 </select>
                 <#if isCurrencySelected??>
