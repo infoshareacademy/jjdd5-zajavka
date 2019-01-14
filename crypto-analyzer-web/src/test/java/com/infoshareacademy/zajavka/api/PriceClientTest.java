@@ -24,12 +24,12 @@ public class PriceClientTest {
     }
     @Test
     public void shouldGetLitecoin() {
-        PriceResponse priceResponse = client.getPriceForLtc(NAME_LTC);
+        PriceResponse priceResponse = client.getPriceForBtc(NAME_LTC);
         assertThat(priceResponse.getPrice(), is(30.27));
     }
     @Test
     public void shouldGetEthcoin() {
-        PriceResponse priceResponse = client.getPriceForEth(NAME_ETH);
+        PriceResponse priceResponse = client.getPriceForBtc(NAME_ETH);
         assertThat(priceResponse.getPrice(), is(117.58));
     }
 

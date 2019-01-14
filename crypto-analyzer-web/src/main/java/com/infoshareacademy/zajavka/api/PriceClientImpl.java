@@ -26,29 +26,4 @@ public class PriceClientImpl implements PriceClient {
         return restResponse;
     }
 
-    @Override
-    public PriceResponse getPriceForEth(String name) {
-
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(PRICE_API + name);
-        Response response = target.request().get();
-        PriceResponse restResponse = response
-                .readEntity(PriceResponse.class);
-        response.close();
-
-        return restResponse;
-    }
-
-    @Override
-    public PriceResponse getPriceForLtc(String name) {
-
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(PRICE_API + name);
-        Response response = target.request().get();
-        PriceResponse restResponse = response
-                .readEntity(PriceResponse.class);
-        response.close();
-
-        return restResponse;
-    }
 }
