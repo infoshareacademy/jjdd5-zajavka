@@ -1,10 +1,13 @@
 package com.infoshareacademy.zajavka.api;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 
+
+@ApplicationScoped
 public class PriceClientImpl implements PriceClient {
 
     private static final String PRICE_API =
