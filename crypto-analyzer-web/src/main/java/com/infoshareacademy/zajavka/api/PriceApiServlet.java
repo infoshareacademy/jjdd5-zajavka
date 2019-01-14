@@ -35,6 +35,9 @@ public class PriceApiServlet extends HttpServlet {
     private static final String NAME_BTC = "BTC";
     private static final String NAME_LTC = "LTC";
     private static final String NAME_ETH = "ETH";
+    private static final String NAME_XRP = "XRP";
+    private static final String NAME_EOS = "EOS";
+    private static final String NAME_TRX = "TRX";
 
 
     @Override
@@ -46,10 +49,16 @@ public class PriceApiServlet extends HttpServlet {
         PriceResponse btc = priceClient.getPriceForBtc(NAME_BTC);
         PriceResponse eth = priceClient.getPriceForBtc(NAME_ETH);
         PriceResponse ltc = priceClient.getPriceForBtc(NAME_LTC);
+        PriceResponse xrp = priceClient.getPriceForBtc(NAME_XRP);
+        PriceResponse eos = priceClient.getPriceForBtc(NAME_EOS);
+        PriceResponse trx = priceClient.getPriceForBtc(NAME_TRX);
 
         model.put("btc",btc);
         model.put("ltc",ltc);
         model.put("eth",eth);
+        model.put("xrp",xrp);
+        model.put("eos",eos);
+        model.put("trx",trx);
 
         try {
             template.process(model, resp.getWriter());

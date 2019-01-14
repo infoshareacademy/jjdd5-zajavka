@@ -58,7 +58,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/api-demo">
                             <span data-feather="settings"></span>
-                            Real Time Prices (demo)
+                            Real Time Prices
                         </a>
                     </li>
                     <#if sessionRole??>
