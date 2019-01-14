@@ -25,11 +25,11 @@ public class LoginService {
     private static final String SESSION_ATTRIBUTE_EMAIL = "userEmail";
     private static final Integer ADMIN = 1;
 
-    @PostConstruct
+ /*   @PostConstruct
     public void inserUser() {
         User admin1 = new User("danio1118m@gmail.com", "Daniel Modrzejewski",ADMIN);
         userDao.save(admin1);
-    }
+    }*/
 
     public Map<String, Object> addUserNameToSesionIfLogin(HttpServletRequest req, Map<String, Object> modelIn){
 
