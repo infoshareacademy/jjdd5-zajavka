@@ -62,9 +62,7 @@ INSERT INTO `CURRENCIES` VALUES ('bch.csv'),('btc.csv'),('dash.csv'),('dcr.csv')
 UNLOCK TABLES;
 
 --
--- Table structure for table `CURRENCY_
-
-`
+-- Table structure for table `CURRENCY_NAMES`
 --
 
 DROP TABLE IF EXISTS `CURRENCY_NAMES`;
