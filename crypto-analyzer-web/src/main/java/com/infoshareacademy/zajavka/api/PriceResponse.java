@@ -2,20 +2,22 @@ package com.infoshareacademy.zajavka.api;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class PriceResponse<T> {
+import javax.json.bind.annotation.JsonbProperty;
+
+public class PriceResponse {
 
     @JsonProperty("USD")
-    private T price;
-
+    @JsonbProperty("USD")
+    private Double price;
 
     public PriceResponse() {
     }
 
-    public T getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(T price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

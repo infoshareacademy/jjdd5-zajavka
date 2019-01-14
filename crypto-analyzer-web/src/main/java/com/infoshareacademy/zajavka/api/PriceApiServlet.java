@@ -32,6 +32,9 @@ public class PriceApiServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(PriceApiServlet.class);
     private static final String TEMPLATE_NAME = "apiDemo";
+    private static final String NAME_BTC = "BTC";
+    private static final String NAME_LTC = "LTC";
+    private static final String NAME_ETH = "ETH";
 
 
     @Override
@@ -40,9 +43,9 @@ public class PriceApiServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        PriceResponse btc = priceClient.getPriceForBtc();
-        PriceResponse eth = priceClient.getPriceForEth();
-        PriceResponse ltc = priceClient.getPriceForLtc();
+        PriceResponse btc = priceClient.getPriceForBtc(NAME_BTC);
+        PriceResponse eth = priceClient.getPriceForEth(NAME_ETH);
+        PriceResponse ltc = priceClient.getPriceForLtc(NAME_LTC);
 
         model.put("btc",btc);
         model.put("ltc",ltc);

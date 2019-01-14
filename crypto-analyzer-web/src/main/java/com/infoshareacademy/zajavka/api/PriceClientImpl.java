@@ -14,8 +14,8 @@ public class PriceClientImpl implements PriceClient {
             "https://min-api.cryptocompare.com/data/price?tsyms=USD&fsym=";
 
     @Override
-    public PriceResponse getPriceForBtc() {
-        String name = "BTC";
+    public PriceResponse getPriceForBtc(String name) {
+
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(PRICE_API + name);
         Response response = target.request().get();
@@ -27,8 +27,8 @@ public class PriceClientImpl implements PriceClient {
     }
 
     @Override
-    public PriceResponse getPriceForEth() {
-        String name = "ETH";
+    public PriceResponse getPriceForEth(String name) {
+
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(PRICE_API + name);
         Response response = target.request().get();
@@ -40,8 +40,8 @@ public class PriceClientImpl implements PriceClient {
     }
 
     @Override
-    public PriceResponse getPriceForLtc() {
-        String name = "LTC";
+    public PriceResponse getPriceForLtc(String name) {
+
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(PRICE_API + name);
         Response response = target.request().get();

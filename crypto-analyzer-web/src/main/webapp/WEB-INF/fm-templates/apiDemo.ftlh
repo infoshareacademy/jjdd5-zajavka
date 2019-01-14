@@ -2,6 +2,18 @@
 
 <#include "header.ftlh"/>
 
+<script>
+    $(document).ready(function() {
+        setInterval(function() {
+            reload_page()
+        }, 5000);
+    });
+
+    function reload_page() {
+        window.location.reload(true);
+    }
+</script>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
     <#--<div class="alert alert-info text-center" role="alert">Current currency: ${chosenCurrency}</div>-->
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -24,7 +36,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>BitCoin</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ btc.getPrice()
+                <h1 class="card-title pricing-card-title">${btc.getPrice()}
                 </h1>
             </div>
         </div>
@@ -33,7 +45,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>Ethereum</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ eth.getPrice()
+                <h1 class="card-title pricing-card-title">${eth.getPrice()}
                 </h1>
             </div>
         </div>
@@ -42,7 +54,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>LiteCoin</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ ltc.getPrice()
+                <h1 class="card-title pricing-card-title">${ltc.getPrice()}
                 </h1>
             </div>
         </div>
