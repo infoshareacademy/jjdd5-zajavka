@@ -55,6 +55,12 @@
                             Info
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/api-demo">
+                            <span data-feather="settings"></span>
+                            Real Time Prices
+                        </a>
+                    </li>
                     <#if sessionRole??>
                         <li class="nav-item">
                             <a class="nav-link <#if load_files??>active</#if>" href="data-upload">
@@ -74,6 +80,7 @@
                                 Currency Name
                             </a>
                         </li>
+
                     </#if>
                 </ul>
             </div>
