@@ -14,13 +14,16 @@ public class PriceClientImpl implements PriceClient {
             "https://min-api.cryptocompare.com/data/price?tsyms=USD&fsym=";
 
     @Override
-    public PriceResponse getPriceForBtc(String name) {
+    public String getPriceForBtc(String name) {
 
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(PRICE_API + name);
         Response response = target.request().get();
-        PriceResponse restResponse = response
-                .readEntity(PriceResponse.class);
+        String restResponse = response
+                .readEntity(String.class);
+        // to jest bardzo bardzo brzydkie ale nie mamy czasu :-C
+        restResponse = restResponse.replace("{\"USD\":", "");
+        restResponse = restResponse.replace("}", "");
         response.close();
 
         return restResponse;

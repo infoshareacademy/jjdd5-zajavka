@@ -19,18 +19,18 @@ public class PriceClientTest {
 
     @Test
     public void shouldGetBitcoin() {
-        PriceResponse priceResponse = client.getPriceForBtc(NAME_BTC);
-        assertNotNull(priceResponse.getPrice());
+        String priceResponse = client.getPriceForBtc(NAME_BTC);
+        assertNotNull(priceResponse);
     }
     @Test
     public void shouldGetLitecoin() {
-        PriceResponse priceResponse = client.getPriceForBtc(NAME_LTC);
-        assertNotNull(priceResponse.getPrice());
+        String priceResponse = client.getPriceForBtc(NAME_LTC);
+        assertNotNull(priceResponse);
     }
     @Test
     public void shouldGetEthcoin() {
-        PriceResponse priceResponse = client.getPriceForBtc(NAME_ETH);
-        assertNotNull(priceResponse.getPrice());
+        String priceResponse = client.getPriceForBtc(NAME_ETH);
+        assertNotNull(priceResponse);
     }
 
 }

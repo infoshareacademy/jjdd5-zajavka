@@ -37,7 +37,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>BitCoin</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ ${btc.getPrice()}
+                <h1 class="card-title pricing-card-title">$ ${btc}
                 </h1>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>Ethereum</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ ${eth.getPrice()}
+                <h1 class="card-title pricing-card-title">$ ${eth}
                 </h1>
             </div>
         </div>
@@ -55,7 +55,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>LiteCoin</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ ${ltc.getPrice()}
+                <h1 class="card-title pricing-card-title">$ ${ltc}
                 </h1>
             </div>
         </div>
@@ -66,7 +66,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>Xrp</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ ${xrp.getPrice()}
+                <h1 class="card-title pricing-card-title">$ ${xrp}
                 </h1>
             </div>
         </div>
@@ -75,7 +75,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>Eos</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ ${eos.getPrice()}
+                <h1 class="card-title pricing-card-title">$ ${eos}
                 </h1>
             </div>
         </div>
@@ -84,7 +84,7 @@
                 <h4 class="my-0 font-weight-normal"><strong>Tron</strong></h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$ ${trx.getPrice()}
+                <h1 class="card-title pricing-card-title">$ ${trx}
                 </h1>
             </div>
         </div>

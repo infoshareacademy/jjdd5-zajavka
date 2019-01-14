@@ -46,12 +46,12 @@ public class PriceApiServlet extends HttpServlet {
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
-        PriceResponse btc = priceClient.getPriceForBtc(NAME_BTC);
-        PriceResponse eth = priceClient.getPriceForBtc(NAME_ETH);
-        PriceResponse ltc = priceClient.getPriceForBtc(NAME_LTC);
-        PriceResponse xrp = priceClient.getPriceForBtc(NAME_XRP);
-        PriceResponse eos = priceClient.getPriceForBtc(NAME_EOS);
-        PriceResponse trx = priceClient.getPriceForBtc(NAME_TRX);
+        String btc = priceClient.getPriceForBtc(NAME_BTC);
+        String eth = priceClient.getPriceForBtc(NAME_ETH);
+        String ltc = priceClient.getPriceForBtc(NAME_LTC);
+        String xrp = priceClient.getPriceForBtc(NAME_XRP);
+        String eos = priceClient.getPriceForBtc(NAME_EOS);
+        String trx = priceClient.getPriceForBtc(NAME_TRX);
 
         model.put("btc",btc);
         model.put("ltc",ltc);
