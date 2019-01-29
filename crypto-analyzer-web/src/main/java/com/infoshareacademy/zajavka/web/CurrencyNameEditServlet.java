@@ -39,6 +39,9 @@ public class CurrencyNameEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
         String editCurrencyName = req.getParameter("name");
         CurrencyName currencyName = currencyNameDao.findById(editCurrencyName);
 

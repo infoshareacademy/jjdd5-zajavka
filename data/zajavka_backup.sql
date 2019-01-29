@@ -134,7 +134,7 @@ CREATE TABLE `USERS` (
 
 LOCK TABLES `USERS` WRITE;
 /*!40000 ALTER TABLE `USERS` DISABLE KEYS */;
-INSERT INTO `USERS` VALUES ('danio1118m@gmail.com','Daniel Modrzejewski',1),('wwodczak@gmail.com','Waldemar Wódczak',1);
+INSERT INTO `USERS` VALUES ('danio1118m@gmail.com','Daniel Modrzejewski',1),('wwodczak@gmail.com','Waldemar Wódczak',1),('bartosz.wisniewski04@gmail.com','Bartosz Wiśniewski',1);
 /*!40000 ALTER TABLE `USERS` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

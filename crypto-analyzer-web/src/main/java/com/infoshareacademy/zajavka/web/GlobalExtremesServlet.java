@@ -50,6 +50,9 @@ public class GlobalExtremesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
         Map<String, Object> model = new HashMap<>();
 
         model = loginService.addUserNameToSesionIfLogin(req, model);

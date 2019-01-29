@@ -7,11 +7,10 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
     <head>
-        <meta charset="UTF-8"/>
+        <#--<meta charset="UTF-8"/>-->
         <title>CryptoAnalyzer by zaJavka</title>
         <style>
             body {
-                font-family: Helvetica DejaVu Sans Light;
                 background-image: url("bg-info.jpg");
                 background-position: center;
                 background-repeat: no-repeat;

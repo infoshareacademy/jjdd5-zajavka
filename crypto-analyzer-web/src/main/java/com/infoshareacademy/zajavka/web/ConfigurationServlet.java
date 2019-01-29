@@ -45,6 +45,9 @@ public class ConfigurationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
         Map<String, Object> config = new HashMap<>();
@@ -64,6 +67,9 @@ public class ConfigurationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
         final String action = req.getParameter("action");
         LOG.info("Requested action: {}", action);

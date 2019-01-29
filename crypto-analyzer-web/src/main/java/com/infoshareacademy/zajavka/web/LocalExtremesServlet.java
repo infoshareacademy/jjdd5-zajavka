@@ -57,6 +57,9 @@ public class LocalExtremesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
         Map<String, Object> model = new HashMap<>();
 
         loginService.addUserNameToSesionIfLogin(req, model);
@@ -76,6 +79,9 @@ public class LocalExtremesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_RESULT);
 

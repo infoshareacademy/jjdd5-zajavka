@@ -49,6 +49,9 @@ public class CurrentValueServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DateTimeFormatter formatter = configurationService.dateFormatter();
 
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
         HttpSession session = req.getSession();
         Map<String, Object> model = new HashMap<>();
         String currency = (String) session.getAttribute("currency");

@@ -55,6 +55,10 @@ public class SelectDayServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
         String param1 = req.getParameter("date");
 
         Map<String, Object> model = new HashMap<>();
@@ -76,12 +80,14 @@ public class SelectDayServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
         Template template2 = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME_SELECTED);
         Map<String, Object> model = new HashMap<>();
 
         loginService.addUserNameToSesionIfLogin(req, model);
 
-        PrintWriter out = resp.getWriter();
 
         DateTimeFormatter formatter = configurationService.dateFormatter();
 
