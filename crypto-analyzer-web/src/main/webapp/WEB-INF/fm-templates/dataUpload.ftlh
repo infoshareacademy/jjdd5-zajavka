@@ -2,82 +2,82 @@
 
 <#include "header.ftlh"/>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-<head>
-    <meta charset="UTF-8" />
-    <title>CryptoAnalyzer by zaJavkar</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style>
-        body{
-            background-image: url("bg-upload.jpg");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+    <head>
+        <meta charset="UTF-8"/>
+        <title>CryptoAnalyzer by zaJavka</title>
+        <style>
+            body {
+                background-image: url("bg-upload.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
 
-        .content {
-            width: 100%;
-            height: 50%;
-            padding: 20%;
-            border: 1px;
-        }
-        .custom-file{
-            width: 300px;
-            float: right;
-        }
-        .send{
-            margin-top: 20px;
-            float: right;
-        }
+            .content {
+                width: 100%;
+                height: 50%;
+                padding: 20%;
+                border: 1px;
+            }
 
-        .loadingCurr {
-            margin-top: 100px;
-            width: 300px;
-            float: right;
-        }
+            .custom-file {
+                width: 300px;
+                float: right;
+            }
 
-        h3{
-            font-family: opensuns, roboto, monospace;
-            color: whitesmoke;
-                }
-    </style>
+            .send {
+                margin-top: 20px;
+                float: right;
+            }
 
-</head>
+            .loadingCurr {
+                margin-top: 100px;
+                width: 300px;
+                float: right;
+            }
 
-<body>
+            h3 {
+                font-family: opensuns, roboto, monospace;
+                color: whitesmoke;
+            }
+        </style>
 
-<div class="content">
+    </head>
 
-    <form method="post" enctype="multipart/form-data">
-        <div class="custom-file">
-            <input type="file" name="multiPartServlet" class="custom-file-input" id="customFile">
-            <label class="custom-file-label" for="customFile">Choose file</label>
-            <input type="submit" class="btn btn-success send"value="Upload"/>
+    <body>
 
-        </div>
+    <div class="content">
 
-        <div class="send">
-        </div>
+        <form method="post" enctype="multipart/form-data">
+            <div class="custom-file">
+                <input type="file" name="multiPartServlet" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+                <input type="submit" class="btn btn-success send" value="Upload"/>
 
-        <div class="loadingCurr" >
-        <p>
-            <b>
-                    <#if Currency??>
-                        <ul>
-                            <li style="color: whitesmoke" >Loading currencies : </li>
-                        <#list Currency as oneCurrency>
-                            <li class="list-group-item list-group-item-success">${oneCurrency}</li>
-                        </#list>
-                        </ul>
-                    </#if>
-            </b>
-        </p>
-        </div>
+            </div>
 
-    </form>
-    
+            <div class="send">
+            </div>
+
+            <div class="loadingCurr">
+                <p>
+                    <b>
+                        <#if Currency??>
+                            <ul>
+                                <li style="color: whitesmoke">Loading currencies :</li>
+                                <#list Currency as oneCurrency>
+                                    <li class="list-group-item list-group-item-success">${oneCurrency}</li>
+                                </#list>
+                            </ul>
+                        </#if>
+                    </b>
+                </p>
+            </div>
+
+        </form>
+
     </div>
-</body>
-        </main>
+    </body>
+</main>
 <#include "footer.ftlh"/>

@@ -23,6 +23,7 @@
                 margin-top: 100px;
                 width: 350px;
                 margin-left: 55%;
+                font-family: Helvetica DejaVu Sans Light;
             }
 
             .logo {
@@ -37,6 +38,7 @@
             .cooperation {
                 color: whitesmoke;
                 margin-left: 55%;
+                font-family: Helvetica DejaVu Sans Light;
             }
 
         </style>

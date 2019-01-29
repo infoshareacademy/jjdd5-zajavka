@@ -56,8 +56,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/api-demo">
-                            <span data-feather="settings"></span>
+                        <a class="nav-link <#if apiDemo??>active</#if>" href="api-demo">
+                            <span data-feather="refresh-ccw"></span>
                             Real Time Prices
                         </a>
                     </li>
