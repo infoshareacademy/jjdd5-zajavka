@@ -1,9 +1,10 @@
 <#assign exchange_rate_history="active">
 <#include "header.ftlh"/>
 
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 text-center">
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 text-center" >
     <div class="alert alert-info" role="alert">Current currency: ${chosenCurrency}</div>
-    <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+    <canvas class="my-4 w-100" id="myChart" width="1541" height="650"
+            style="display: block; width: 1541px; height: 650px;"></canvas>
 
     <#if prices??>
         <table class="table table-striped">
@@ -24,7 +25,6 @@
             </#list>
             </tbody>
         </table>
-
     </#if>
 </main>
 

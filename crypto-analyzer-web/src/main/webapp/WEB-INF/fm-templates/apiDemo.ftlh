@@ -8,7 +8,7 @@
     $(document).ready(function () {
         setInterval(function () {
             reload_page()
-        }, 3000);
+        }, 10000);
     });
 
     function reload_page() {
@@ -94,7 +94,7 @@
 
     </div>
     <div class="alert alert-info text-center" role="alert">
-        Values are updated every 3 seconds *
+        Values are updated every 10 seconds *
     </div>
 
 </main>

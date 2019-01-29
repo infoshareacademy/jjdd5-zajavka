@@ -2,6 +2,7 @@ package com.infoshareacademy.zajavka.api;
 
 
 import com.infoshareacademy.zajavka.freemarker.TemplateProvider;
+import com.infoshareacademy.zajavka.service.LoginService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 @WebServlet("/api-demo")
 public class PriceApiServlet extends HttpServlet {
 
@@ -29,6 +29,9 @@ public class PriceApiServlet extends HttpServlet {
 
     @Inject
     PriceClientImpl priceClient;
+
+    @Inject
+    private LoginService loginService;
 
     private static final Logger LOG = LoggerFactory.getLogger(PriceApiServlet.class);
     private static final String TEMPLATE_NAME = "apiDemo";
@@ -42,7 +45,13 @@ public class PriceApiServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, Object> model = new HashMap<>();
+
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        Map<String, Object> config = new HashMap<>();
+
+        loginService.addUserNameToSesionIfLogin(req, config);
 
         Template template = templateProvider.getTemplate(getServletContext(), TEMPLATE_NAME);
 
@@ -53,15 +62,15 @@ public class PriceApiServlet extends HttpServlet {
         String eos = priceClient.getPriceForBtc(NAME_EOS);
         String trx = priceClient.getPriceForBtc(NAME_TRX);
 
-        model.put("btc",btc);
-        model.put("ltc",ltc);
-        model.put("eth",eth);
-        model.put("xrp",xrp);
-        model.put("eos",eos);
-        model.put("trx",trx);
+        config.put("btc", btc);
+        config.put("ltc", ltc);
+        config.put("eth", eth);
+        config.put("xrp", xrp);
+        config.put("eos", eos);
+        config.put("trx", trx);
 
         try {
-            template.process(model, resp.getWriter());
+            template.process(config, resp.getWriter());
         } catch (TemplateException e) {
             LOG.error("Error while processing the template: " + e);
         }
