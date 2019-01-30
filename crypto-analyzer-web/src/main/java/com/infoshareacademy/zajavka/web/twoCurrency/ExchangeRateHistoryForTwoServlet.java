@@ -32,6 +32,7 @@ public class ExchangeRateHistoryForTwoServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExchangeRateHistoryForTwoServlet.class);
     private static final String TEMPLATE_NAME = "exchangeHistoryTwo";
+    //private static final String TEMPLATE_NAME = "test";
 
     @Inject
     private DailyDataDao dailyDataDao;

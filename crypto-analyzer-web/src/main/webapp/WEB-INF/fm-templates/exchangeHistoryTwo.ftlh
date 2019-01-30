@@ -4,8 +4,13 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 text-center" >
     <div class="alert alert-info text-center" role="alert">First currency: ${chosenCurrencyOne} </div>
     <div class="alert alert-info text-center" role="alert">Second currency: ${chosenCurrencyTwo}</div>
-    <canvas class="my-4 w-100" id="myChart" width="1541" height="650"
+
+
+    <canvas class="my-4 w-100" id="canvas" width="1541" height="650"
             style="display: block; width: 1541px; height: 650px;"></canvas>
+
+
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -60,4 +65,5 @@
 
 </main>
 
-<#include "footerForChartTwo.ftlh">
+<#--<#include "footerTest.ftlh">-->
+<#include "footerForChartTwoCurrency.ftlh">
