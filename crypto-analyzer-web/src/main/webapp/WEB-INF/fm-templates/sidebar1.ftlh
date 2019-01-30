@@ -89,6 +89,12 @@
                             Choice two currency
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <#if exchange_history_two??>active</#if>" href="exchange-history-two">
+                            <span data-feather="refresh-ccw"></span>
+                            Exchange history for two cuurency
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
