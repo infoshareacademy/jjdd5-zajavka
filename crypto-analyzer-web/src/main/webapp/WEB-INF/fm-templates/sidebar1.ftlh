@@ -61,6 +61,7 @@
                             Real Time Prices
                         </a>
                     </li>
+
                     <#if sessionRole??>
                         <li class="nav-item">
                             <a class="nav-link <#if load_files??>active</#if>" href="data-upload">
@@ -80,8 +81,14 @@
                                 Currency Name
                             </a>
                         </li>
-
                     </#if>
+                    <hr>
+                    <li class="nav-item">
+                        <a class="nav-link <#if choice_two_currency??>active</#if>" href="choice-two">
+                            <span data-feather="refresh-ccw"></span>
+                            Choice two currency
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
