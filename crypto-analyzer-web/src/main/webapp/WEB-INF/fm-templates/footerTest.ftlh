@@ -1,94 +1,76 @@
-<script src="../../../../dist/2.7.3/Chart.bundle.js"></script>
-<script src="../../utils.js"></script>
-<style>
-    canvas {
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-    }
-</style>
 
-<div style="width:75%;">
-    <canvas id="canvas"></canvas>
+</div>
 </div>
 
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
-    var lineChartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-            label: 'My First dataset',
-            borderColor: window.chartColors.red,
-            backgroundColor: window.chartColors.red,
-            fill: false,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
-            yAxisID: 'y-axis-1',
-        }, {
-            label: 'My Second dataset',
-            borderColor: window.chartColors.blue,
-            backgroundColor: window.chartColors.blue,
-            fill: false,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
-            yAxisID: 'y-axis-2'
-        }]
-    };
+    feather.replace()
+</script>
 
-    window.onload = function() {
-        var ctx = document.getElementById('canvas').getContext('2d');
-        window.myLine = Chart.Line(ctx, {
-            data: lineChartData,
-            options: {
-                responsive: true,
-                hoverMode: 'index',
-                stacked: false,
-                title: {
-                    display: true,
-                    text: 'Chart.js Line Chart - Multi Axis'
-                },
-                scales: {
-                    yAxes: [{
-                        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                        display: true,
-                        position: 'left',
-                        id: 'y-axis-1',
-                    }, {
-                        type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                        display: true,
-                        position: 'right',
-                        id: 'y-axis-2',
-
-                        // grid line settings
-                        gridLines: {
-                            drawOnChartArea: false, // only want the grid lines for one axis to show up
-                        },
-                    }],
-                }
+<!-- Graphs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                <#if prices??>
+                <#list grafPrices as entry>
+                "${entry.date}",
+                </#list>
+                </#if>
+            ],
+            datasets: [{
+                data: [
+                    <#if pricesTwo??>
+                    <#list grafPricesTwo as entry>
+                    "${entry.price}",
+                    </#list>
+                    </#if>],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            },
+                {
+                    data: [
+                        <#if pricesOne??>
+                        <#list grafPricesOne as entry>
+                        "${entry.price}",
+                        </#list>
+                        </#if>],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#f355ff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#f355ff'
+                }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
             }
-        });
-    };
-
-    document.getElementById('randomizeData').addEventListener('click', function() {
-        lineChartData.datasets.forEach(function(dataset) {
-            dataset.data = dataset.data.map(function() {
-                return randomScalingFactor();
-            });
-        });
-
-        window.myLine.update();
+        }
     });
 </script>
+<#include "googleLogoutScript.ftlh"/>
+</body>
+</html>

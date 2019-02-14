@@ -50,7 +50,7 @@
                 </#list>
                 </#if>
             ],
-            yAxisID: 'y-axis-2'
+            yAxisID: 'y-axis-1'
         }]
     };
 
@@ -72,7 +72,7 @@
                         type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                         display: true,
                         position: 'right',
-                        id: 'y-axis-2',
+                        id: 'y-axis-1',
 
                         // grid line settings
                         gridLines: {

@@ -66,4 +66,5 @@
 </main>
 
 <#--<#include "footerTest.ftlh">-->
+
 <#include "footerForChartTwoCurrency.ftlh">
